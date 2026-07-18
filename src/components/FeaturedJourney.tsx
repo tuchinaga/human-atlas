@@ -24,7 +24,7 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
         href={`/journeys/${journey.slug}`}
         className="group grid gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
       >
-        <div className="relative flex min-h-[240px] items-center justify-center bg-bg-raised sm:min-h-[320px]">
+        <div className="relative flex h-[260px] items-center justify-center overflow-hidden bg-bg-raised sm:h-[360px]">
           {journey.image ? (
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img
