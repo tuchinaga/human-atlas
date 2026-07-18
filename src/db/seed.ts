@@ -64,17 +64,17 @@ async function main() {
   };
 
   await db.insert(places).values([
-    { id: place.zundert, slug: "zundert", name: "Zundert", nameJa: "ズュンデルト", placeType: "town", latitude: 51.47, longitude: 4.65 },
-    { id: place.theHague, slug: "the-hague", name: "The Hague", nameJa: "ハーグ", placeType: "city", latitude: 52.08, longitude: 4.31 },
-    { id: place.london, slug: "london", name: "London", nameJa: "ロンドン", placeType: "city", latitude: 51.51, longitude: -0.13 },
-    { id: place.paris, slug: "paris", name: "Paris", nameJa: "パリ", placeType: "city", latitude: 48.86, longitude: 2.35 },
-    { id: place.arles, slug: "arles", name: "Arles", nameJa: "アルル", placeType: "town", latitude: 43.68, longitude: 4.63 },
-    { id: place.saintRemy, slug: "saint-remy-de-provence", name: "Saint-Rémy-de-Provence", nameJa: "サン=レミ=ド=プロヴァンス", placeType: "town", latitude: 43.79, longitude: 4.83 },
-    { id: place.auversSurOise, slug: "auvers-sur-oise", name: "Auvers-sur-Oise", nameJa: "オーヴェル=シュル=オワーズ", placeType: "town", latitude: 49.07, longitude: 2.17 },
-    { id: place.tokyo, slug: "tokyo", name: "Tokyo", nameJa: "東京", placeType: "city", latitude: 35.68, longitude: 139.65 },
-    { id: place.budapest, slug: "budapest", name: "Budapest", nameJa: "ブダペスト", placeType: "city", latitude: 47.5, longitude: 19.04 },
-    { id: place.kyoto, slug: "kyoto", name: "Kyoto", nameJa: "京都", placeType: "city", latitude: 35.01, longitude: 135.77 },
-    { id: place.edo, slug: "edo", name: "Edo", nameJa: "江戸", historicalNamesJson: JSON.stringify(["Edo"]), placeType: "city", latitude: 35.68, longitude: 139.65 },
+    { id: place.zundert, slug: "zundert", name: "Zundert", nameJa: "ズュンデルト", placeType: "town", country: "Netherlands", latitude: 51.47, longitude: 4.65 },
+    { id: place.theHague, slug: "the-hague", name: "The Hague", nameJa: "ハーグ", placeType: "city", country: "Netherlands", latitude: 52.08, longitude: 4.31 },
+    { id: place.london, slug: "london", name: "London", nameJa: "ロンドン", placeType: "city", country: "United Kingdom", latitude: 51.51, longitude: -0.13 },
+    { id: place.paris, slug: "paris", name: "Paris", nameJa: "パリ", placeType: "city", country: "France", latitude: 48.86, longitude: 2.35 },
+    { id: place.arles, slug: "arles", name: "Arles", nameJa: "アルル", placeType: "town", country: "France", latitude: 43.68, longitude: 4.63 },
+    { id: place.saintRemy, slug: "saint-remy-de-provence", name: "Saint-Rémy-de-Provence", nameJa: "サン=レミ=ド=プロヴァンス", placeType: "town", country: "France", latitude: 43.79, longitude: 4.83 },
+    { id: place.auversSurOise, slug: "auvers-sur-oise", name: "Auvers-sur-Oise", nameJa: "オーヴェル=シュル=オワーズ", placeType: "town", country: "France", latitude: 49.07, longitude: 2.17 },
+    { id: place.tokyo, slug: "tokyo", name: "Tokyo", nameJa: "東京", placeType: "city", country: "Japan", latitude: 35.68, longitude: 139.65 },
+    { id: place.budapest, slug: "budapest", name: "Budapest", nameJa: "ブダペスト", placeType: "city", country: "Hungary", latitude: 47.5, longitude: 19.04 },
+    { id: place.kyoto, slug: "kyoto", name: "Kyoto", nameJa: "京都", placeType: "city", country: "Japan", latitude: 35.01, longitude: 135.77 },
+    { id: place.edo, slug: "edo", name: "Edo", nameJa: "江戸", historicalNamesJson: JSON.stringify(["Edo"]), placeType: "city", country: "Japan", latitude: 35.68, longitude: 139.65 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -435,7 +435,7 @@ async function main() {
       slug: "promulgation-of-the-meiji-constitution",
       title: "Promulgation of the Meiji Constitution",
       titleJa: "大日本帝国憲法発布",
-      category: "japan",
+      category: "society",
       startDate: "1889-02-11",
       displayDate: "February 11, 1889",
       description: "Japan's first modern constitution, establishing a constitutional monarchy.",
@@ -462,7 +462,7 @@ async function main() {
       slug: "nintendo-koppai-founded",
       title: "Nintendo Koppai founded",
       titleJa: "任天堂骨牌 創業",
-      category: "science",
+      category: "technology",
       startDate: "1889-01-01",
       displayDate: "1889",
       description: "Began as a maker of handmade hanafuda playing cards.",
@@ -475,7 +475,7 @@ async function main() {
       slug: "meiji-restoration",
       title: "Meiji Restoration",
       titleJa: "明治維新",
-      category: "japan",
+      category: "history",
       startDate: "1868-01-03",
       displayDate: "1868",
       description:

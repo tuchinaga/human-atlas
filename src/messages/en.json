@@ -63,14 +63,19 @@
     }
   },
   "categories": {
-    "history": "World History",
-    "japan": "Japan",
+    "history": "History",
+    "society": "Society",
     "art": "Art",
     "music": "Music",
     "literature": "Literature",
     "science": "Science",
-    "philosophy": "Philosophy",
-    "architecture": "Architecture"
+    "technology": "Technology",
+    "architecture": "Architecture",
+    "ideas": "Ideas"
+  },
+  "regions": {
+    "label": "Region",
+    "all": "All regions"
   },
   "common": {
     "verified": "Verified",

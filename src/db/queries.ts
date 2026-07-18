@@ -25,6 +25,7 @@ export type YearCategoryCard = {
   personName: string | null;
   placeName: string | null;
   placeNameJa: string | null;
+  country: string | null;
   context: string | null;
   contextJa: string | null;
   confidence: string;
@@ -83,6 +84,7 @@ export async function getYearCards(year: number): Promise<YearCategoryCard[]> {
         personName: creator,
         placeName: place?.name ?? null,
         placeNameJa: place?.nameJa ?? null,
+        country: place?.country ?? null,
         context: w.description,
         contextJa: w.descriptionJa,
         confidence: w.confidence,
@@ -102,6 +104,7 @@ export async function getYearCards(year: number): Promise<YearCategoryCard[]> {
         personName: null,
         placeName: place?.name ?? null,
         placeNameJa: place?.nameJa ?? null,
+        country: place?.country ?? null,
         context: e.description,
         contextJa: e.descriptionJa,
         confidence: e.confidence,
@@ -297,6 +300,7 @@ export async function getMapPlaces() {
       slug: places.slug,
       name: places.name,
       nameJa: places.nameJa,
+      country: places.country,
       latitude: places.latitude,
       longitude: places.longitude,
     })
@@ -353,7 +357,7 @@ async function getWorkCreatorName(workId: string) {
 
 async function getPlaceName(placeId: string) {
   const [row] = await db
-    .select({ name: places.name, nameJa: places.nameJa })
+    .select({ name: places.name, nameJa: places.nameJa, country: places.country })
     .from(places)
     .where(eq(places.id, placeId));
   return row ?? null;
@@ -361,7 +365,7 @@ async function getPlaceName(placeId: string) {
 
 async function getFirstEventPlaceName(eventId: string) {
   const [row] = await db
-    .select({ name: places.name, nameJa: places.nameJa })
+    .select({ name: places.name, nameJa: places.nameJa, country: places.country })
     .from(eventPlaces)
     .innerJoin(places, eq(places.id, eventPlaces.placeId))
     .where(eq(eventPlaces.eventId, eventId));

@@ -37,13 +37,14 @@ export type Confidence = (typeof confidenceValues)[number];
 
 const categoryValues = [
   "history",
-  "japan",
+  "society",
   "art",
   "music",
   "literature",
   "science",
-  "philosophy",
+  "technology",
   "architecture",
+  "ideas",
 ] as const;
 export type Category = (typeof categoryValues)[number];
 
@@ -55,6 +56,7 @@ export const places = pgTable("places", {
   nameJa: text("name_ja"),
   historicalNamesJson: text("historical_names_json"), // JSON string[]
   placeType: text("place_type"),
+  country: text("country"),
   latitude: real("latitude"),
   longitude: real("longitude"),
   parentPlaceId: text("parent_place_id"),

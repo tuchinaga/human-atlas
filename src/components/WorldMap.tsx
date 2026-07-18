@@ -34,6 +34,7 @@ export function WorldMap({
   const mapRef = useRef<maplibregl.Map | null>(null);
   const { theme } = useTheme();
   const router = useRouter();
+  const pointsKey = points.map((p) => `${p.lat},${p.lng}`).join("|");
 
   useEffect(() => {
     if (!containerRef.current || points.length === 0) return;
@@ -141,8 +142,8 @@ export function WorldMap({
       map.remove();
       mapRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- points/router intentionally excluded to avoid tearing the map down on every render; theme changes rebuild it deliberately
-  }, [theme]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- router intentionally excluded (stable); pointsKey captures point-set changes without deep-comparing the array every render
+  }, [theme, pointsKey]);
 
   return (
     <div

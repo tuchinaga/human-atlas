@@ -35,9 +35,10 @@
   --ha-cat-music: #6b5a8e;
   --ha-cat-science: #4b7a5b;
   --ha-cat-literature: #b08b4f;
-  --ha-cat-philosophy: #3d3a33;
+  --ha-cat-society: #6b5a3e;
   --ha-cat-architecture: #b0632e;
-  --ha-cat-japan: #d9481e;
+  --ha-cat-technology: #3d6e73;
+  --ha-cat-ideas: #3d3a33;
 
   --ha-bg: var(--ha-paper);
   --ha-bg-raised: var(--ha-paper-raised);
@@ -87,9 +88,10 @@
   --color-cat-music: var(--ha-cat-music);
   --color-cat-science: var(--ha-cat-science);
   --color-cat-literature: var(--ha-cat-literature);
-  --color-cat-philosophy: var(--ha-cat-philosophy);
+  --color-cat-society: var(--ha-cat-society);
   --color-cat-architecture: var(--ha-cat-architecture);
-  --color-cat-japan: var(--ha-cat-japan);
+  --color-cat-technology: var(--ha-cat-technology);
+  --color-cat-ideas: var(--ha-cat-ideas);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);

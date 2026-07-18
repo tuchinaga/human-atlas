@@ -36,6 +36,7 @@ export default async function PlacePage({
         name: record.place.name,
         nameJa: record.place.nameJa,
         placeType: record.place.placeType,
+        country: record.place.country,
       }}
       worksHere={record.worksHere}
       eventsHere={record.eventsHere}

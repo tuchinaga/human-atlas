@@ -63,14 +63,19 @@
     }
   },
   "categories": {
-    "history": "世界史",
-    "japan": "日本",
+    "history": "歴史",
+    "society": "社会",
     "art": "美術",
     "music": "音楽",
     "literature": "文学",
     "science": "科学",
-    "philosophy": "哲学",
-    "architecture": "建築"
+    "technology": "技術",
+    "architecture": "建築",
+    "ideas": "思想"
+  },
+  "regions": {
+    "label": "地域",
+    "all": "すべての地域"
   },
   "common": {
     "verified": "確認済み",

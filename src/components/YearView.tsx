@@ -1,11 +1,14 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 import { MeanwhileThread } from "@/components/MeanwhileThread";
 import { YearCard } from "@/components/YearCard";
+import { CATEGORY_COLOR_VAR } from "@/lib/categories";
 import type { YearCategoryCard } from "@/db/queries";
+import type { Category } from "@/db/schema";
 
 export type AgeRow = {
   name: string;
@@ -25,6 +28,23 @@ export function YearView({
 }) {
   const { t, locale } = useLanguage();
   const yearNum = Number(year);
+  const [activeCategory, setActiveCategory] = useState<Category | null>(null);
+  const [activeCountry, setActiveCountry] = useState<string | null>(null);
+
+  const categoriesPresent = useMemo(
+    () => [...new Set(cards.map((c) => c.category))],
+    [cards],
+  );
+  const countriesPresent = useMemo(
+    () => [...new Set(cards.map((c) => c.country).filter((c): c is string => !!c))].sort(),
+    [cards],
+  );
+
+  const filteredCards = cards.filter(
+    (c) =>
+      (!activeCategory || c.category === activeCategory) &&
+      (!activeCountry || c.country === activeCountry),
+  );
 
   return (
     <PageShell>
@@ -64,14 +84,54 @@ export function YearView({
       ) : (
         <>
           <section className="mt-14">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-              {t.meanwhile.label}
-            </p>
+            <div className="flex items-baseline justify-between">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+                {t.meanwhile.label}
+              </p>
+            </div>
+
+            {(categoriesPresent.length > 1 || countriesPresent.length > 1) && (
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <FilterChip
+                  active={!activeCategory}
+                  onClick={() => setActiveCategory(null)}
+                  label={locale === "ja" ? "すべて" : "All"}
+                />
+                {categoriesPresent.map((cat) => (
+                  <FilterChip
+                    key={cat}
+                    active={activeCategory === cat}
+                    onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+                    label={t.categories[cat]}
+                    dotColor={CATEGORY_COLOR_VAR[cat]}
+                  />
+                ))}
+                {countriesPresent.length > 1 && (
+                  <span className="mx-1 h-4 w-px bg-border" aria-hidden />
+                )}
+                {countriesPresent.map((country) => (
+                  <FilterChip
+                    key={country}
+                    active={activeCountry === country}
+                    onClick={() => setActiveCountry(activeCountry === country ? null : country)}
+                    label={country}
+                  />
+                ))}
+              </div>
+            )}
+
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {cards.map((card) => (
+              {filteredCards.map((card) => (
                 <YearCard key={`${card.kind}-${card.slug}`} card={card} />
               ))}
             </div>
+            {filteredCards.length === 0 && (
+              <p className="mt-6 text-[13px] text-fg-muted">
+                {locale === "ja"
+                  ? "この条件に一致する記録はありません。"
+                  : "Nothing matches this filter."}
+              </p>
+            )}
           </section>
 
           {ages.length > 0 && (
@@ -100,5 +160,39 @@ export function YearView({
         </>
       )}
     </PageShell>
+  );
+}
+
+function FilterChip({
+  active,
+  onClick,
+  label,
+  dotColor,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  dotColor?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] transition-colors ${
+        active
+          ? "border-fg bg-fg text-bg"
+          : "border-border text-fg-soft hover:border-fg hover:text-fg"
+      }`}
+    >
+      {dotColor && (
+        <span
+          className="h-1.5 w-1.5 rounded-full"
+          style={{ background: active ? "currentColor" : dotColor }}
+          aria-hidden
+        />
+      )}
+      {label}
+    </button>
   );
 }

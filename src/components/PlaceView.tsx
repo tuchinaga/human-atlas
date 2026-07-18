@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 
-export type PlaceViewData = { name: string; nameJa: string | null; placeType: string | null };
+export type PlaceViewData = { name: string; nameJa: string | null; placeType: string | null; country: string | null };
 export type EntityLink = { slug: string; title: string; titleJa: string | null };
 export type Resident = {
   name: string;
@@ -32,6 +32,7 @@ export function PlaceView({
     <PageShell>
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
         {place.placeType ?? "Place"}
+        {place.country && ` · ${place.country}`}
       </p>
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {name}
