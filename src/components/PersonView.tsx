@@ -282,9 +282,17 @@ export function PersonView({
 
             {contemporaries.length > 0 && (
               <div>
-                <p className="text-[10.5px] uppercase tracking-[0.08em] text-fg-muted">
-                  {locale === "ja" ? "同時代の人物" : "Contemporaries"}
-                </p>
+                <div className="flex items-baseline justify-between">
+                  <p className="text-[10.5px] uppercase tracking-[0.08em] text-fg-muted">
+                    {locale === "ja" ? "同時代の人物" : "Contemporaries"}
+                  </p>
+                  <Link
+                    href="/network"
+                    className="text-[11px] text-fg-muted transition-colors hover:text-fg"
+                  >
+                    {locale === "ja" ? "ネットワーク →" : "Network →"}
+                  </Link>
+                </div>
                 <ul className="tabular mt-2 space-y-1.5 text-[13px]">
                   {contemporaries.map((c) => (
                     <li key={c.slug}>

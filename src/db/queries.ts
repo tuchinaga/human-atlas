@@ -13,6 +13,7 @@ import {
   movementPeople,
   movementWorks,
   imageAssets,
+  relationships,
 } from "./schema";
 import type { Category } from "./schema";
 
@@ -369,6 +370,81 @@ export async function searchAll(rawQuery: string): Promise<SearchResults> {
     events: eventRows,
     movements: movementRows,
   };
+}
+
+export type NetworkNode = { id: string; slug: string; name: string; nameJa: string | null };
+export type NetworkEdge = {
+  sourceId: string;
+  targetId: string;
+  kind: "relationship" | "movement";
+  label: string;
+  labelJa: string;
+  confidence: string;
+};
+
+/**
+ * Data for the Network view (spec §16): people as nodes, with two kinds
+ * of edges — documented Relationship records, and a lighter "same
+ * movement" edge for people who share a Movement. Line style (dashed
+ * vs solid) is left to the renderer, keyed off confidence, so a
+ * documented relationship never looks the same as an inferred one.
+ */
+export async function getNetworkData(): Promise<{ nodes: NetworkNode[]; edges: NetworkEdge[] }> {
+  const nodes = await db
+    .select({ id: people.id, slug: people.slug, name: people.name, nameJa: people.nameJa })
+    .from(people);
+
+  const relRows = await db
+    .select({
+      subjectId: relationships.subjectId,
+      objectId: relationships.objectId,
+      relationshipType: relationships.relationshipType,
+      confidence: relationships.confidence,
+    })
+    .from(relationships);
+
+  const movementRows = await db
+    .select({
+      personId: movementPeople.personId,
+      movementId: movementPeople.movementId,
+      movementName: movements.name,
+      movementNameJa: movements.nameJa,
+    })
+    .from(movementPeople)
+    .innerJoin(movements, eq(movements.id, movementPeople.movementId));
+
+  const edges: NetworkEdge[] = relRows.map((r) => ({
+    sourceId: r.subjectId,
+    targetId: r.objectId,
+    kind: "relationship",
+    label: r.relationshipType,
+    labelJa: r.relationshipType,
+    confidence: r.confidence,
+  }));
+
+  // pair up co-members of the same movement
+  const byMovement = new Map<string, { personId: string; name: string; nameJa: string | null }[]>();
+  for (const row of movementRows) {
+    const list = byMovement.get(row.movementId) ?? [];
+    list.push({ personId: row.personId, name: row.movementName, nameJa: row.movementNameJa });
+    byMovement.set(row.movementId, list);
+  }
+  for (const members of byMovement.values()) {
+    for (let i = 0; i < members.length; i++) {
+      for (let j = i + 1; j < members.length; j++) {
+        edges.push({
+          sourceId: members[i].personId,
+          targetId: members[j].personId,
+          kind: "movement",
+          label: `same movement: ${members[i].name}`,
+          labelJa: `同じムーブメント: ${members[i].nameJa ?? members[i].name}`,
+          confidence: "verified",
+        });
+      }
+    }
+  }
+
+  return { nodes, edges };
 }
 
 export async function getAllPeopleForPicker() {
