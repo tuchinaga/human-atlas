@@ -129,6 +129,29 @@ body {
   color: var(--ha-paper);
 }
 
+/* MapLibre popups render outside our component tree with their own
+   default white bubble; without this override, dark-theme text color
+   (near-white) becomes invisible on that white background. */
+.maplibregl-popup-content {
+  background: var(--ha-bg-raised);
+  color: var(--ha-fg);
+  border: 1px solid var(--ha-border);
+  border-radius: 2px;
+  box-shadow: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 6px 10px;
+}
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--ha-bg-raised);
+}
+.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--ha-bg-raised);
+}
+.maplibregl-popup-close-button {
+  color: var(--ha-fg-muted);
+}
+
 :focus-visible {
   outline: 2px solid var(--ha-accent);
   outline-offset: 3px;

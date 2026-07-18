@@ -533,8 +533,8 @@ async function main() {
   // died in 1973, so the work is still under copyright in most
   // jurisdictions; its page renders the neutral rights-pending placeholder
   // instead, which is the system working as intended, not a gap.
-  const commonsFilePath = (filename: string) =>
-    `https://commons.wikimedia.org/wiki/Special:FilePath/${filename}`;
+  const commonsFilePath = (filename: string, width = 1200) =>
+    `https://commons.wikimedia.org/wiki/Special:FilePath/${filename}?width=${width}`;
 
   await db.insert(imageAssets).values([
     {
@@ -589,7 +589,7 @@ async function main() {
       id: id(),
       entityType: "person",
       entityId: person.curie,
-      imageUrl: commonsFilePath("Marie_Curie,_portrait,_1900.jpg"),
+      imageUrl: commonsFilePath("Marie_Curie,_portrait,_1900.jpg", 400),
       sourceName: "Wikimedia Commons",
       sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Marie_Curie,_portrait,_1900.jpg",
       creator: "Unknown",
