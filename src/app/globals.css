@@ -159,6 +159,11 @@ body {
   outline-offset: 3px;
 }
 
+html[lang="ja"] body {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
