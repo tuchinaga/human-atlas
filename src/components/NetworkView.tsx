@@ -50,7 +50,9 @@ export function NetworkView({ nodes, edges }: { nodes: NetworkNode[]; edges: Net
 
   return (
     <PageShell>
-      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">Network</p>
+      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+        {locale === "ja" ? "ネットワーク" : "Network"}
+      </p>
       <h1 className="font-display mt-3 text-4xl leading-[1.1] md:text-5xl">
         {locale === "ja" ? "関係性のネットワーク" : "Network of relationships"}
       </h1>

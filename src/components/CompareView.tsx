@@ -12,6 +12,7 @@ export type ComparePerson = {
   birthDate: string | null;
   deathDate: string | null;
   occupations: string[];
+  occupationsJa: string[];
   works: { slug: string; title: string; titleJa: string | null; creationStartDate: string | null }[];
   movements: { slug: string; name: string; nameJa: string | null }[];
   journey: { placeName: string; placeNameJa: string | null }[];
@@ -28,7 +29,9 @@ export function CompareView({ a, b }: { a: ComparePerson; b: ComparePerson }) {
 
   return (
     <PageShell>
-      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">Compare</p>
+      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+        {locale === "ja" ? "比較" : "Compare"}
+      </p>
       <h1 className="font-display mt-3 text-3xl leading-[1.15] md:text-4xl">
         {(locale === "ja" && a.nameJa) || a.name}
         <span className="mx-3 text-fg-muted">×</span>
@@ -70,9 +73,10 @@ export function CompareView({ a, b }: { a: ComparePerson; b: ComparePerson }) {
         </CompareRow>
 
         <CompareRow label={locale === "ja" ? "分野" : "Discipline"}>
-          {people.map((p) => (
-            <span key={p.slug}>{p.occupations.join(" · ") || "—"}</span>
-          ))}
+          {people.map((p) => {
+            const occ = locale === "ja" && p.occupationsJa.length > 0 ? p.occupationsJa : p.occupations;
+            return <span key={p.slug}>{occ.join(" · ") || "—"}</span>;
+          })}
         </CompareRow>
 
         <CompareRow label={locale === "ja" ? "ムーブメント" : "Movement"}>

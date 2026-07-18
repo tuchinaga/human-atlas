@@ -9,6 +9,7 @@ import { YearCard } from "@/components/YearCard";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
+import { localizeCountry } from "@/lib/localize";
 import type { YearCategoryCard } from "@/db/queries";
 import type { Category } from "@/db/schema";
 
@@ -121,7 +122,7 @@ export function YearView({
                     key={country}
                     active={activeCountry === country}
                     onClick={() => setActiveCountry(activeCountry === country ? null : country)}
-                    label={country}
+                    label={localizeCountry(country, locale) ?? country}
                   />
                 ))}
               </div>

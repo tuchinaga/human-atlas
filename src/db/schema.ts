@@ -81,6 +81,7 @@ export const people = pgTable("people", {
   deathPlaceId: text("death_place_id").references(() => places.id),
   nationalitiesJson: text("nationalities_json"), // JSON string[]
   occupationsJson: text("occupations_json"), // JSON string[]
+  occupationsJsonJa: text("occupations_json_ja"), // JSON string[]
   disciplinesJson: text("disciplines_json"), // JSON string[]
   biography: text("biography"),
   biographyJa: text("biography_ja"),
@@ -113,6 +114,7 @@ export const works = pgTable("works", {
   titleJa: text("title_ja"),
   originalTitle: text("original_title"),
   workType: text("work_type").notNull(),
+  workTypeJa: text("work_type_ja"),
   category: text("category").notNull(), // drives Timeline grouping, section 11
   creationStartDate: text("creation_start_date"),
   creationEndDate: text("creation_end_date"),
@@ -121,6 +123,7 @@ export const works = pgTable("works", {
   creationPlaceId: text("creation_place_id").references(() => places.id),
   currentLocationId: text("current_location_id").references(() => places.id),
   medium: text("medium"),
+  mediumJa: text("medium_ja"),
   dimensions: text("dimensions"), // e.g. "73.7 cm × 92.1 cm"
   currentInstitution: text("current_institution"), // e.g. "Museum of Modern Art, New York"
   description: text("description"),

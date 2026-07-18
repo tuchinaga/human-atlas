@@ -54,6 +54,9 @@ export default async function PersonPage({
         occupations: record.person.occupationsJson
           ? (JSON.parse(record.person.occupationsJson) as string[])
           : [],
+        occupationsJa: record.person.occupationsJsonJa
+          ? (JSON.parse(record.person.occupationsJsonJa) as string[])
+          : [],
       }}
       journey={record.journey}
       works={record.works}

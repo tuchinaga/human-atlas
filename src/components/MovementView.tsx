@@ -40,7 +40,7 @@ export function MovementView({
     <PageShell>
       <Breadcrumb steps={breadcrumbSteps} />
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-        Movement
+        {locale === "ja" ? "ムーブメント" : "Movement"}
       </p>
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {name}
@@ -55,7 +55,7 @@ export function MovementView({
       {members.length > 0 && (
         <section className="mt-12 max-w-xl">
           <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-            People
+            {locale === "ja" ? "人物" : "People"}
           </p>
           <ul className="mt-4 divide-y divide-border border-y border-border">
             {members.map((m) => (
@@ -76,7 +76,7 @@ export function MovementView({
       {works.length > 0 && (
         <section className="mt-12 max-w-xl">
           <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-            Works
+            {locale === "ja" ? "作品" : "Works"}
           </p>
           <ul className="mt-4 divide-y divide-border border-y border-border">
             {works.map((w) => (

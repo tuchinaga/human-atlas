@@ -17,9 +17,11 @@ export type WorkViewData = {
   title: string;
   titleJa: string | null;
   workType: string;
+  workTypeJa: string | null;
   category: Category;
   displayDate: string | null;
   medium: string | null;
+  mediumJa: string | null;
   dimensions: string | null;
   currentInstitution: string | null;
   description: string | null;
@@ -84,7 +86,10 @@ export function WorkView({
     });
   }
   if (work.medium) {
-    metaRows.push({ label: locale === "ja" ? "技法・素材" : "Medium", value: work.medium });
+    metaRows.push({
+      label: locale === "ja" ? "技法・素材" : "Medium",
+      value: (locale === "ja" && work.mediumJa) || work.medium,
+    });
   }
   if (work.dimensions) {
     metaRows.push({
@@ -118,7 +123,7 @@ export function WorkView({
               aria-hidden
             />
             <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-              {t.categories[work.category]} · {work.workType}
+              {t.categories[work.category]} · {(locale === "ja" && work.workTypeJa) || work.workType}
             </p>
           </div>
           <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">

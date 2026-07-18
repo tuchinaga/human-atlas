@@ -21,7 +21,9 @@ export function ComparePicker({ people }: { people: PersonOption[] }) {
 
   return (
     <PageShell>
-      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">Compare</p>
+      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+        {locale === "ja" ? "比較" : "Compare"}
+      </p>
       <h1 className="font-display mt-3 max-w-xl text-4xl leading-[1.1] md:text-5xl">
         {locale === "ja" ? "2人を選んで比較する" : "Choose two people to compare"}
       </h1>

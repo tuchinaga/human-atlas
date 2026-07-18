@@ -19,6 +19,7 @@ export type PersonViewData = {
   biography: string | null;
   biographyJa: string | null;
   occupations: string[];
+  occupationsJa: string[];
 };
 
 export type JourneyStop = {
@@ -84,6 +85,8 @@ export function PersonView({
   const birthYear = yearOf(person.birthDate);
   const deathYear = yearOf(person.deathDate);
   const ageAtDeath = birthYear && deathYear ? deathYear - birthYear : null;
+  const displayOccupations =
+    locale === "ja" && person.occupationsJa.length > 0 ? person.occupationsJa : person.occupations;
 
   const breadcrumbSteps = parseTrail(trail);
   const personStep: TrailStep = { type: "person", slug: person.slug, label: name };
@@ -93,14 +96,16 @@ export function PersonView({
   return (
     <PageShell>
       <Breadcrumb steps={breadcrumbSteps} />
-      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">Person</p>
+      <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+        {locale === "ja" ? "人物" : "Person"}
+      </p>
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {name}
       </h1>
       <p className="tabular mt-3 text-[13px] text-fg-muted">
         {birthYear ?? "?"} – {deathYear ?? ""}
-        {person.occupations.length > 0 && (
-          <span className="ml-3 text-fg-soft">{person.occupations.join(" · ")}</span>
+        {displayOccupations.length > 0 && (
+          <span className="ml-3 text-fg-soft">{displayOccupations.join(" · ")}</span>
         )}
       </p>
 
@@ -114,7 +119,7 @@ export function PersonView({
           {journey.length > 0 && (
             <section className="mt-12">
               <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-                Geographic journey
+                {locale === "ja" ? "移動経路" : "Geographic journey"}
               </p>
 
               {journey.some((s) => s.latitude !== null && s.longitude !== null) && (
@@ -182,7 +187,9 @@ export function PersonView({
 
           {works.length > 0 && (
             <section className="mt-12 max-w-xl">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">Works</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+                {locale === "ja" ? "作品" : "Works"}
+              </p>
               <ul className="mt-4 divide-y divide-border border-y border-border">
                 {works.map((w) => {
                   const workYear = yearOf(w.creationStartDate);
@@ -234,12 +241,12 @@ export function PersonView({
                 </dd>
               </div>
 
-              {person.occupations.length > 0 && (
+              {displayOccupations.length > 0 && (
                 <div>
                   <dt className="text-[10.5px] uppercase tracking-[0.08em] text-fg-muted">
                     {locale === "ja" ? "分野" : "Discipline"}
                   </dt>
-                  <dd className="mt-0.5 text-fg-soft">{person.occupations.join(" · ")}</dd>
+                  <dd className="mt-0.5 text-fg-soft">{displayOccupations.join(" · ")}</dd>
                 </div>
               )}
 

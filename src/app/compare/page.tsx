@@ -23,6 +23,9 @@ export default async function ComparePage({
             occupations: a.person.occupationsJson
               ? (JSON.parse(a.person.occupationsJson) as string[])
               : [],
+            occupationsJa: a.person.occupationsJsonJa
+              ? (JSON.parse(a.person.occupationsJsonJa) as string[])
+              : [],
             works: a.works,
             movements: a.movements,
             journey: a.journey,
@@ -36,6 +39,9 @@ export default async function ComparePage({
             deathDate: b.person.deathDate,
             occupations: b.person.occupationsJson
               ? (JSON.parse(b.person.occupationsJson) as string[])
+              : [],
+            occupationsJa: b.person.occupationsJsonJa
+              ? (JSON.parse(b.person.occupationsJsonJa) as string[])
               : [],
             works: b.works,
             movements: b.movements,

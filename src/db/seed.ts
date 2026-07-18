@@ -105,6 +105,7 @@ async function main() {
       deathDate: "1890-07-29",
       birthPlaceId: place.zundert,
       occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
       nationalitiesJson: JSON.stringify(["Dutch"]),
       biography:
         "Dutch post-impressionist painter whose brief, prolific career reshaped how color and brushwork could carry emotion.",
@@ -120,6 +121,7 @@ async function main() {
       deathDate: "1926-12-05",
       birthPlaceId: place.paris,
       occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
       nationalitiesJson: JSON.stringify(["French"]),
     },
     {
@@ -130,6 +132,7 @@ async function main() {
       birthDate: "1841-02-25",
       deathDate: "1919-12-03",
       occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
       nationalitiesJson: JSON.stringify(["French"]),
     },
     {
@@ -141,6 +144,7 @@ async function main() {
       deathDate: "1911-05-18",
       birthPlaceId: place.budapest,
       occupationsJson: JSON.stringify(["composer", "conductor"]),
+      occupationsJsonJa: JSON.stringify(["作曲家", "指揮者"]),
       nationalitiesJson: JSON.stringify(["Austrian"]),
     },
     {
@@ -152,6 +156,7 @@ async function main() {
       deathDate: "1916-12-09",
       birthPlaceId: place.edo,
       occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
       nationalitiesJson: JSON.stringify(["Japanese"]),
       biography:
         "Novelist and scholar whose work bridged Japan's transition from the Edo period into rapid modernization.",
@@ -166,6 +171,7 @@ async function main() {
       birthDate: "1881-10-25",
       deathDate: "1973-04-08",
       occupationsJson: JSON.stringify(["painter", "sculptor"]),
+      occupationsJsonJa: JSON.stringify(["画家", "彫刻家"]),
       nationalitiesJson: JSON.stringify(["Spanish"]),
       biography:
         "Spanish painter whose 1907 break with single-point perspective helped open the way to Cubism.",
@@ -180,6 +186,7 @@ async function main() {
       birthDate: "1832-12-15",
       deathDate: "1923-12-27",
       occupationsJson: JSON.stringify(["engineer"]),
+      occupationsJsonJa: JSON.stringify(["技術者"]),
       nationalitiesJson: JSON.stringify(["French"]),
     },
     {
@@ -191,6 +198,7 @@ async function main() {
       deathDate: "1940-01-03",
       birthPlaceId: place.kyoto,
       occupationsJson: JSON.stringify(["entrepreneur"]),
+      occupationsJsonJa: JSON.stringify(["実業家"]),
       nationalitiesJson: JSON.stringify(["Japanese"]),
     },
     {
@@ -202,6 +210,7 @@ async function main() {
       deathDate: "1849-05-10",
       birthPlaceId: place.edo,
       occupationsJson: JSON.stringify(["ukiyo-e artist"]),
+      occupationsJsonJa: JSON.stringify(["浮世絵師"]),
       nationalitiesJson: JSON.stringify(["Japanese"]),
       biography:
         "Edo-period ukiyo-e master whose woodblock prints, especially the Thirty-Six Views of Mount Fuji, later influenced European Impressionism.",
@@ -216,6 +225,7 @@ async function main() {
       birthDate: "1867-11-07",
       deathDate: "1934-07-04",
       occupationsJson: JSON.stringify(["physicist", "chemist"]),
+      occupationsJsonJa: JSON.stringify(["物理学者", "化学者"]),
       nationalitiesJson: JSON.stringify(["Polish", "French"]),
       biography:
         "Physicist and chemist who conducted pioneering research on radioactivity, working in Paris for most of her career.",
@@ -312,12 +322,14 @@ async function main() {
       title: "The Starry Night",
       titleJa: "星月夜",
       workType: "painting",
+      workTypeJa: "絵画",
       category: "art",
       creationStartDate: "1889-06-01",
       displayDate: "June 1889",
       datePrecision: "approximate",
       creationPlaceId: place.saintRemy,
       medium: "Oil on canvas",
+      mediumJa: "油彩、カンヴァス",
       dimensions: "73.7 cm × 92.1 cm",
       currentInstitution: "Museum of Modern Art, New York",
       description:
@@ -331,6 +343,7 @@ async function main() {
       title: "Eiffel Tower",
       titleJa: "エッフェル塔",
       workType: "building",
+      workTypeJa: "建築物",
       category: "architecture",
       creationStartDate: "1887-01-28",
       creationEndDate: "1889-03-31",
@@ -349,6 +362,7 @@ async function main() {
       title: "Symphony No. 1",
       titleJa: "交響曲第1番",
       workType: "musical composition",
+      workTypeJa: "音楽作品",
       category: "music",
       creationStartDate: "1888-01-01",
       displayDate: "1888, premiered 1889",
@@ -364,12 +378,14 @@ async function main() {
       title: "The Great Wave off Kanagawa",
       titleJa: "神奈川沖浪裏",
       workType: "woodblock print",
+      workTypeJa: "木版画",
       category: "art",
       creationStartDate: "1831-01-01",
       displayDate: "c. 1831",
       datePrecision: "approximate",
       creationPlaceId: place.edo,
       medium: "Woodblock print, ink and color on paper",
+      mediumJa: "木版画、紙に墨・彩色",
       dimensions: "25.7 cm × 37.9 cm (ōban format, typical of the series)",
       description:
         "The best-known print from the Thirty-Six Views of Mount Fuji series, later widely collected and studied by European painters.",
@@ -383,12 +399,14 @@ async function main() {
       title: "Les Demoiselles d'Avignon",
       titleJa: "アヴィニョンの娘たち",
       workType: "painting",
+      workTypeJa: "絵画",
       category: "art",
       creationStartDate: "1907-01-01",
       displayDate: "1907",
       datePrecision: "approximate",
       creationPlaceId: place.paris,
       medium: "Oil on canvas",
+      mediumJa: "油彩、カンヴァス",
       dimensions: "243.9 cm × 233.7 cm",
       currentInstitution: "Museum of Modern Art, New York",
       description:
@@ -402,6 +420,7 @@ async function main() {
       title: "I Am a Cat",
       titleJa: "吾輩は猫である",
       workType: "book",
+      workTypeJa: "書籍",
       category: "literature",
       creationStartDate: "1905-01-01",
       creationEndDate: "1906-01-01",

@@ -90,7 +90,7 @@ export function EventView({
       {relatedWorks.length > 0 && (
         <section className="mt-12 max-w-xl">
           <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-            Related works
+            {locale === "ja" ? "関連作品" : "Related works"}
           </p>
           <ul className="mt-4 divide-y divide-border border-y border-border">
             {relatedWorks.map((w) => (

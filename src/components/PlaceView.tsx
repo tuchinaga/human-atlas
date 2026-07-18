@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
+import { localizePlaceType, localizeCountry } from "@/lib/localize";
 
 export type PlaceViewData = {
   slug: string;
@@ -47,8 +48,8 @@ export function PlaceView({
     <PageShell>
       <Breadcrumb steps={breadcrumbSteps} />
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-        {place.placeType ?? "Place"}
-        {place.country && ` · ${place.country}`}
+        {localizePlaceType(place.placeType, locale) ?? "Place"}
+        {place.country && ` · ${localizeCountry(place.country, locale)}`}
       </p>
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {name}
