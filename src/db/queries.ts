@@ -1,4 +1,4 @@
-import { eq, and, gte, lte, like } from "drizzle-orm";
+import { eq, and, gte, lte, like, ilike, or } from "drizzle-orm";
 import { db } from "./client";
 import {
   people,
@@ -309,6 +309,66 @@ export async function getMapPlaces() {
     (r): r is typeof r & { latitude: number; longitude: number } =>
       r.latitude !== null && r.longitude !== null,
   );
+}
+
+export type SearchResults = {
+  year: number | null;
+  people: { slug: string; name: string; nameJa: string | null }[];
+  works: { slug: string; title: string; titleJa: string | null }[];
+  places: { slug: string; name: string; nameJa: string | null }[];
+  events: { slug: string; title: string; titleJa: string | null }[];
+  movements: { slug: string; name: string; nameJa: string | null }[];
+};
+
+/**
+ * Universal search (spec §9, §23): a query can be a year, a person, a
+ * work, a place, an event, or a movement, matched against both the
+ * English and Japanese name/title fields. The dataset is small enough
+ * that simple ILIKE matching covers partial matches and cross-language
+ * lookups (e.g. "北斎" and "Hokusai" both match Katsushika Hokusai)
+ * without needing a dedicated search index.
+ */
+export async function searchAll(rawQuery: string): Promise<SearchResults> {
+  const query = rawQuery.trim();
+  const pattern = `%${query}%`;
+  const yearMatch = /^\d{1,4}$/.test(query) ? Number(query) : null;
+
+  const [peopleRows, workRows, placeRows, eventRows, movementRows] = await Promise.all([
+    db
+      .select({ slug: people.slug, name: people.name, nameJa: people.nameJa })
+      .from(people)
+      .where(or(ilike(people.name, pattern), ilike(people.nameJa, pattern)))
+      .limit(10),
+    db
+      .select({ slug: works.slug, title: works.title, titleJa: works.titleJa })
+      .from(works)
+      .where(or(ilike(works.title, pattern), ilike(works.titleJa, pattern)))
+      .limit(10),
+    db
+      .select({ slug: places.slug, name: places.name, nameJa: places.nameJa })
+      .from(places)
+      .where(or(ilike(places.name, pattern), ilike(places.nameJa, pattern)))
+      .limit(10),
+    db
+      .select({ slug: events.slug, title: events.title, titleJa: events.titleJa })
+      .from(events)
+      .where(or(ilike(events.title, pattern), ilike(events.titleJa, pattern)))
+      .limit(10),
+    db
+      .select({ slug: movements.slug, name: movements.name, nameJa: movements.nameJa })
+      .from(movements)
+      .where(or(ilike(movements.name, pattern), ilike(movements.nameJa, pattern)))
+      .limit(10),
+  ]);
+
+  return {
+    year: yearMatch,
+    people: peopleRows,
+    works: workRows,
+    places: placeRows,
+    events: eventRows,
+    movements: movementRows,
+  };
 }
 
 export async function getMovementBySlug(slug: string) {
