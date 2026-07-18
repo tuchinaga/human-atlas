@@ -221,22 +221,72 @@ async function main() {
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
-  const journeyStops: [string, string, string][] = [
-    [place.zundert, "1853-03-30", "1864-10-01"],
-    [place.theHague, "1869-01-01", "1876-01-01"],
-    [place.london, "1873-01-01", "1875-01-01"],
-    [place.paris, "1886-03-01", "1888-02-19"],
-    [place.arles, "1888-02-20", "1889-05-07"],
-    [place.saintRemy, "1889-05-08", "1890-05-16"],
-    [place.auversSurOise, "1890-05-20", "1890-07-29"],
+  const journeyStops: {
+    placeId: string;
+    startDate: string;
+    endDate: string;
+    reason: string;
+    reasonJa: string;
+  }[] = [
+    {
+      placeId: place.zundert,
+      startDate: "1853-03-30",
+      endDate: "1864-10-01",
+      reason: "Born here; spent his childhood in his father's parsonage.",
+      reasonJa: "生まれ育った地。父が牧師を務める教区で幼少期を過ごした。",
+    },
+    {
+      placeId: place.theHague,
+      startDate: "1869-01-01",
+      endDate: "1876-01-01",
+      reason: "Worked as an art dealer for Goupil & Cie.",
+      reasonJa: "画商グーピル商会で働いた。",
+    },
+    {
+      placeId: place.london,
+      startDate: "1873-01-01",
+      endDate: "1875-01-01",
+      reason: "Transferred to the Goupil & Cie branch office.",
+      reasonJa: "グーピル商会のロンドン支店に異動した。",
+    },
+    {
+      placeId: place.paris,
+      startDate: "1886-03-01",
+      endDate: "1888-02-19",
+      reason: "Moved in with his brother Theo and encountered Impressionism.",
+      reasonJa: "弟テオのもとに身を寄せ、印象派の作品に触れた。",
+    },
+    {
+      placeId: place.arles,
+      startDate: "1888-02-20",
+      endDate: "1889-05-07",
+      reason: "Sought stronger light and color; created many of his best-known paintings.",
+      reasonJa: "より強い光と色彩を求めて移住し、代表作の多くをここで描いた。",
+    },
+    {
+      placeId: place.saintRemy,
+      startDate: "1889-05-08",
+      endDate: "1890-05-16",
+      reason: "Voluntarily admitted to the Saint-Paul-de-Mausole asylum.",
+      reasonJa: "サン=ポール=ド=モゾール療養院に自ら入院した。",
+    },
+    {
+      placeId: place.auversSurOise,
+      startDate: "1890-05-20",
+      endDate: "1890-07-29",
+      reason: "Moved to be under the care of Dr. Paul Gachet, his final months.",
+      reasonJa: "医師ポール・ガシェの元で療養するために移り住んだ、最後の日々。",
+    },
   ];
   await db.insert(locationPeriods).values(
-    journeyStops.map(([placeId, startDate, endDate]) => ({
+    journeyStops.map((stop) => ({
       id: id(),
       personId: person.vanGogh,
-      placeId,
-      startDate,
-      endDate,
+      placeId: stop.placeId,
+      startDate: stop.startDate,
+      endDate: stop.endDate,
+      reason: stop.reason,
+      reasonJa: stop.reasonJa,
       confidence: "verified" as const,
     })),
   );

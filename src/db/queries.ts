@@ -152,6 +152,8 @@ export async function getPersonBySlug(slug: string) {
     .select({
       startDate: locationPeriods.startDate,
       endDate: locationPeriods.endDate,
+      reason: locationPeriods.reason,
+      reasonJa: locationPeriods.reasonJa,
       confidence: locationPeriods.confidence,
       placeName: places.name,
       placeNameJa: places.nameJa,
@@ -165,14 +167,64 @@ export async function getPersonBySlug(slug: string) {
     .orderBy(locationPeriods.startDate);
 
   const createdWorks = await db
-    .select({ slug: works.slug, title: works.title, titleJa: works.titleJa })
+    .select({
+      slug: works.slug,
+      title: works.title,
+      titleJa: works.titleJa,
+      creationStartDate: works.creationStartDate,
+    })
     .from(workCreators)
     .innerJoin(works, eq(works.id, workCreators.workId))
     .where(eq(workCreators.personId, person.id));
 
-  const image = await getImageForEntity("person", person.id);
+  const memberMovements = await db
+    .select({ slug: movements.slug, name: movements.name, nameJa: movements.nameJa })
+    .from(movementPeople)
+    .innerJoin(movements, eq(movements.id, movementPeople.movementId))
+    .where(eq(movementPeople.personId, person.id));
 
-  return { person, journey, works: createdWorks, image };
+  const image = await getImageForEntity("person", person.id);
+  const contemporaries = await getContemporaries(person.id, person.birthDate, person.deathDate);
+
+  const currentLocation = journey.length > 0 ? journey[journey.length - 1] : null;
+
+  return {
+    person,
+    journey,
+    works: createdWorks,
+    image,
+    movements: memberMovements,
+    contemporaries,
+    currentLocation,
+  };
+}
+
+/**
+ * People whose lifespans overlap this person's (spec's "Contemporaries").
+ * Small dataset, so it's simplest to filter in application code — same
+ * approach as getAgeComparison.
+ */
+async function getContemporaries(
+  excludeId: string,
+  birthDate: string | null,
+  deathDate: string | null,
+  limit = 5,
+) {
+  if (!birthDate) return [];
+  const birthYear = Number(birthDate.slice(0, 4));
+  const deathYear = deathDate ? Number(deathDate.slice(0, 4)) : birthYear + 90;
+
+  const all = await db.select().from(people);
+  return all
+    .filter((p) => p.id !== excludeId && p.birthDate)
+    .map((p) => {
+      const pBirth = Number(p.birthDate!.slice(0, 4));
+      const pDeath = p.deathDate ? Number(p.deathDate.slice(0, 4)) : pBirth + 90;
+      return { ...p, pBirth, pDeath };
+    })
+    .filter((p) => p.pBirth <= deathYear && p.pDeath >= birthYear)
+    .sort((a, b) => Math.abs(a.pBirth - birthYear) - Math.abs(b.pBirth - birthYear))
+    .slice(0, limit);
 }
 
 export async function getWorkBySlug(slug: string) {

@@ -1,4 +1,4 @@
-import { getPersonBySlug } from "@/db/queries";
+import { getPersonBySlug, getYearCards } from "@/db/queries";
 import { PersonView } from "@/components/PersonView";
 import { ScaffoldView } from "@/components/ScaffoldView";
 
@@ -30,6 +30,17 @@ export default async function PersonPage({
     );
   }
 
+  // "Current selected year" per the context-panel brief: default to the
+  // year of their earliest known work, since that's the most natural
+  // anchor for "meanwhile in the world" without an explicit year picker.
+  const worksWithDates = record.works
+    .filter((w) => w.creationStartDate)
+    .sort((a, b) => (a.creationStartDate! < b.creationStartDate! ? -1 : 1));
+  const spotlightYear = worksWithDates[0]
+    ? Number(worksWithDates[0].creationStartDate!.slice(0, 4))
+    : null;
+  const meanwhile = spotlightYear ? await getYearCards(spotlightYear) : [];
+
   return (
     <PersonView
       person={{
@@ -46,6 +57,11 @@ export default async function PersonPage({
       journey={record.journey}
       works={record.works}
       image={record.image}
+      movements={record.movements}
+      contemporaries={record.contemporaries}
+      currentLocation={record.currentLocation}
+      spotlightYear={spotlightYear}
+      meanwhile={meanwhile}
     />
   );
 }

@@ -97,6 +97,7 @@ export const locationPeriods = pgTable("location_periods", {
   startDate: text("start_date"),
   endDate: text("end_date"),
   reason: text("reason"),
+  reasonJa: text("reason_ja"),
   evidence: text("evidence"),
   confidence: text("confidence").notNull().default("probable"),
   sourcesJson: text("sources_json"),
