@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
+import { EntityImage, type ImageAssetData } from "@/components/EntityImage";
+import { WorldMap } from "@/components/WorldMap";
 
 export type PersonViewData = {
   name: string;
@@ -21,6 +23,8 @@ export type JourneyStop = {
   placeName: string;
   placeNameJa: string | null;
   placeSlug: string;
+  latitude: number | null;
+  longitude: number | null;
 };
 
 export type WorkLink = { slug: string; title: string; titleJa: string | null };
@@ -29,10 +33,12 @@ export function PersonView({
   person,
   journey,
   works,
+  image,
 }: {
   person: PersonViewData;
   journey: JourneyStop[];
   works: WorkLink[];
+  image: ImageAssetData | null;
 }) {
   const { locale } = useLanguage();
   const name = (locale === "ja" && person.nameJa) || person.name;
@@ -46,7 +52,12 @@ export function PersonView({
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {name}
       </h1>
-      <p className="tabular mt-3 text-[13px] text-fg-muted">
+
+      {image && (
+        <EntityImage image={image} aspect="aspect-square" className="mt-6 max-w-[200px]" />
+      )}
+
+      <p className="tabular mt-6 text-[13px] text-fg-muted">
         {person.birthDate?.slice(0, 4) ?? "?"}
         {" – "}
         {person.deathDate?.slice(0, 4) ?? ""}
@@ -68,6 +79,29 @@ export function PersonView({
           <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
             Geographic journey
           </p>
+
+          {journey.some((s) => s.latitude !== null && s.longitude !== null) && (
+            <div className="mt-4">
+              <WorldMap
+                points={journey
+                  .filter(
+                    (s): s is JourneyStop & { latitude: number; longitude: number } =>
+                      s.latitude !== null && s.longitude !== null,
+                  )
+                  .map((s, i) => ({
+                    lat: s.latitude,
+                    lng: s.longitude,
+                    label: (locale === "ja" && s.placeNameJa) || s.placeName,
+                    href: `/places/${s.placeSlug}`,
+                    order: i,
+                  }))}
+                path
+                height="360px"
+                initialZoom={2}
+              />
+            </div>
+          )}
+
           <ol className="tabular mt-4 space-y-3 border-l border-border pl-5">
             {journey.map((stop, i) => (
               <li key={i} className="relative">

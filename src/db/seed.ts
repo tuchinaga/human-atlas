@@ -14,6 +14,7 @@ import {
   eventParticipants,
   eventRelatedWorks,
   relationships,
+  imageAssets,
 } from "./schema";
 
 const id = () => randomUUID();
@@ -27,6 +28,7 @@ const id = () => randomUUID();
  * to diff against what's already there.
  */
 async function clearExistingData() {
+  await db.delete(imageAssets);
   await db.delete(eventRelatedWorks);
   await db.delete(eventParticipants);
   await db.delete(eventPlaces);
@@ -522,6 +524,81 @@ async function main() {
       description:
         "Van Gogh collected and studied Japanese woodblock prints, including Hokusai's; the influence is stylistic and documented through his letters, not a personal acquaintance.",
       confidence: "probable",
+    },
+  ]);
+
+  // ---- Image assets: only rights-cleared images, per spec section 19 --
+  // All four are verified public domain on Wikimedia Commons. Les
+  // Demoiselles d'Avignon is deliberately left without an image — Picasso
+  // died in 1973, so the work is still under copyright in most
+  // jurisdictions; its page renders the neutral rights-pending placeholder
+  // instead, which is the system working as intended, not a gap.
+  const commonsFilePath = (filename: string) =>
+    `https://commons.wikimedia.org/wiki/Special:FilePath/${filename}`;
+
+  await db.insert(imageAssets).values([
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.starryNight,
+      imageUrl: commonsFilePath("Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
+      sourceName: "Wikimedia Commons",
+      sourceRecordUrl:
+        "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      creator: "Vincent van Gogh",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.greatWave,
+      imageUrl: commonsFilePath("The_Great_Wave_off_Kanagawa.jpg"),
+      sourceName: "Wikimedia Commons",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg",
+      creator: "Katsushika Hokusai",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.eiffelTower,
+      imageUrl: commonsFilePath(
+        "Eiffel_Tower,_looking_toward_Trocad%C3%A9ro_Palace,_Paris_Exposition,_1889_LCCN92519630.jpg",
+      ),
+      sourceName: "Wikimedia Commons (Library of Congress)",
+      sourceRecordUrl:
+        "https://commons.wikimedia.org/wiki/File:Eiffel_Tower,_looking_toward_Trocad%C3%A9ro_Palace,_Paris_Exposition,_1889_LCCN92519630.jpg",
+      rightsStatement: "Public Domain Mark — Library of Congress collection",
+      license: "PDM",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "person",
+      entityId: person.curie,
+      imageUrl: commonsFilePath("Marie_Curie,_portrait,_1900.jpg"),
+      sourceName: "Wikimedia Commons",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Marie_Curie,_portrait,_1900.jpg",
+      creator: "Unknown",
+      rightsStatement: "Public Domain Mark",
+      license: "PDM",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
     },
   ]);
 

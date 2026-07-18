@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
+import { YearCard } from "@/components/YearCard";
+import { EntityImage, type ImageAssetData } from "@/components/EntityImage";
 import type { Category } from "@/db/schema";
+import type { YearCategoryCard } from "@/db/queries";
 
 export type WorkViewData = {
   title: string;
@@ -22,10 +25,16 @@ export function WorkView({
   work,
   creator,
   creationPlace,
+  meanwhile,
+  year,
+  image,
 }: {
   work: WorkViewData;
   creator: string | null;
   creationPlace: { name: string; nameJa: string | null } | null;
+  meanwhile: YearCategoryCard[];
+  year: number | null;
+  image: ImageAssetData | null;
 }) {
   const { locale, t } = useLanguage();
   const title = (locale === "ja" && work.titleJa) || work.title;
@@ -60,6 +69,8 @@ export function WorkView({
         {work.medium && <span className="text-fg-muted">{work.medium}</span>}
       </div>
 
+      <EntityImage image={image} className="mt-8 max-w-xl" />
+
       {description && (
         <p className="mt-6 max-w-xl text-[14.5px] leading-relaxed text-fg-soft">
           {description}
@@ -76,6 +87,27 @@ export function WorkView({
       >
         {t.common.rights}
       </Link>
+
+      {meanwhile.length > 0 && year && (
+        <section className="mt-14">
+          <div className="flex items-baseline justify-between">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+              {t.meanwhile.label}
+            </p>
+            <Link
+              href={`/year/${year}`}
+              className="text-[12px] text-fg-muted transition-colors hover:text-fg"
+            >
+              {year} →
+            </Link>
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {meanwhile.map((card) => (
+              <YearCard key={`${card.kind}-${card.slug}`} card={card} />
+            ))}
+          </div>
+        </section>
+      )}
     </PageShell>
   );
 }

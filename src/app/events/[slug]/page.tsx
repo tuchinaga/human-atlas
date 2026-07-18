@@ -1,4 +1,4 @@
-import { getEventBySlug } from "@/db/queries";
+import { getEventBySlug, getMeanwhile } from "@/db/queries";
 import { EventView } from "@/components/EventView";
 import { ScaffoldView } from "@/components/ScaffoldView";
 import type { Category } from "@/db/schema";
@@ -30,6 +30,13 @@ export default async function EventPage({
     );
   }
 
+  const year = record.event.startDate
+    ? Number(record.event.startDate.slice(0, 4))
+    : null;
+  const meanwhile = year
+    ? await getMeanwhile(year, { kind: "event", slug })
+    : [];
+
   return (
     <EventView
       event={{
@@ -43,6 +50,8 @@ export default async function EventPage({
       }}
       place={record.place}
       relatedWorks={record.relatedWorks}
+      meanwhile={meanwhile}
+      year={year}
     />
   );
 }

@@ -45,6 +45,7 @@ export default async function PersonPage({
       }}
       journey={record.journey}
       works={record.works}
+      image={record.image}
     />
   );
 }

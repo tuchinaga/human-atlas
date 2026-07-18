@@ -12,6 +12,7 @@ import {
   eventRelatedWorks,
   movementPeople,
   movementWorks,
+  imageAssets,
 } from "./schema";
 import type { Category } from "./schema";
 
@@ -127,6 +128,22 @@ export async function getAgeComparison(year: number) {
     .sort((a, b) => b.age - a.age);
 }
 
+/**
+ * "Meanwhile" (spec §12): given a year, everything else dated to that
+ * year, excluding the entity currently being viewed. Just getYearCards
+ * with the current item filtered out and capped to a browsable count.
+ */
+export async function getMeanwhile(
+  year: number,
+  exclude: { kind: "work" | "event"; slug: string },
+  limit = 6,
+): Promise<YearCategoryCard[]> {
+  const all = await getYearCards(year);
+  return all
+    .filter((c) => !(c.kind === exclude.kind && c.slug === exclude.slug))
+    .slice(0, limit);
+}
+
 export async function getPersonBySlug(slug: string) {
   const [person] = await db.select().from(people).where(eq(people.slug, slug));
   if (!person) return null;
@@ -139,6 +156,8 @@ export async function getPersonBySlug(slug: string) {
       placeName: places.name,
       placeNameJa: places.nameJa,
       placeSlug: places.slug,
+      latitude: places.latitude,
+      longitude: places.longitude,
     })
     .from(locationPeriods)
     .innerJoin(places, eq(places.id, locationPeriods.placeId))
@@ -151,7 +170,9 @@ export async function getPersonBySlug(slug: string) {
     .innerJoin(works, eq(works.id, workCreators.workId))
     .where(eq(workCreators.personId, person.id));
 
-  return { person, journey, works: createdWorks };
+  const image = await getImageForEntity("person", person.id);
+
+  return { person, journey, works: createdWorks, image };
 }
 
 export async function getWorkBySlug(slug: string) {
@@ -162,8 +183,9 @@ export async function getWorkBySlug(slug: string) {
   const creationPlace = work.creationPlaceId
     ? await getPlaceName(work.creationPlaceId)
     : null;
+  const image = await getImageForEntity("work", work.id);
 
-  return { work, creator, creationPlace };
+  return { work, creator, creationPlace, image };
 }
 
 export async function getPlaceBySlug(slug: string) {
@@ -211,6 +233,22 @@ export async function getEventBySlug(slug: string) {
   return { event, place, relatedWorks };
 }
 
+export async function getMapPlaces() {
+  const rows = await db
+    .select({
+      slug: places.slug,
+      name: places.name,
+      nameJa: places.nameJa,
+      latitude: places.latitude,
+      longitude: places.longitude,
+    })
+    .from(places);
+  return rows.filter(
+    (r): r is typeof r & { latitude: number; longitude: number } =>
+      r.latitude !== null && r.longitude !== null,
+  );
+}
+
 export async function getMovementBySlug(slug: string) {
   const [movement] = await db
     .select()
@@ -231,6 +269,17 @@ export async function getMovementBySlug(slug: string) {
     .where(eq(movementWorks.movementId, movement.id));
 
   return { movement, members: membersRows, works: worksRows };
+}
+
+export async function getImageForEntity(entityType: string, entityId: string) {
+  const [row] = await db
+    .select()
+    .from(imageAssets)
+    .where(
+      and(eq(imageAssets.entityType, entityType), eq(imageAssets.entityId, entityId)),
+    );
+  if (!row || !row.imageUrl) return null;
+  return { ...row, imageUrl: row.imageUrl };
 }
 
 // --- small helpers -----------------------------------------------------

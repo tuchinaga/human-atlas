@@ -20,7 +20,7 @@ const ITEMS: {
   },
   {
     key: "map",
-    href: "/explore?view=map",
+    href: "/map",
     icon: () => <MapIcon />,
   },
   {

@@ -1,4 +1,4 @@
-import { getWorkBySlug } from "@/db/queries";
+import { getWorkBySlug, getMeanwhile } from "@/db/queries";
 import { WorkView } from "@/components/WorkView";
 import { ScaffoldView } from "@/components/ScaffoldView";
 import type { Category } from "@/db/schema";
@@ -31,6 +31,13 @@ export default async function WorkPage({
     );
   }
 
+  const year = record.work.creationStartDate
+    ? Number(record.work.creationStartDate.slice(0, 4))
+    : null;
+  const meanwhile = year
+    ? await getMeanwhile(year, { kind: "work", slug })
+    : [];
+
   return (
     <WorkView
       work={{
@@ -46,6 +53,9 @@ export default async function WorkPage({
       }}
       creator={record.creator}
       creationPlace={record.creationPlace}
+      meanwhile={meanwhile}
+      year={year}
+      image={record.image}
     />
   );
 }

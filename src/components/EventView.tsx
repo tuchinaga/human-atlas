@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
+import { YearCard } from "@/components/YearCard";
 import type { Category } from "@/db/schema";
+import type { YearCategoryCard } from "@/db/queries";
 
 export type EventViewData = {
   title: string;
@@ -20,10 +22,14 @@ export function EventView({
   event,
   place,
   relatedWorks,
+  meanwhile,
+  year,
 }: {
   event: EventViewData;
   place: { name: string; nameJa: string | null } | null;
   relatedWorks: { slug: string; title: string; titleJa: string | null }[];
+  meanwhile: YearCategoryCard[];
+  year: number | null;
 }) {
   const { locale, t } = useLanguage();
   const title = (locale === "ja" && event.titleJa) || event.title;
@@ -81,6 +87,27 @@ export function EventView({
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {meanwhile.length > 0 && year && (
+        <section className="mt-14">
+          <div className="flex items-baseline justify-between">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+              {t.meanwhile.label}
+            </p>
+            <Link
+              href={`/year/${year}`}
+              className="text-[12px] text-fg-muted transition-colors hover:text-fg"
+            >
+              {year} →
+            </Link>
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {meanwhile.map((card) => (
+              <YearCard key={`${card.kind}-${card.slug}`} card={card} />
+            ))}
+          </div>
         </section>
       )}
     </PageShell>
