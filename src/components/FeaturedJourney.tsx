@@ -24,14 +24,18 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
         href={`/journeys/${journey.slug}`}
         className="group grid gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
       >
-        <div className="relative flex h-[260px] items-center justify-center overflow-hidden bg-bg-raised sm:h-[360px]">
+        <div className="relative h-[260px] overflow-hidden bg-bg-raised sm:h-[360px]">
           {journey.image ? (
-            // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
-            <img
-              src={journey.image.imageUrl}
-              alt={title}
-              className="max-h-full max-w-full object-contain"
-              loading="lazy"
+            <div
+              role="img"
+              aria-label={title}
+              className="h-full w-full"
+              style={{
+                backgroundImage: `url(${journey.image.imageUrl})`,
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             />
           ) : (
             <RightsPendingPlaceholder />
