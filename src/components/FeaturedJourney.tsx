@@ -19,18 +19,18 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
   const description = (locale === "ja" && journey.descriptionJa) || journey.description;
 
   return (
-    <section className="mx-auto mt-16 max-w-3xl">
+    <section className="mx-auto mt-16 max-w-4xl">
       <Link
         href={`/journeys/${journey.slug}`}
         className="group grid gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
       >
-        <div className="relative aspect-[4/3] bg-bg-raised sm:aspect-auto sm:min-h-[280px]">
+        <div className="relative min-h-[240px] bg-bg-raised sm:min-h-[320px]">
           {journey.image ? (
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img
               src={journey.image.imageUrl}
               alt={title}
-              className="absolute inset-0 h-full w-full object-contain p-4"
+              className="absolute inset-0 h-full w-full object-contain"
               loading="lazy"
             />
           ) : (

@@ -141,7 +141,7 @@ export function WorkView({
             image={image}
             alt={title}
             zoomable
-            aspect="aspect-[3/2]"
+            hero
             className="mt-8 max-w-2xl"
           />
 
