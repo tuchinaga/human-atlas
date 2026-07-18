@@ -1,4 +1,7 @@
+import { getWorkBySlug } from "@/db/queries";
+import { WorkView } from "@/components/WorkView";
 import { ScaffoldView } from "@/components/ScaffoldView";
+import type { Category } from "@/db/schema";
 
 export default async function WorkPage({
   params,
@@ -6,22 +9,43 @@ export default async function WorkPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const title = slug
-    .split("-")
-    .map((w) => w[0]?.toUpperCase() + w.slice(1))
-    .join(" ");
+  const record = await getWorkBySlug(slug);
+
+  if (!record) {
+    const title = slug
+      .split("-")
+      .map((w) => w[0]?.toUpperCase() + w.slice(1))
+      .join(" ");
+    return (
+      <ScaffoldView
+        eyebrow="Work"
+        title={title}
+        description="Not yet ingested. Try /works/the-starry-night, /works/eiffel-tower or /works/symphony-no-1 for seeded records."
+        route={`/works/${slug}`}
+        notes={[
+          "Image renders only when an Image Asset with a known rights status is attached (section 19).",
+          "Includes a Meanwhile section positioned at the work's creation date and place.",
+          "Interpretation and provenance are never fabricated; uncertain fields carry a confidence label.",
+        ]}
+      />
+    );
+  }
 
   return (
-    <ScaffoldView
-      eyebrow="Work"
-      title={title}
-      description="Supports paintings, sculpture, photographs, compositions, books, poems, buildings, inventions, films, documents and archaeological objects — one detail template, typed by workType."
-      route={`/works/${slug}`}
-      notes={[
-        "Image renders only when an Image Asset with a known rights status is attached (section 19).",
-        "Includes a Meanwhile section positioned at the work's creation date and place.",
-        "Interpretation and provenance are never fabricated; uncertain fields carry a confidence label.",
-      ]}
+    <WorkView
+      work={{
+        title: record.work.title,
+        titleJa: record.work.titleJa,
+        workType: record.work.workType,
+        category: record.work.category as Category,
+        displayDate: record.work.displayDate,
+        medium: record.work.medium,
+        description: record.work.description,
+        descriptionJa: record.work.descriptionJa,
+        confidence: record.work.confidence,
+      }}
+      creator={record.creator}
+      creationPlace={record.creationPlace}
     />
   );
 }

@@ -1,3 +1,5 @@
+import { getPlaceBySlug } from "@/db/queries";
+import { PlaceView } from "@/components/PlaceView";
 import { ScaffoldView } from "@/components/ScaffoldView";
 
 export default async function PlacePage({
@@ -6,22 +8,38 @@ export default async function PlacePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const name = slug
-    .split("-")
-    .map((w) => w[0]?.toUpperCase() + w.slice(1))
-    .join(" ");
+  const record = await getPlaceBySlug(slug);
+
+  if (!record) {
+    const name = slug
+      .split("-")
+      .map((w) => w[0]?.toUpperCase() + w.slice(1))
+      .join(" ");
+    return (
+      <ScaffoldView
+        eyebrow="Place"
+        title={name}
+        description="Not yet ingested. Try /places/paris, /places/saint-remy-de-provence or /places/tokyo for seeded records."
+        route={`/places/${slug}`}
+        notes={[
+          "Pairs with the Map view's Year Map and City View modes.",
+          "A dedicated year slider re-filters everything shown for the place.",
+          "Restrained marker clustering at low zoom — never a flooded map.",
+        ]}
+      />
+    );
+  }
 
   return (
-    <ScaffoldView
-      eyebrow="Place"
-      title={name}
-      description="A city treated as a cultural node rather than a coordinate pair: artists who lived or worked there, buildings, exhibitions, political events, performances and publications, filterable by year."
-      route={`/places/${slug}`}
-      notes={[
-        "Pairs with the Map view's Year Map and City View modes.",
-        "A dedicated year slider re-filters everything shown for the place.",
-        "Restrained marker clustering at low zoom — never a flooded map.",
-      ]}
+    <PlaceView
+      place={{
+        name: record.place.name,
+        nameJa: record.place.nameJa,
+        placeType: record.place.placeType,
+      }}
+      worksHere={record.worksHere}
+      eventsHere={record.eventsHere}
+      residents={record.residents}
     />
   );
 }

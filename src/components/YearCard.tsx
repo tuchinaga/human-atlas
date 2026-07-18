@@ -1,17 +1,26 @@
 "use client";
 
-import { useLanguage, resolveLocalizedName } from "@/lib/language-provider";
+import Link from "next/link";
+import { useLanguage } from "@/lib/language-provider";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
-import type { YearCard as YearCardData } from "@/lib/seed-1889";
+import type { YearCategoryCard } from "@/db/queries";
 
-export function YearCard({ card }: { card: YearCardData }) {
+export function YearCard({ card }: { card: YearCategoryCard }) {
   const { t, locale } = useLanguage();
-  const title = locale === "ja" ? card.titleJa : card.title;
-  const place = locale === "ja" ? card.placeJa : card.place;
-  const context = locale === "ja" ? card.contextJa : card.context;
+  const title = (locale === "ja" && card.titleJa) || card.title;
+  const place = (locale === "ja" && card.placeNameJa) || card.placeName;
+  const context = (locale === "ja" && card.contextJa) || card.context;
+  const href = card.kind === "work" ? `/works/${card.slug}` : `/events/${card.slug}`;
+  const confidenceLabel =
+    card.confidence in t.common
+      ? t.common[card.confidence as keyof typeof t.common]
+      : card.confidence;
 
   return (
-    <article className="group border border-border bg-bg p-4 transition-colors hover:bg-bg-raised">
+    <Link
+      href={href}
+      className="group block border border-border bg-bg p-4 transition-colors hover:bg-bg-raised"
+    >
       <div className="flex items-center gap-2">
         <span
           className="h-1.5 w-1.5 rounded-full"
@@ -23,23 +32,18 @@ export function YearCard({ card }: { card: YearCardData }) {
         </p>
       </div>
       <h3 className="font-display mt-2.5 text-[19px] leading-snug">{title}</h3>
-      {card.person && (
-        <p className="mt-1 text-[13px] text-fg-soft">{card.person}</p>
+      {card.personName && (
+        <p className="mt-1 text-[13px] text-fg-soft">{card.personName}</p>
       )}
-      <p className="tabular mt-2 text-[12px] text-fg-muted">{place}</p>
-      <p className="mt-2.5 text-[13px] leading-relaxed text-fg-soft">
-        {context}
-      </p>
+      {place && <p className="tabular mt-2 text-[12px] text-fg-muted">{place}</p>}
+      {context && (
+        <p className="mt-2.5 text-[13px] leading-relaxed text-fg-soft">
+          {context}
+        </p>
+      )}
       <p className="mt-3 text-[10.5px] uppercase tracking-[0.08em] text-fg-muted">
-        {t.common[card.confidence]}
+        {confidenceLabel}
       </p>
-    </article>
+    </Link>
   );
-}
-
-export function resolveEntityName(
-  locale: "en" | "ja",
-  entity: { name: string; nameJa?: string },
-) {
-  return resolveLocalizedName(locale, entity);
 }
