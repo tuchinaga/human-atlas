@@ -9,6 +9,7 @@ import {
   movements,
   workCreators,
   movementPeople,
+  movementWorks,
   eventPlaces,
   eventParticipants,
   eventRelatedWorks,
@@ -17,8 +18,33 @@ import {
 
 const id = () => randomUUID();
 
+/**
+ * This script is a full reset-and-reload, not an incremental append.
+ * Demo/seed data has no stable external identity to upsert against
+ * (see the note on ImageAsset-style tables in schema.ts), so re-running
+ * this after editing it is simpler and safer as "clear everything this
+ * script owns, then insert the current definition" rather than trying
+ * to diff against what's already there.
+ */
+async function clearExistingData() {
+  await db.delete(eventRelatedWorks);
+  await db.delete(eventParticipants);
+  await db.delete(eventPlaces);
+  await db.delete(movementWorks);
+  await db.delete(movementPeople);
+  await db.delete(workCreators);
+  await db.delete(relationships);
+  await db.delete(locationPeriods);
+  await db.delete(events);
+  await db.delete(works);
+  await db.delete(movements);
+  await db.delete(people);
+  await db.delete(places);
+}
+
 async function main() {
-  console.log("Seeding Human Atlas demonstration data (1889)…");
+  console.log("Resetting and reseeding Human Atlas demonstration data…");
+  await clearExistingData();
 
   // ---- Places --------------------------------------------------------
   const place = {
@@ -60,6 +86,7 @@ async function main() {
     eiffel: id(),
     yamauchi: id(),
     hokusai: id(),
+    curie: id(),
   };
 
   await db.insert(people).values([
@@ -120,6 +147,10 @@ async function main() {
       birthPlaceId: place.edo,
       occupationsJson: JSON.stringify(["novelist"]),
       nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Novelist and scholar whose work bridged Japan's transition from the Edo period into rapid modernization.",
+      biographyJa:
+        "江戸から近代への急速な移行期の日本を生きた小説家・学者。",
     },
     {
       id: person.picasso,
@@ -130,6 +161,10 @@ async function main() {
       deathDate: "1973-04-08",
       occupationsJson: JSON.stringify(["painter", "sculptor"]),
       nationalitiesJson: JSON.stringify(["Spanish"]),
+      biography:
+        "Spanish painter whose 1907 break with single-point perspective helped open the way to Cubism.",
+      biographyJa:
+        "1907年、単一視点の絵画表現から離れた作品でキュビスムへの道を切り拓いたスペインの画家。",
     },
     {
       id: person.eiffel,
@@ -167,6 +202,20 @@ async function main() {
       biographyJa:
         "江戸時代の浮世絵師。代表作『富嶽三十六景』などは、のちにヨーロッパの印象派にも影響を与えた。",
     },
+    {
+      id: person.curie,
+      slug: "marie-curie",
+      name: "Marie Curie",
+      nameJa: "マリー・キュリー",
+      birthDate: "1867-11-07",
+      deathDate: "1934-07-04",
+      occupationsJson: JSON.stringify(["physicist", "chemist"]),
+      nationalitiesJson: JSON.stringify(["Polish", "French"]),
+      biography:
+        "Physicist and chemist who conducted pioneering research on radioactivity, working in Paris for most of her career.",
+      biographyJa:
+        "放射性物質の研究で先駆的な業績を残した物理学者・化学者。研究生活の大半をパリで送った。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -195,6 +244,9 @@ async function main() {
     starryNight: id(),
     eiffelTower: id(),
     symphonyNo1: id(),
+    greatWave: id(),
+    lesDemoiselles: id(),
+    iAmACat: id(),
   };
 
   await db.insert(works).values([
@@ -247,12 +299,67 @@ async function main() {
       descriptionJa: "「巨人」という題でブダペストにて初演されたが、聴衆の反応は芳しくなかった。",
       confidence: "verified",
     },
+    {
+      id: work.greatWave,
+      slug: "the-great-wave-off-kanagawa",
+      title: "The Great Wave off Kanagawa",
+      titleJa: "神奈川沖浪裏",
+      workType: "woodblock print",
+      category: "art",
+      creationStartDate: "1831-01-01",
+      displayDate: "c. 1831",
+      datePrecision: "approximate",
+      creationPlaceId: place.edo,
+      medium: "Woodblock print, ink and color on paper",
+      description:
+        "The best-known print from the Thirty-Six Views of Mount Fuji series, later widely collected and studied by European painters.",
+      descriptionJa:
+        "『富嶽三十六景』の中で最もよく知られる一枚。のちにヨーロッパの画家たちにも広く収集・研究された。",
+      confidence: "approximate",
+    },
+    {
+      id: work.lesDemoiselles,
+      slug: "les-demoiselles-davignon",
+      title: "Les Demoiselles d'Avignon",
+      titleJa: "アヴィニョンの娘たち",
+      workType: "painting",
+      category: "art",
+      creationStartDate: "1907-01-01",
+      displayDate: "1907",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      medium: "Oil on canvas",
+      description:
+        "A sharp break from single-point perspective, widely regarded as a starting point for Cubism.",
+      descriptionJa: "単一視点からの離脱を鮮烈に示した作品で、キュビスムの出発点のひとつとされる。",
+      confidence: "verified",
+    },
+    {
+      id: work.iAmACat,
+      slug: "i-am-a-cat",
+      title: "I Am a Cat",
+      titleJa: "吾輩は猫である",
+      workType: "book",
+      category: "literature",
+      creationStartDate: "1905-01-01",
+      creationEndDate: "1906-01-01",
+      displayDate: "1905–1906",
+      datePrecision: "approximate",
+      creationPlaceId: place.tokyo,
+      description:
+        "A satirical novel narrated by a nameless cat observing the household of a Meiji-era schoolteacher.",
+      descriptionJa: "名もなき猫の視点から、明治期のある教師の家庭を風刺的に描いた小説。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
     { workId: work.starryNight, personId: person.vanGogh },
     { workId: work.eiffelTower, personId: person.eiffel },
     { workId: work.symphonyNo1, personId: person.mahler },
+    { workId: work.greatWave, personId: person.hokusai },
+    { workId: work.lesDemoiselles, personId: person.picasso },
+    { workId: work.iAmACat, personId: person.soseki },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -260,6 +367,8 @@ async function main() {
     meijiConstitution: id(),
     expositionUniverselle: id(),
     nintendoFounded: id(),
+    meijiRestoration: id(),
+    radiumDiscovery: id(),
   };
 
   await db.insert(events).values([
@@ -303,25 +412,61 @@ async function main() {
       significanceScore: 40,
       confidence: "approximate",
     },
+    {
+      id: event.meijiRestoration,
+      slug: "meiji-restoration",
+      title: "Meiji Restoration",
+      titleJa: "明治維新",
+      category: "japan",
+      startDate: "1868-01-03",
+      displayDate: "1868",
+      description:
+        "Imperial rule was restored and Edo was renamed Tokyo, beginning Japan's rapid modernization.",
+      descriptionJa: "王政復古が宣言され、江戸が東京と改称。日本の急速な近代化が始まった。",
+      significanceScore: 95,
+      confidence: "verified",
+    },
+    {
+      id: event.radiumDiscovery,
+      slug: "discovery-of-radium",
+      title: "Discovery of radium",
+      titleJa: "ラジウムの発見",
+      category: "science",
+      startDate: "1898-12-26",
+      displayDate: "December 1898",
+      description:
+        "Marie and Pierre Curie announced the discovery of a new radioactive element, radium, isolated from pitchblende.",
+      descriptionJa: "マリー・キュリーとピエール・キュリーが、瀝青ウラン鉱から新元素ラジウムを発見したと発表した。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
     { eventId: event.meijiConstitution, placeId: place.tokyo },
     { eventId: event.expositionUniverselle, placeId: place.paris },
     { eventId: event.nintendoFounded, placeId: place.kyoto },
+    { eventId: event.meijiRestoration, placeId: place.tokyo },
+    { eventId: event.radiumDiscovery, placeId: place.paris },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
+    { eventId: event.radiumDiscovery, personId: person.curie },
   ]);
   await db.insert(eventRelatedWorks).values([
     { eventId: event.expositionUniverselle, workId: work.eiffelTower },
   ]);
 
-  // ---- Movement (illustrates section 18's Ukiyo-e → Impressionism line) --
-  const impressionismId = id();
+  // ---- Movements ------------------------------------------------------
+  const movement = {
+    impressionism: id(),
+    ukiyoE: id(),
+    cubism: id(),
+  };
+
   await db.insert(movements).values([
     {
-      id: impressionismId,
+      id: movement.impressionism,
       slug: "impressionism",
       name: "Impressionism",
       nameJa: "印象派",
@@ -332,13 +477,42 @@ async function main() {
       descriptionJa:
         "光や色彩、日常的な主題を重視した19世紀の芸術運動。日本の浮世絵版画からの影響も指摘される。",
     },
-  ]);
-  await db.insert(movementPeople).values([
-    { movementId: impressionismId, personId: person.monet },
-    { movementId: impressionismId, personId: person.renoir },
+    {
+      id: movement.ukiyoE,
+      slug: "ukiyo-e",
+      name: "Ukiyo-e",
+      nameJa: "浮世絵",
+      startDate: "1603-01-01",
+      endDate: "1868-01-01",
+      description:
+        "Edo-period woodblock prints and paintings depicting everyday life, landscapes and actors — later collected widely in Europe.",
+      descriptionJa: "江戸時代の木版画・絵画のジャンルで、日常や風景、役者絵などを描いた。のちにヨーロッパでも広く収集された。",
+    },
+    {
+      id: movement.cubism,
+      slug: "cubism",
+      name: "Cubism",
+      nameJa: "キュビスム",
+      startDate: "1907-01-01",
+      endDate: "1920-01-01",
+      description:
+        "An early-20th-century movement that broke subjects into geometric fragments viewed from multiple angles at once.",
+      descriptionJa: "20世紀初頭の芸術運動。対象を幾何学的な断片に分解し、複数の視点から同時に描いた。",
+    },
   ]);
 
-  // ---- Relationship: a documented cross-cultural influence -----------
+  await db.insert(movementPeople).values([
+    { movementId: movement.impressionism, personId: person.monet },
+    { movementId: movement.impressionism, personId: person.renoir },
+    { movementId: movement.ukiyoE, personId: person.hokusai },
+    { movementId: movement.cubism, personId: person.picasso },
+  ]);
+  await db.insert(movementWorks).values([
+    { movementId: movement.ukiyoE, workId: work.greatWave },
+    { movementId: movement.cubism, workId: work.lesDemoiselles },
+  ]);
+
+  // ---- Relationships: documented cross-cultural influences ------------
   await db.insert(relationships).values([
     {
       id: id(),
