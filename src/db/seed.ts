@@ -673,7 +673,7 @@ async function main() {
       description:
         "A single year, seen from a tower still under suspicion, a night sky over Saint-Rémy, and a new constitution eight thousand kilometers away.",
       descriptionJa:
-        "まだ物議を醸していた塔、サン=レミの夜空、そして8000キロ離れた地で公布された新しい憲法 — ひとつの年をめぐる物語。",
+        "まだ物議を醸していた塔、サン=レミの夜空、そして8000キロ離れた地で公布された新しい憲法\u00A0— ひとつの年をめぐる物語。",
     },
   ]);
 
@@ -704,7 +704,7 @@ async function main() {
       stepType: "event",
       stepSlug: "exposition-universelle-1889",
       caption: "The fair the tower was built for — a celebration of a century since the Revolution.",
-      captionJa: "そのタワーが建てられた博覧会そのもの — 革命から100年を祝う祭典だった。",
+      captionJa: "そのタワーが建てられた博覧会そのもの\u00A0— 革命から100年を祝う祭典だった。",
     },
     {
       id: id(),

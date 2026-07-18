@@ -7,12 +7,12 @@ export type ThreadNode = {
 };
 
 const DEFAULT_NODES: ThreadNode[] = [
-  { x: 6, category: "art", label: "The Starry Night" },
-  { x: 22, category: "architecture", label: "Eiffel Tower opens" },
-  { x: 38, category: "society", label: "Meiji Constitution" },
-  { x: 54, category: "music", label: "Mahler, Symphony No. 1" },
-  { x: 68, category: "science", label: "Nintendo founded" },
-  { x: 84, category: "literature", label: "Sōseki begins writing" },
+  { x: 5, category: "art", label: "The Starry Night" },
+  { x: 20, category: "architecture", label: "Eiffel Tower opens" },
+  { x: 35, category: "society", label: "Meiji Constitution" },
+  { x: 50, category: "music", label: "Mahler, Symphony No. 1" },
+  { x: 65, category: "science", label: "Nintendo founded" },
+  { x: 80, category: "literature", label: "Sōseki begins writing" },
   { x: 95, category: "history", label: "Exposition Universelle" },
 ];
 
