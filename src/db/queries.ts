@@ -543,12 +543,19 @@ export async function getRandomFeaturedJourney(): Promise<FeaturedJourneySummary
 
   let image: Awaited<ReturnType<typeof getImageForEntity>> = null;
   for (const step of steps) {
-    if (step.stepType !== "work") continue;
-    const [work] = await db.select().from(works).where(eq(works.slug, step.stepSlug));
-    if (!work) continue;
-    const workImage = await getImageForEntity("work", work.id);
-    if (workImage) {
-      image = workImage;
+    if (step.stepType !== "work" && step.stepType !== "person") continue;
+    let entityId: string | null = null;
+    if (step.stepType === "work") {
+      const [work] = await db.select().from(works).where(eq(works.slug, step.stepSlug));
+      entityId = work?.id ?? null;
+    } else {
+      const [person] = await db.select().from(people).where(eq(people.slug, step.stepSlug));
+      entityId = person?.id ?? null;
+    }
+    if (!entityId) continue;
+    const entityImage = await getImageForEntity(step.stepType, entityId);
+    if (entityImage) {
+      image = entityImage;
       break;
     }
   }
