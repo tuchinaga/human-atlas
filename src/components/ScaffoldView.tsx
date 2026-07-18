@@ -1,5 +1,8 @@
+"use client";
+
 import { PageShell } from "@/components/PageShell";
 import { MeanwhileThread } from "@/components/MeanwhileThread";
+import { useLanguage } from "@/lib/language-provider";
 
 export function ScaffoldView({
   eyebrow,
@@ -14,6 +17,8 @@ export function ScaffoldView({
   route: string;
   notes: string[];
 }) {
+  const { t, locale } = useLanguage();
+
   return (
     <PageShell>
       <p className="text-[12px] uppercase tracking-[0.14em] text-fg-muted">
@@ -22,6 +27,13 @@ export function ScaffoldView({
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {title}
       </h1>
+
+      {locale === "ja" && (
+        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-fg-soft">
+          {t.common.notYetImplemented}
+        </p>
+      )}
+
       <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-fg-soft">
         {description}
       </p>

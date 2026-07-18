@@ -85,6 +85,7 @@
     "viewOnMap": "地図で見る",
     "viewTimeline": "年表で見る",
     "save": "保存",
-    "share": "共有"
+    "share": "共有",
+    "notYetImplemented": "この画面はまだ実データに接続されていません。以下は開発メモです。"
   }
 }

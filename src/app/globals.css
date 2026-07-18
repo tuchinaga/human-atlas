@@ -133,8 +133,8 @@ body {
    default white bubble; without this override, dark-theme text color
    (near-white) becomes invisible on that white background. */
 .maplibregl-popup-content {
-  background: var(--ha-bg-raised);
-  color: var(--ha-fg);
+  background: var(--ha-bg-raised) !important;
+  color: var(--ha-fg) !important;
   border: 1px solid var(--ha-border);
   border-radius: 2px;
   box-shadow: none;
@@ -143,13 +143,13 @@ body {
   padding: 6px 10px;
 }
 .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
-  border-top-color: var(--ha-bg-raised);
+  border-top-color: var(--ha-bg-raised) !important;
 }
 .maplibregl-popup-anchor-top .maplibregl-popup-tip {
-  border-bottom-color: var(--ha-bg-raised);
+  border-bottom-color: var(--ha-bg-raised) !important;
 }
 .maplibregl-popup-close-button {
-  color: var(--ha-fg-muted);
+  color: var(--ha-fg-muted) !important;
 }
 
 :focus-visible {

@@ -85,6 +85,7 @@
     "viewOnMap": "View on map",
     "viewTimeline": "View timeline",
     "save": "Save",
-    "share": "Share"
+    "share": "Share",
+    "notYetImplemented": "This screen isn't wired to real data yet. Development notes below."
   }
 }
