@@ -371,6 +371,55 @@ export async function searchAll(rawQuery: string): Promise<SearchResults> {
   };
 }
 
+export async function getAllPeopleForPicker() {
+  return db
+    .select({ slug: people.slug, name: people.name, nameJa: people.nameJa })
+    .from(people)
+    .orderBy(people.name);
+}
+
+async function getPersonCompareData(slug: string) {
+  const [person] = await db.select().from(people).where(eq(people.slug, slug));
+  if (!person) return null;
+
+  const workRows = await db
+    .select({ slug: works.slug, title: works.title, titleJa: works.titleJa, creationStartDate: works.creationStartDate })
+    .from(workCreators)
+    .innerJoin(works, eq(works.id, workCreators.workId))
+    .where(eq(workCreators.personId, person.id));
+
+  const movementRows = await db
+    .select({ slug: movements.slug, name: movements.name, nameJa: movements.nameJa })
+    .from(movementPeople)
+    .innerJoin(movements, eq(movements.id, movementPeople.movementId))
+    .where(eq(movementPeople.personId, person.id));
+
+  const journeyRows = await db
+    .select({ placeName: places.name, placeNameJa: places.nameJa })
+    .from(locationPeriods)
+    .innerJoin(places, eq(places.id, locationPeriods.placeId))
+    .where(eq(locationPeriods.personId, person.id))
+    .orderBy(locationPeriods.startDate);
+
+  const image = await getImageForEntity("person", person.id);
+
+  return {
+    person,
+    works: workRows,
+    movements: movementRows,
+    journey: journeyRows,
+    image,
+  };
+}
+
+export async function getCompareData(slugA: string, slugB: string) {
+  const [a, b] = await Promise.all([
+    getPersonCompareData(slugA),
+    getPersonCompareData(slugB),
+  ]);
+  return { a, b };
+}
+
 export async function getMovementBySlug(slug: string) {
   const [movement] = await db
     .select()
