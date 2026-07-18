@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
 
 export type MovementViewData = {
+  slug: string;
   name: string;
   nameJa: string | null;
   description: string | null;
@@ -17,17 +20,25 @@ export function MovementView({
   movement,
   members,
   works,
+  trail,
 }: {
   movement: MovementViewData;
   members: MemberLink[];
   works: WorkLink[];
+  trail?: string;
 }) {
   const { locale } = useLanguage();
   const name = (locale === "ja" && movement.nameJa) || movement.name;
   const description = (locale === "ja" && movement.descriptionJa) || movement.description;
 
+  const breadcrumbSteps = parseTrail(trail);
+  const movementStep: TrailStep = { type: "movement", slug: movement.slug, label: name };
+  const trailFromHere = extendTrail(trail, movementStep);
+  const linkWithTrail = (href: string) => `${href}?trail=${encodeURIComponent(trailFromHere)}`;
+
   return (
     <PageShell>
+      <Breadcrumb steps={breadcrumbSteps} />
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
         Movement
       </p>
@@ -50,7 +61,7 @@ export function MovementView({
             {members.map((m) => (
               <li key={m.slug}>
                 <Link
-                  href={`/people/${m.slug}`}
+                  href={linkWithTrail(`/people/${m.slug}`)}
                   className="flex items-center justify-between py-3 text-[14px] text-fg-soft transition-colors hover:text-fg"
                 >
                   <span>{(locale === "ja" && m.nameJa) || m.name}</span>
@@ -71,7 +82,7 @@ export function MovementView({
             {works.map((w) => (
               <li key={w.slug}>
                 <Link
-                  href={`/works/${w.slug}`}
+                  href={linkWithTrail(`/works/${w.slug}`)}
                   className="flex items-center justify-between py-3 text-[14px] text-fg-soft transition-colors hover:text-fg"
                 >
                   <span>{(locale === "ja" && w.titleJa) || w.title}</span>

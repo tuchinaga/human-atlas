@@ -234,7 +234,7 @@ export async function getWorkBySlug(slug: string) {
   const [work] = await db.select().from(works).where(eq(works.slug, slug));
   if (!work) return null;
 
-  const creator = await getWorkCreatorName(work.id);
+  const creator = await getWorkCreator(work.id);
   const creationPlace = work.creationPlaceId
     ? await getPlaceName(work.creationPlaceId)
     : null;
@@ -355,9 +355,23 @@ async function getWorkCreatorName(workId: string) {
   return row?.name ?? null;
 }
 
+async function getWorkCreator(workId: string) {
+  const [row] = await db
+    .select({ name: people.name, nameJa: people.nameJa, slug: people.slug })
+    .from(workCreators)
+    .innerJoin(people, eq(people.id, workCreators.personId))
+    .where(eq(workCreators.workId, workId));
+  return row ?? null;
+}
+
 async function getPlaceName(placeId: string) {
   const [row] = await db
-    .select({ name: places.name, nameJa: places.nameJa, country: places.country })
+    .select({
+      name: places.name,
+      nameJa: places.nameJa,
+      country: places.country,
+      slug: places.slug,
+    })
     .from(places)
     .where(eq(places.id, placeId));
   return row ?? null;
@@ -365,7 +379,12 @@ async function getPlaceName(placeId: string) {
 
 async function getFirstEventPlaceName(eventId: string) {
   const [row] = await db
-    .select({ name: places.name, nameJa: places.nameJa, country: places.country })
+    .select({
+      name: places.name,
+      nameJa: places.nameJa,
+      country: places.country,
+      slug: places.slug,
+    })
     .from(eventPlaces)
     .innerJoin(places, eq(places.id, eventPlaces.placeId))
     .where(eq(eventPlaces.eventId, eventId));

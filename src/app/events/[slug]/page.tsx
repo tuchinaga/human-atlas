@@ -5,10 +5,13 @@ import type { Category } from "@/db/schema";
 
 export default async function EventPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ trail?: string }>;
 }) {
   const { slug } = await params;
+  const { trail } = await searchParams;
   const record = await getEventBySlug(slug);
 
   if (!record) {
@@ -40,6 +43,7 @@ export default async function EventPage({
   return (
     <EventView
       event={{
+        slug: record.event.slug,
         title: record.event.title,
         titleJa: record.event.titleJa,
         category: record.event.category as Category,
@@ -52,6 +56,7 @@ export default async function EventPage({
       relatedWorks={record.relatedWorks}
       meanwhile={meanwhile}
       year={year}
+      trail={trail}
     />
   );
 }

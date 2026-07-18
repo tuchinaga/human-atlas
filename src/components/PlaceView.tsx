@@ -3,8 +3,16 @@
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
 
-export type PlaceViewData = { name: string; nameJa: string | null; placeType: string | null; country: string | null };
+export type PlaceViewData = {
+  slug: string;
+  name: string;
+  nameJa: string | null;
+  placeType: string | null;
+  country: string | null;
+};
 export type EntityLink = { slug: string; title: string; titleJa: string | null };
 export type Resident = {
   name: string;
@@ -19,17 +27,25 @@ export function PlaceView({
   worksHere,
   eventsHere,
   residents,
+  trail,
 }: {
   place: PlaceViewData;
   worksHere: EntityLink[];
   eventsHere: EntityLink[];
   residents: Resident[];
+  trail?: string;
 }) {
   const { locale } = useLanguage();
   const name = (locale === "ja" && place.nameJa) || place.name;
 
+  const breadcrumbSteps = parseTrail(trail);
+  const placeStep: TrailStep = { type: "place", slug: place.slug, label: name };
+  const trailFromHere = extendTrail(trail, placeStep);
+  const linkWithTrail = (href: string) => `${href}?trail=${encodeURIComponent(trailFromHere)}`;
+
   return (
     <PageShell>
+      <Breadcrumb steps={breadcrumbSteps} />
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
         {place.placeType ?? "Place"}
         {place.country && ` · ${place.country}`}
@@ -44,7 +60,7 @@ export function PlaceView({
             {residents.map((r) => (
               <li key={r.slug}>
                 <Link
-                  href={`/people/${r.slug}`}
+                  href={linkWithTrail(`/people/${r.slug}`)}
                   className="flex items-center justify-between py-3 text-[14px] text-fg-soft transition-colors hover:text-fg"
                 >
                   <span>{(locale === "ja" && r.nameJa) || r.name}</span>
@@ -61,13 +77,13 @@ export function PlaceView({
 
       {worksHere.length > 0 && (
         <Section title="Works created here">
-          <EntityList items={worksHere} base="/works" locale={locale} />
+          <EntityList items={worksHere} base="/works" locale={locale} linkWithTrail={linkWithTrail} />
         </Section>
       )}
 
       {eventsHere.length > 0 && (
         <Section title="Events">
-          <EntityList items={eventsHere} base="/events" locale={locale} />
+          <EntityList items={eventsHere} base="/events" locale={locale} linkWithTrail={linkWithTrail} />
         </Section>
       )}
 
@@ -93,17 +109,19 @@ function EntityList({
   items,
   base,
   locale,
+  linkWithTrail,
 }: {
   items: EntityLink[];
   base: string;
   locale: "en" | "ja";
+  linkWithTrail: (href: string) => string;
 }) {
   return (
     <ul className="divide-y divide-border border-y border-border">
       {items.map((item) => (
         <li key={item.slug}>
           <Link
-            href={`${base}/${item.slug}`}
+            href={linkWithTrail(`${base}/${item.slug}`)}
             className="flex items-center justify-between py-3 text-[14px] text-fg-soft transition-colors hover:text-fg"
           >
             <span>{(locale === "ja" && item.titleJa) || item.title}</span>

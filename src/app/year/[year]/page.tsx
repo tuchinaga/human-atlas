@@ -3,10 +3,13 @@ import { getYearCards, getAgeComparison } from "@/db/queries";
 
 export default async function YearPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ year: string }>;
+  searchParams: Promise<{ trail?: string }>;
 }) {
   const { year } = await params;
+  const { trail } = await searchParams;
   const yearNum = Number(year);
 
   const [cards, ages] = await Promise.all([
@@ -24,6 +27,7 @@ export default async function YearPage({
         slug: a.slug,
         age: a.age,
       }))}
+      trail={trail}
     />
   );
 }

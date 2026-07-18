@@ -80,7 +80,7 @@
   "common": {
     "verified": "確認済み",
     "probable": "確度高",
-    "approximate": "概算",
+    "approximate": "推定",
     "disputed": "議論あり",
     "unknown": "不明",
     "source": "出典",

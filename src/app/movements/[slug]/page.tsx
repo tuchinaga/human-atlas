@@ -4,10 +4,13 @@ import { ScaffoldView } from "@/components/ScaffoldView";
 
 export default async function MovementPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ trail?: string }>;
 }) {
   const { slug } = await params;
+  const { trail } = await searchParams;
   const record = await getMovementBySlug(slug);
 
   if (!record) {
@@ -32,6 +35,7 @@ export default async function MovementPage({
   return (
     <MovementView
       movement={{
+        slug: record.movement.slug,
         name: record.movement.name,
         nameJa: record.movement.nameJa,
         description: record.movement.description,
@@ -39,6 +43,7 @@ export default async function MovementPage({
       }}
       members={record.members}
       works={record.works}
+      trail={trail}
     />
   );
 }

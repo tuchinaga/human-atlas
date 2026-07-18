@@ -4,14 +4,25 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
 import { ConfidenceBadge } from "@/components/ConfidenceBadge";
+import { extendTrail, type TrailStep } from "@/lib/trail";
 import type { YearCategoryCard } from "@/db/queries";
 
-export function YearCard({ card }: { card: YearCategoryCard }) {
+export function YearCard({
+  card,
+  currentTrail,
+  fromStep,
+}: {
+  card: YearCategoryCard;
+  currentTrail?: string;
+  fromStep?: TrailStep;
+}) {
   const { t, locale } = useLanguage();
   const title = (locale === "ja" && card.titleJa) || card.title;
   const place = (locale === "ja" && card.placeNameJa) || card.placeName;
   const context = (locale === "ja" && card.contextJa) || card.context;
-  const href = card.kind === "work" ? `/works/${card.slug}` : `/events/${card.slug}`;
+  const basePath = card.kind === "work" ? `/works/${card.slug}` : `/events/${card.slug}`;
+  const trail = fromStep ? extendTrail(currentTrail, fromStep) : currentTrail;
+  const href = trail ? `${basePath}?trail=${encodeURIComponent(trail)}` : basePath;
   const confidenceLabel =
     card.confidence in t.common
       ? t.common[card.confidence as keyof typeof t.common]

@@ -7,10 +7,13 @@ import { CATEGORY_COLOR_VAR } from "@/lib/categories";
 import { YearCard } from "@/components/YearCard";
 import { EntityImage, type ImageAssetData } from "@/components/EntityImage";
 import { ConfidenceBadge } from "@/components/ConfidenceBadge";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
 import type { Category } from "@/db/schema";
 import type { YearCategoryCard } from "@/db/queries";
 
 export type WorkViewData = {
+  slug: string;
   title: string;
   titleJa: string | null;
   workType: string;
@@ -25,6 +28,8 @@ export type WorkViewData = {
 };
 
 export type MovementLink = { slug: string; name: string; nameJa: string | null };
+export type CreatorLink = { name: string; nameJa: string | null; slug: string };
+export type PlaceLink = { name: string; nameJa: string | null; slug: string };
 
 export function WorkView({
   work,
@@ -34,14 +39,16 @@ export function WorkView({
   year,
   image,
   movement,
+  trail,
 }: {
   work: WorkViewData;
-  creator: string | null;
-  creationPlace: { name: string; nameJa: string | null } | null;
+  creator: CreatorLink | null;
+  creationPlace: PlaceLink | null;
   meanwhile: YearCategoryCard[];
   year: number | null;
   image: ImageAssetData | null;
   movement: MovementLink | null;
+  trail?: string;
 }) {
   const { locale, t } = useLanguage();
   const title = (locale === "ja" && work.titleJa) || work.title;
@@ -51,12 +58,22 @@ export function WorkView({
       ? t.common[work.confidence as keyof typeof t.common]
       : work.confidence;
 
+  const breadcrumbSteps = parseTrail(trail);
+  const workStep: TrailStep = { type: "work", slug: work.slug, label: title };
+  const trailFromHere = extendTrail(trail, workStep);
+  const linkWithTrail = (href: string) => `${href}?trail=${encodeURIComponent(trailFromHere)}`;
+
   const metaRows: { label: string; value: React.ReactNode }[] = [];
   if (creationPlace) {
     metaRows.push({
       label: locale === "ja" ? "制作地" : "Creation place",
       value: (
-        <span>{(locale === "ja" && creationPlace.nameJa) || creationPlace.name}</span>
+        <Link
+          href={linkWithTrail(`/places/${creationPlace.slug}`)}
+          className="underline underline-offset-2 transition-colors hover:text-fg"
+        >
+          {(locale === "ja" && creationPlace.nameJa) || creationPlace.name}
+        </Link>
       ),
     });
   }
@@ -80,7 +97,7 @@ export function WorkView({
       label: locale === "ja" ? "ムーブメント" : "Movement",
       value: (
         <Link
-          href={`/movements/${movement.slug}`}
+          href={linkWithTrail(`/movements/${movement.slug}`)}
           className="underline underline-offset-2 transition-colors hover:text-fg"
         >
           {(locale === "ja" && movement.nameJa) || movement.name}
@@ -91,6 +108,7 @@ export function WorkView({
 
   return (
     <PageShell>
+      <Breadcrumb steps={breadcrumbSteps} />
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px] lg:gap-16">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
@@ -108,7 +126,14 @@ export function WorkView({
           </h1>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-fg-soft">
-            {creator && <span>{creator}</span>}
+            {creator && (
+              <Link
+                href={linkWithTrail(`/people/${creator.slug}`)}
+                className="transition-colors hover:text-fg"
+              >
+                {(locale === "ja" && creator.nameJa) || creator.name}
+              </Link>
+            )}
             {work.displayDate && <span className="tabular">{work.displayDate}</span>}
           </div>
 
@@ -144,7 +169,7 @@ export function WorkView({
                   {t.meanwhile.label}
                 </p>
                 <Link
-                  href={`/year/${year}`}
+                  href={linkWithTrail(`/year/${year}`)}
                   className="text-[12px] text-fg-muted transition-colors hover:text-fg"
                 >
                   {year} →
@@ -152,7 +177,12 @@ export function WorkView({
               </div>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {meanwhile.map((card) => (
-                  <YearCard key={`${card.kind}-${card.slug}`} card={card} />
+                  <YearCard
+                    key={`${card.kind}-${card.slug}`}
+                    card={card}
+                    currentTrail={trail}
+                    fromStep={workStep}
+                  />
                 ))}
               </div>
             </section>

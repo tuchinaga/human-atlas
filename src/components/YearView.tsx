@@ -7,6 +7,8 @@ import { PageShell } from "@/components/PageShell";
 import { MeanwhileThread } from "@/components/MeanwhileThread";
 import { YearCard } from "@/components/YearCard";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
 import type { YearCategoryCard } from "@/db/queries";
 import type { Category } from "@/db/schema";
 
@@ -21,15 +23,19 @@ export function YearView({
   year,
   cards,
   ages,
+  trail,
 }: {
   year: string;
   cards: YearCategoryCard[];
   ages: AgeRow[];
+  trail?: string;
 }) {
   const { t, locale } = useLanguage();
   const yearNum = Number(year);
   const [activeCategory, setActiveCategory] = useState<Category | null>(null);
   const [activeCountry, setActiveCountry] = useState<string | null>(null);
+  const breadcrumbSteps = parseTrail(trail);
+  const yearStep: TrailStep = { type: "year", slug: year, label: year };
 
   const categoriesPresent = useMemo(
     () => [...new Set(cards.map((c) => c.category))],
@@ -48,6 +54,7 @@ export function YearView({
 
   return (
     <PageShell>
+      <Breadcrumb steps={breadcrumbSteps} />
       <div className="flex items-baseline justify-between">
         <Link
           href={`/year/${yearNum - 1}`}
@@ -122,7 +129,12 @@ export function YearView({
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {filteredCards.map((card) => (
-                <YearCard key={`${card.kind}-${card.slug}`} card={card} />
+                <YearCard
+                  key={`${card.kind}-${card.slug}`}
+                  card={card}
+                  currentTrail={trail}
+                  fromStep={yearStep}
+                />
               ))}
             </div>
             {filteredCards.length === 0 && (
@@ -146,7 +158,7 @@ export function YearView({
                     className="flex items-center justify-between py-2.5"
                   >
                     <Link
-                      href={`/people/${p.slug}`}
+                      href={`/people/${p.slug}?trail=${encodeURIComponent(extendTrail(trail, yearStep))}`}
                       className="font-sans text-fg-soft transition-colors hover:text-fg"
                     >
                       {(locale === "ja" && p.nameJa) || p.name}

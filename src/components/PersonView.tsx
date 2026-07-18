@@ -6,9 +6,12 @@ import { PageShell } from "@/components/PageShell";
 import { EntityImage, type ImageAssetData } from "@/components/EntityImage";
 import { WorldMap } from "@/components/WorldMap";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { parseTrail, extendTrail, type TrailStep } from "@/lib/trail";
 import type { YearCategoryCard } from "@/db/queries";
 
 export type PersonViewData = {
+  slug: string;
   name: string;
   nameJa: string | null;
   birthDate: string | null;
@@ -62,6 +65,7 @@ export function PersonView({
   currentLocation,
   spotlightYear,
   meanwhile,
+  trail,
 }: {
   person: PersonViewData;
   journey: JourneyStop[];
@@ -72,6 +76,7 @@ export function PersonView({
   currentLocation: JourneyStop | null;
   spotlightYear: number | null;
   meanwhile: YearCategoryCard[];
+  trail?: string;
 }) {
   const { locale, t } = useLanguage();
   const name = (locale === "ja" && person.nameJa) || person.name;
@@ -80,8 +85,14 @@ export function PersonView({
   const deathYear = yearOf(person.deathDate);
   const ageAtDeath = birthYear && deathYear ? deathYear - birthYear : null;
 
+  const breadcrumbSteps = parseTrail(trail);
+  const personStep: TrailStep = { type: "person", slug: person.slug, label: name };
+  const trailFromHere = extendTrail(trail, personStep);
+  const linkWithTrail = (href: string) => `${href}?trail=${encodeURIComponent(trailFromHere)}`;
+
   return (
     <PageShell>
+      <Breadcrumb steps={breadcrumbSteps} />
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">Person</p>
       <h1 className="font-display mt-3 max-w-2xl text-4xl leading-[1.1] md:text-5xl">
         {name}
@@ -118,7 +129,7 @@ export function PersonView({
                         lat: s.latitude,
                         lng: s.longitude,
                         label: (locale === "ja" && s.placeNameJa) || s.placeName,
-                        href: `/places/${s.placeSlug}`,
+                        href: linkWithTrail(`/places/${s.placeSlug}`),
                         order: i,
                       }))}
                     path
@@ -142,7 +153,7 @@ export function PersonView({
                         aria-hidden
                       />
                       <Link
-                        href={`/places/${stop.placeSlug}`}
+                        href={linkWithTrail(`/places/${stop.placeSlug}`)}
                         className="text-[14.5px] text-fg transition-colors hover:text-accent"
                       >
                         {(locale === "ja" && stop.placeNameJa) || stop.placeName}
@@ -179,7 +190,7 @@ export function PersonView({
                   return (
                     <li key={w.slug}>
                       <Link
-                        href={`/works/${w.slug}`}
+                        href={linkWithTrail(`/works/${w.slug}`)}
                         className="flex items-center justify-between py-3 text-[14px] text-fg-soft transition-colors hover:text-fg"
                       >
                         <span>{(locale === "ja" && w.titleJa) || w.title}</span>
@@ -241,7 +252,7 @@ export function PersonView({
                     {movements.map((m) => (
                       <Link
                         key={m.slug}
-                        href={`/movements/${m.slug}`}
+                        href={linkWithTrail(`/movements/${m.slug}`)}
                         className="text-fg-soft underline underline-offset-2 transition-colors hover:text-fg"
                       >
                         {(locale === "ja" && m.nameJa) || m.name}
@@ -258,7 +269,7 @@ export function PersonView({
                   </dt>
                   <dd className="mt-0.5">
                     <Link
-                      href={`/places/${currentLocation.placeSlug}`}
+                      href={linkWithTrail(`/places/${currentLocation.placeSlug}`)}
                       className="text-fg-soft underline underline-offset-2 transition-colors hover:text-fg"
                     >
                       {(locale === "ja" && currentLocation.placeNameJa) ||
@@ -278,7 +289,7 @@ export function PersonView({
                   {contemporaries.map((c) => (
                     <li key={c.slug}>
                       <Link
-                        href={`/people/${c.slug}`}
+                        href={linkWithTrail(`/people/${c.slug}`)}
                         className="flex items-center justify-between text-fg-soft transition-colors hover:text-fg"
                       >
                         <span className="truncate pr-2">
@@ -301,7 +312,7 @@ export function PersonView({
                     {t.meanwhile.label}
                   </p>
                   <Link
-                    href={`/year/${spotlightYear}`}
+                    href={linkWithTrail(`/year/${spotlightYear}`)}
                     className="text-[11px] text-fg-muted transition-colors hover:text-fg"
                   >
                     {spotlightYear} →
@@ -311,7 +322,9 @@ export function PersonView({
                   {meanwhile.slice(0, 4).map((card) => (
                     <li key={`${card.kind}-${card.slug}`}>
                       <Link
-                        href={card.kind === "work" ? `/works/${card.slug}` : `/events/${card.slug}`}
+                        href={linkWithTrail(
+                          card.kind === "work" ? `/works/${card.slug}` : `/events/${card.slug}`,
+                        )}
                         className="group flex items-start gap-2 text-[13px] text-fg-soft transition-colors hover:text-fg"
                       >
                         <span

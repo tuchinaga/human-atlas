@@ -5,10 +5,13 @@ import type { Category } from "@/db/schema";
 
 export default async function WorkPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ trail?: string }>;
 }) {
   const { slug } = await params;
+  const { trail } = await searchParams;
   const record = await getWorkBySlug(slug);
 
   if (!record) {
@@ -41,6 +44,7 @@ export default async function WorkPage({
   return (
     <WorkView
       work={{
+        slug: record.work.slug,
         title: record.work.title,
         titleJa: record.work.titleJa,
         workType: record.work.workType,
@@ -59,6 +63,7 @@ export default async function WorkPage({
       year={year}
       image={record.image}
       movement={record.movement}
+      trail={trail}
     />
   );
 }

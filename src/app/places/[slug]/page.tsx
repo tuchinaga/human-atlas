@@ -4,10 +4,13 @@ import { ScaffoldView } from "@/components/ScaffoldView";
 
 export default async function PlacePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ trail?: string }>;
 }) {
   const { slug } = await params;
+  const { trail } = await searchParams;
   const record = await getPlaceBySlug(slug);
 
   if (!record) {
@@ -33,6 +36,7 @@ export default async function PlacePage({
   return (
     <PlaceView
       place={{
+        slug: record.place.slug,
         name: record.place.name,
         nameJa: record.place.nameJa,
         placeType: record.place.placeType,
@@ -41,6 +45,7 @@ export default async function PlacePage({
       worksHere={record.worksHere}
       eventsHere={record.eventsHere}
       residents={record.residents}
+      trail={trail}
     />
   );
 }

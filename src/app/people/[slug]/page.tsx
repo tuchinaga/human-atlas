@@ -4,10 +4,13 @@ import { ScaffoldView } from "@/components/ScaffoldView";
 
 export default async function PersonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ trail?: string }>;
 }) {
   const { slug } = await params;
+  const { trail } = await searchParams;
   const record = await getPersonBySlug(slug);
 
   if (!record) {
@@ -30,9 +33,6 @@ export default async function PersonPage({
     );
   }
 
-  // "Current selected year" per the context-panel brief: default to the
-  // year of their earliest known work, since that's the most natural
-  // anchor for "meanwhile in the world" without an explicit year picker.
   const worksWithDates = record.works
     .filter((w) => w.creationStartDate)
     .sort((a, b) => (a.creationStartDate! < b.creationStartDate! ? -1 : 1));
@@ -44,6 +44,7 @@ export default async function PersonPage({
   return (
     <PersonView
       person={{
+        slug: record.person.slug,
         name: record.person.name,
         nameJa: record.person.nameJa,
         birthDate: record.person.birthDate,
@@ -62,6 +63,7 @@ export default async function PersonPage({
       currentLocation={record.currentLocation}
       spotlightYear={spotlightYear}
       meanwhile={meanwhile}
+      trail={trail}
     />
   );
 }
