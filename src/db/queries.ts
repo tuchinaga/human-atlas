@@ -5,10 +5,13 @@ import {
   places,
   works,
   events,
+  movements,
   locationPeriods,
   workCreators,
   eventPlaces,
   eventRelatedWorks,
+  movementPeople,
+  movementWorks,
 } from "./schema";
 import type { Category } from "./schema";
 
@@ -206,6 +209,28 @@ export async function getEventBySlug(slug: string) {
     .where(eq(eventRelatedWorks.eventId, event.id));
 
   return { event, place, relatedWorks };
+}
+
+export async function getMovementBySlug(slug: string) {
+  const [movement] = await db
+    .select()
+    .from(movements)
+    .where(eq(movements.slug, slug));
+  if (!movement) return null;
+
+  const membersRows = await db
+    .select({ name: people.name, nameJa: people.nameJa, slug: people.slug })
+    .from(movementPeople)
+    .innerJoin(people, eq(people.id, movementPeople.personId))
+    .where(eq(movementPeople.movementId, movement.id));
+
+  const worksRows = await db
+    .select({ slug: works.slug, title: works.title, titleJa: works.titleJa })
+    .from(movementWorks)
+    .innerJoin(works, eq(works.id, movementWorks.workId))
+    .where(eq(movementWorks.movementId, movement.id));
+
+  return { movement, members: membersRows, works: worksRows };
 }
 
 // --- small helpers -----------------------------------------------------
