@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
+import { ConfidenceBadge } from "@/components/ConfidenceBadge";
 import type { YearCategoryCard } from "@/db/queries";
 
 export function YearCard({ card }: { card: YearCategoryCard }) {
@@ -41,8 +42,8 @@ export function YearCard({ card }: { card: YearCategoryCard }) {
           {context}
         </p>
       )}
-      <p className="mt-3 text-[10.5px] uppercase tracking-[0.08em] text-fg-muted">
-        {confidenceLabel}
+      <p className="mt-3">
+        <ConfidenceBadge confidence={card.confidence} label={confidenceLabel} />
       </p>
     </Link>
   );

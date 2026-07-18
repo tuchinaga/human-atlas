@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 import { CATEGORY_COLOR_VAR } from "@/lib/categories";
 import { YearCard } from "@/components/YearCard";
+import { ConfidenceBadge } from "@/components/ConfidenceBadge";
 import type { Category } from "@/db/schema";
 import type { YearCategoryCard } from "@/db/queries";
 
@@ -65,8 +66,8 @@ export function EventView({
         </p>
       )}
 
-      <p className="mt-6 text-[10.5px] uppercase tracking-[0.08em] text-fg-muted">
-        {confidenceLabel}
+      <p className="mt-6">
+        <ConfidenceBadge confidence={event.confidence} label={confidenceLabel} />
       </p>
 
       {relatedWorks.length > 0 && (

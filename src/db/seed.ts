@@ -314,6 +314,8 @@ async function main() {
       datePrecision: "approximate",
       creationPlaceId: place.saintRemy,
       medium: "Oil on canvas",
+      dimensions: "73.7 cm × 92.1 cm",
+      currentInstitution: "Museum of Modern Art, New York",
       description:
         "Painted from the asylum window at Saint-Paul-de-Mausole, working from memory as much as direct observation.",
       descriptionJa: "サン=ポール=ド=モゾール療養院の窓から、記憶と観察の両方を頼りに描かれた。",
@@ -332,6 +334,7 @@ async function main() {
       datePrecision: "exact",
       creationPlaceId: place.paris,
       currentLocationId: place.paris,
+      dimensions: "330 m tall",
       description: "Completed as the entrance arch for the 1889 Exposition Universelle.",
       descriptionJa: "1889年万国博覧会の正面ゲートとして完成した。",
       confidence: "verified",
@@ -363,6 +366,7 @@ async function main() {
       datePrecision: "approximate",
       creationPlaceId: place.edo,
       medium: "Woodblock print, ink and color on paper",
+      dimensions: "25.7 cm × 37.9 cm (ōban format, typical of the series)",
       description:
         "The best-known print from the Thirty-Six Views of Mount Fuji series, later widely collected and studied by European painters.",
       descriptionJa:
@@ -381,6 +385,8 @@ async function main() {
       datePrecision: "approximate",
       creationPlaceId: place.paris,
       medium: "Oil on canvas",
+      dimensions: "243.9 cm × 233.7 cm",
+      currentInstitution: "Museum of Modern Art, New York",
       description:
         "A sharp break from single-point perspective, widely regarded as a starting point for Cubism.",
       descriptionJa: "単一視点からの離脱を鮮烈に示した作品で、キュビスムの出発点のひとつとされる。",

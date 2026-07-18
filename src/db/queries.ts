@@ -237,7 +237,13 @@ export async function getWorkBySlug(slug: string) {
     : null;
   const image = await getImageForEntity("work", work.id);
 
-  return { work, creator, creationPlace, image };
+  const [movement] = await db
+    .select({ slug: movements.slug, name: movements.name, nameJa: movements.nameJa })
+    .from(movementWorks)
+    .innerJoin(movements, eq(movements.id, movementWorks.movementId))
+    .where(eq(movementWorks.workId, work.id));
+
+  return { work, creator, creationPlace, image, movement: movement ?? null };
 }
 
 export async function getPlaceBySlug(slug: string) {

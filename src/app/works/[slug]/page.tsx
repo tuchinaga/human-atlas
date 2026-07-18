@@ -47,6 +47,8 @@ export default async function WorkPage({
         category: record.work.category as Category,
         displayDate: record.work.displayDate,
         medium: record.work.medium,
+        dimensions: record.work.dimensions,
+        currentInstitution: record.work.currentInstitution,
         description: record.work.description,
         descriptionJa: record.work.descriptionJa,
         confidence: record.work.confidence,
@@ -56,6 +58,7 @@ export default async function WorkPage({
       meanwhile={meanwhile}
       year={year}
       image={record.image}
+      movement={record.movement}
     />
   );
 }

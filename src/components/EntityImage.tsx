@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export type ImageAssetData = {
@@ -20,12 +23,25 @@ export function EntityImage({
   alt,
   aspect = "aspect-[4/3]",
   className = "",
+  zoomable = false,
 }: {
   image: ImageAssetData | null;
   alt: string;
   aspect?: string;
   className?: string;
+  zoomable?: boolean;
 }) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   if (!image) {
     return (
       <div className={`relative ${aspect} ${className}`}>
@@ -34,17 +50,28 @@ export function EntityImage({
     );
   }
 
+  const imageBox = (
+    <div className={`relative ${aspect} overflow-hidden rounded-sm border border-border bg-bg-raised`}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source; not part of the Next.js image pipeline */}
+      <img src={image.imageUrl} alt={alt} className="h-full w-full object-cover" loading="lazy" />
+    </div>
+  );
+
   return (
     <figure className={className}>
-      <div className={`relative ${aspect} overflow-hidden rounded-sm border border-border bg-bg-raised`}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source; not part of the Next.js image pipeline */}
-        <img
-          src={image.imageUrl}
-          alt={alt}
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
-      </div>
+      {zoomable ? (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="block w-full cursor-zoom-in text-left"
+          aria-label={`${alt} — enlarge`}
+        >
+          {imageBox}
+        </button>
+      ) : (
+        imageBox
+      )}
+
       <figcaption className="mt-2 text-[11px] leading-snug text-fg-muted">
         {image.publicDomain ? "Public domain" : image.license ?? "Rights cleared"}
         {image.sourceName && <> · {image.sourceName}</>}
@@ -63,6 +90,32 @@ export function EntityImage({
           </>
         )}
       </figcaption>
+
+      {zoomable && open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={alt}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-6"
+          onClick={() => setOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close"
+            className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white/80 transition-colors hover:border-white hover:text-white"
+          >
+            ×
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element -- lightbox view of the same external source */}
+          <img
+            src={image.imageUrl}
+            alt={alt}
+            className="max-h-full max-w-full cursor-zoom-out object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </figure>
   );
 }

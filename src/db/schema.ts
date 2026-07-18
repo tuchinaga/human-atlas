@@ -119,6 +119,8 @@ export const works = pgTable("works", {
   creationPlaceId: text("creation_place_id").references(() => places.id),
   currentLocationId: text("current_location_id").references(() => places.id),
   medium: text("medium"),
+  dimensions: text("dimensions"), // e.g. "73.7 cm × 92.1 cm"
+  currentInstitution: text("current_institution"), // e.g. "Museum of Modern Art, New York"
   description: text("description"),
   descriptionJa: text("description_ja"),
   confidence: text("confidence").notNull().default("verified"),
