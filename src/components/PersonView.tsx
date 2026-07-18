@@ -54,7 +54,12 @@ export function PersonView({
       </h1>
 
       {image && (
-        <EntityImage image={image} aspect="aspect-square" className="mt-6 max-w-[200px]" />
+        <EntityImage
+          image={image}
+          alt={`${name}${locale === "ja" ? "の肖像" : ", portrait"}`}
+          aspect="aspect-square"
+          className="mt-6 max-w-[200px]"
+        />
       )}
 
       <p className="tabular mt-6 text-[13px] text-fg-muted">

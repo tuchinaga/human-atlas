@@ -69,7 +69,7 @@ export function WorkView({
         {work.medium && <span className="text-fg-muted">{work.medium}</span>}
       </div>
 
-      <EntityImage image={image} className="mt-8 max-w-xl" />
+      <EntityImage image={image} alt={title} className="mt-8 max-w-xl" />
 
       {description && (
         <p className="mt-6 max-w-xl text-[14.5px] leading-relaxed text-fg-soft">

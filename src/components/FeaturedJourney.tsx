@@ -18,7 +18,7 @@ export function FeaturedJourney({ image }: { image: ImageAssetData | null }) {
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img
               src={image.imageUrl}
-              alt=""
+              alt={t.home.featuredTitle}
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
             />

@@ -17,10 +17,12 @@ export type ImageAssetData = {
  */
 export function EntityImage({
   image,
+  alt,
   aspect = "aspect-[4/3]",
   className = "",
 }: {
   image: ImageAssetData | null;
+  alt: string;
   aspect?: string;
   className?: string;
 }) {
@@ -38,7 +40,7 @@ export function EntityImage({
         {/* eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source; not part of the Next.js image pipeline */}
         <img
           src={image.imageUrl}
-          alt=""
+          alt={alt}
           className="h-full w-full object-cover"
           loading="lazy"
         />
