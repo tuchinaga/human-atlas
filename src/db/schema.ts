@@ -201,6 +201,27 @@ export const imageAssets = pgTable("image_assets", {
   // placeholder instead of this record (spec section 19)
 });
 
+export const journeys = pgTable("journeys", {
+  id: text("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  titleJa: text("title_ja"),
+  description: text("description"),
+  descriptionJa: text("description_ja"),
+});
+
+export const journeySteps = pgTable("journey_steps", {
+  id: text("id").primaryKey(),
+  journeyId: text("journey_id")
+    .notNull()
+    .references(() => journeys.id),
+  position: integer("position").notNull(),
+  stepType: text("step_type").notNull(), // "person" | "work" | "place" | "event" | "movement" | "year"
+  stepSlug: text("step_slug").notNull(), // entity slug, or the year itself when stepType is "year"
+  caption: text("caption"),
+  captionJa: text("caption_ja"),
+});
+
 // --- join tables for many-to-many relationships -------------------
 
 export const workCreators = pgTable(

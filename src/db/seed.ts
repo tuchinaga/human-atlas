@@ -15,6 +15,8 @@ import {
   eventRelatedWorks,
   relationships,
   imageAssets,
+  journeys,
+  journeySteps,
 } from "./schema";
 
 const id = () => randomUUID();
@@ -28,6 +30,8 @@ const id = () => randomUUID();
  * to diff against what's already there.
  */
 async function clearExistingData() {
+  await db.delete(journeySteps);
+  await db.delete(journeys);
   await db.delete(imageAssets);
   await db.delete(eventRelatedWorks);
   await db.delete(eventParticipants);
@@ -655,6 +659,72 @@ async function main() {
       commercialUseAllowed: true,
       derivativesAllowed: true,
       lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+  ]);
+
+  // ---- Editorial Journey: Paris, 1889 (spec §18, matches homepage teaser) --
+  const journeyId = id();
+  await db.insert(journeys).values([
+    {
+      id: journeyId,
+      slug: "paris-1889",
+      title: "Paris, 1889",
+      titleJa: "パリ、1889年",
+      description:
+        "A single year, seen from a tower still under suspicion, a night sky over Saint-Rémy, and a new constitution eight thousand kilometers away.",
+      descriptionJa:
+        "まだ物議を醸していた塔、サン=レミの夜空、そして8000キロ離れた地で公布された新しい憲法 — ひとつの年をめぐる物語。",
+    },
+  ]);
+
+  await db.insert(journeySteps).values([
+    {
+      id: id(),
+      journeyId,
+      position: 0,
+      stepType: "year",
+      stepSlug: "1889",
+      caption: "A year that looked entirely different depending on where you stood.",
+      captionJa: "どこに立つかによって、まるで違う景色に見える一年だった。",
+    },
+    {
+      id: id(),
+      journeyId,
+      position: 1,
+      stepType: "work",
+      stepSlug: "eiffel-tower",
+      caption:
+        "Newly finished for the Exposition Universelle, and still widely disliked by the Parisians who had to look at it.",
+      captionJa: "万国博覧会に合わせて完成したばかりで、パリ市民の多くにはまだ不評だった。",
+    },
+    {
+      id: id(),
+      journeyId,
+      position: 2,
+      stepType: "event",
+      stepSlug: "exposition-universelle-1889",
+      caption: "The fair the tower was built for — a celebration of a century since the Revolution.",
+      captionJa: "そのタワーが建てられた博覧会そのもの — 革命から100年を祝う祭典だった。",
+    },
+    {
+      id: id(),
+      journeyId,
+      position: 3,
+      stepType: "work",
+      stepSlug: "the-starry-night",
+      caption:
+        "Four hundred kilometers south, in an asylum courtyard, a very different kind of sky.",
+      captionJa: "南へ400キロ、療養院の中庭からは、まったく違う種類の空が見えていた。",
+    },
+    {
+      id: id(),
+      journeyId,
+      position: 4,
+      stepType: "event",
+      stepSlug: "promulgation-of-the-meiji-constitution",
+      caption:
+        "And on the other side of the world, a constitution was being promulgated the same February.",
+      captionJa: "そして地球の反対側では、同じ年の2月に憲法が発布されていた。",
     },
   ]);
 

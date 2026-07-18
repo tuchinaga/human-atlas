@@ -14,6 +14,8 @@ import {
   movementWorks,
   imageAssets,
   relationships,
+  journeys,
+  journeySteps,
 } from "./schema";
 import type { Category } from "./schema";
 
@@ -494,6 +496,80 @@ export async function getCompareData(slugA: string, slugB: string) {
     getPersonCompareData(slugB),
   ]);
   return { a, b };
+}
+
+export type JourneyStepResolved = {
+  type: string;
+  slug: string;
+  href: string;
+  title: string;
+  titleJa: string | null;
+  caption: string | null;
+  captionJa: string | null;
+};
+
+/**
+ * Editorial Journeys (spec §18) are sequences of references into
+ * existing entities — never a hard-coded page. Each step just stores
+ * {stepType, stepSlug}; this resolves that into a display title by
+ * looking the entity up in its own table, so the journey never drifts
+ * out of sync with the underlying record.
+ */
+export async function getJourneyBySlug(slug: string) {
+  const [journey] = await db.select().from(journeys).where(eq(journeys.slug, slug));
+  if (!journey) return null;
+
+  const steps = await db
+    .select()
+    .from(journeySteps)
+    .where(eq(journeySteps.journeyId, journey.id))
+    .orderBy(journeySteps.position);
+
+  const resolved: JourneyStepResolved[] = [];
+  for (const step of steps) {
+    if (step.stepType === "year") {
+      resolved.push({
+        type: "year",
+        slug: step.stepSlug,
+        href: `/year/${step.stepSlug}`,
+        title: step.stepSlug,
+        titleJa: step.stepSlug,
+        caption: step.caption,
+        captionJa: step.captionJa,
+      });
+      continue;
+    }
+
+    const tableMap = {
+      person: { table: people, nameField: people.name, nameJaField: people.nameJa, path: "people" },
+      work: { table: works, nameField: works.title, nameJaField: works.titleJa, path: "works" },
+      place: { table: places, nameField: places.name, nameJaField: places.nameJa, path: "places" },
+      event: { table: events, nameField: events.title, nameJaField: events.titleJa, path: "events" },
+      movement: { table: movements, nameField: movements.name, nameJaField: movements.nameJa, path: "movements" },
+    } as const;
+
+    const config = tableMap[step.stepType as keyof typeof tableMap];
+    if (!config) continue;
+
+    const [entity] = await db
+      .select({ name: config.nameField, nameJa: config.nameJaField })
+      .from(config.table as typeof people)
+      .where(eq((config.table as typeof people).slug, step.stepSlug));
+
+    if (!entity) continue;
+
+    resolved.push({
+      type: step.stepType,
+      slug: step.stepSlug,
+      href: `/${config.path}/${step.stepSlug}`,
+      title: entity.name,
+      titleJa: entity.nameJa,
+      caption: step.caption,
+      captionJa: step.captionJa,
+    });
+  }
+
+  return { journey, steps: resolved };
 }
 
 export async function getMovementBySlug(slug: string) {
