@@ -110,15 +110,28 @@ export function WorldMap({
       el.style.cursor = "pointer";
       el.style.padding = "0";
 
-      const popup = new maplibregl.Popup({ offset: 14, closeButton: false }).setText(
-        point.label,
-      );
+      const popup = new maplibregl.Popup({
+        offset: 14,
+        closeButton: false,
+        closeOnClick: false,
+      }).setText(point.label);
 
       const marker = new maplibregl.Marker({ element: el })
         .setLngLat([point.lng, point.lat])
-        .setPopup(popup)
         .addTo(map);
 
+      el.addEventListener("mouseenter", () => {
+        popup.setLngLat([point.lng, point.lat]).addTo(map);
+      });
+      el.addEventListener("mouseleave", () => {
+        popup.remove();
+      });
+      el.addEventListener("focus", () => {
+        popup.setLngLat([point.lng, point.lat]).addTo(map);
+      });
+      el.addEventListener("blur", () => {
+        popup.remove();
+      });
       el.addEventListener("click", () => router.push(point.href));
       markers.push(marker);
     });
