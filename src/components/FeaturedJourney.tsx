@@ -13,7 +13,7 @@ export function FeaturedJourney({ image }: { image: ImageAssetData | null }) {
         href="/journeys/paris-1889"
         className="group grid gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
       >
-        <div className="relative aspect-[4/3] sm:aspect-auto">
+        <div className="relative aspect-[5/4] self-start">
           {image ? (
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img
