@@ -4,22 +4,33 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { RightsPendingPlaceholder, type ImageAssetData } from "@/components/EntityImage";
 
-export function FeaturedJourney({ image }: { image: ImageAssetData | null }) {
-  const { t } = useLanguage();
+export type FeaturedJourneyData = {
+  slug: string;
+  title: string;
+  titleJa: string | null;
+  description: string | null;
+  descriptionJa: string | null;
+  image: ImageAssetData | null;
+};
+
+export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
+  const { t, locale } = useLanguage();
+  const title = (locale === "ja" && journey.titleJa) || journey.title;
+  const description = (locale === "ja" && journey.descriptionJa) || journey.description;
 
   return (
     <section className="mx-auto mt-16 max-w-3xl">
       <Link
-        href="/journeys/paris-1889"
+        href={`/journeys/${journey.slug}`}
         className="group grid gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
       >
-        <div className="relative aspect-[4/3] sm:aspect-auto sm:min-h-[280px]">
-          {image ? (
+        <div className="relative aspect-[4/3] bg-bg-raised sm:aspect-auto sm:min-h-[280px]">
+          {journey.image ? (
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img
-              src={image.imageUrl}
-              alt={t.home.featuredTitle}
-              className="absolute inset-0 h-full w-full object-cover"
+              src={journey.image.imageUrl}
+              alt={title}
+              className="absolute inset-0 h-full w-full object-contain p-4"
               loading="lazy"
             />
           ) : (
@@ -30,12 +41,10 @@ export function FeaturedJourney({ image }: { image: ImageAssetData | null }) {
           <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
             {t.home.featuredLabel}
           </p>
-          <h2 className="font-display text-2xl leading-tight md:text-[28px]">
-            {t.home.featuredTitle}
-          </h2>
-          <p className="text-[13.5px] leading-relaxed text-fg-soft">
-            {t.home.featuredDescription}
-          </p>
+          <h2 className="font-display text-2xl leading-tight md:text-[28px]">{title}</h2>
+          {description && (
+            <p className="text-[13.5px] leading-relaxed text-fg-soft">{description}</p>
+          )}
         </div>
       </Link>
     </section>

@@ -728,6 +728,111 @@ async function main() {
     },
   ]);
 
+  // ---- Editorial Journey: Hokusai and the World Beyond Japan (spec §18) --
+  const journeyHokusaiId = id();
+  await db.insert(journeys).values([
+    {
+      id: journeyHokusaiId,
+      slug: "hokusai-and-the-world-beyond-japan",
+      title: "Hokusai and the World Beyond Japan",
+      titleJa: "北斎、日本を越えて",
+      description:
+        "A print made in Edo, decades before Japan opened its ports, still found its way into a Dutch painter's collection.",
+      descriptionJa:
+        "日本が開国するずっと前、江戸で作られた一枚の版画は、それでもオランダの画家のコレクションにたどり着いた。",
+    },
+  ]);
+  await db.insert(journeySteps).values([
+    {
+      id: id(),
+      journeyId: journeyHokusaiId,
+      position: 0,
+      stepType: "person",
+      stepSlug: "katsushika-hokusai",
+      caption: "A woodblock print artist working in Edo, decades before Japan opened to the West.",
+      captionJa: "日本が西洋に開かれるずっと前、江戸で活動した浮世絵師。",
+    },
+    {
+      id: id(),
+      journeyId: journeyHokusaiId,
+      position: 1,
+      stepType: "work",
+      stepSlug: "the-great-wave-off-kanagawa",
+      caption: "The best-known print from a series of thirty-six views of a single mountain.",
+      captionJa: "ひとつの山を三十六通りに描いた連作の中で、最もよく知られる一枚。",
+    },
+    {
+      id: id(),
+      journeyId: journeyHokusaiId,
+      position: 2,
+      stepType: "movement",
+      stepSlug: "ukiyo-e",
+      caption: "Part of a wider genre of everyday scenes that European collectors began seeking out.",
+      captionJa: "日常の情景を描く、より広いジャンルの一部。ヨーロッパの収集家たちがこぞって求めるようになった。",
+    },
+    {
+      id: id(),
+      journeyId: journeyHokusaiId,
+      position: 3,
+      stepType: "person",
+      stepSlug: "vincent-van-gogh",
+      caption: "One of the European painters who collected and studied prints like this one.",
+      captionJa: "こうした版画を収集し、研究したヨーロッパの画家のひとり。",
+    },
+    {
+      id: id(),
+      journeyId: journeyHokusaiId,
+      position: 4,
+      stepType: "work",
+      stepSlug: "the-starry-night",
+      caption: "Painted decades later, half a world away — the influence stylistic, not personal.",
+      captionJa: "数十年後、地球の反対側で描かれた作品 — つながりは様式的なもので、個人的な面識はない。",
+    },
+  ]);
+
+  // ---- Editorial Journey: The Birth of Modern Science (spec §18) ---------
+  const journeyScienceId = id();
+  await db.insert(journeys).values([
+    {
+      id: journeyScienceId,
+      slug: "the-birth-of-modern-science",
+      title: "The Birth of Modern Science",
+      titleJa: "近代科学の夜明け",
+      description:
+        "In a Paris laboratory, a new element was isolated — one that would reshape both physics and medicine.",
+      descriptionJa: "パリの研究室で、新しい元素が単離された — それは物理学と医学の両方を変えることになる。",
+    },
+  ]);
+  await db.insert(journeySteps).values([
+    {
+      id: id(),
+      journeyId: journeyScienceId,
+      position: 0,
+      stepType: "person",
+      stepSlug: "marie-curie",
+      caption: "A physicist and chemist working in Paris, most of her career spent there.",
+      captionJa: "パリを拠点に研究を続けた物理学者・化学者。",
+    },
+    {
+      id: id(),
+      journeyId: journeyScienceId,
+      position: 1,
+      stepType: "event",
+      stepSlug: "discovery-of-radium",
+      caption: "The announcement of a new radioactive element, isolated from pitchblende.",
+      captionJa: "瀝青ウラン鉱から単離された、新しい放射性元素の発表。",
+    },
+    {
+      id: id(),
+      journeyId: journeyScienceId,
+      position: 2,
+      stepType: "year",
+      stepSlug: "1898",
+      caption: "The same year, seen from every other angle this atlas has recorded.",
+      captionJa: "同じ年を、このアトラスに記録された他のすべての視点から見る。",
+    },
+  ]);
+
   console.log("Seed complete.");
 }
 

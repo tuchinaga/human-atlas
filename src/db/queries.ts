@@ -515,6 +515,54 @@ export type JourneyStepResolved = {
  * looking the entity up in its own table, so the journey never drifts
  * out of sync with the underlying record.
  */
+export type FeaturedJourneySummary = {
+  slug: string;
+  title: string;
+  titleJa: string | null;
+  description: string | null;
+  descriptionJa: string | null;
+  image: Awaited<ReturnType<typeof getImageForEntity>>;
+};
+
+/**
+ * Picks one journey at random for the homepage teaser (spec §18 lists
+ * several journeys; the homepage rotates rather than always showing
+ * the same one). Uses the first work-type step with a cleared image
+ * as the card image, falling back to the rights-pending placeholder.
+ */
+export async function getRandomFeaturedJourney(): Promise<FeaturedJourneySummary | null> {
+  const all = await db.select().from(journeys);
+  if (all.length === 0) return null;
+  const journey = all[Math.floor(Math.random() * all.length)];
+
+  const steps = await db
+    .select()
+    .from(journeySteps)
+    .where(eq(journeySteps.journeyId, journey.id))
+    .orderBy(journeySteps.position);
+
+  let image: Awaited<ReturnType<typeof getImageForEntity>> = null;
+  for (const step of steps) {
+    if (step.stepType !== "work") continue;
+    const [work] = await db.select().from(works).where(eq(works.slug, step.stepSlug));
+    if (!work) continue;
+    const workImage = await getImageForEntity("work", work.id);
+    if (workImage) {
+      image = workImage;
+      break;
+    }
+  }
+
+  return {
+    slug: journey.slug,
+    title: journey.title,
+    titleJa: journey.titleJa,
+    description: journey.description,
+    descriptionJa: journey.descriptionJa,
+    image,
+  };
+}
+
 export async function getJourneyBySlug(slug: string) {
   const [journey] = await db.select().from(journeys).where(eq(journeys.slug, slug));
   if (!journey) return null;
