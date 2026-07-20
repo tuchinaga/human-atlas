@@ -1,7 +1,6 @@
 "use client";
 
 import { PageShell } from "@/components/PageShell";
-import { MeanwhileThread } from "@/components/MeanwhileThread";
 import { useLanguage } from "@/lib/language-provider";
 
 export function ScaffoldView({
@@ -37,8 +36,6 @@ export function ScaffoldView({
       <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-fg-soft">
         {description}
       </p>
-
-      <MeanwhileThread animated={false} className="mt-10 h-3 w-full max-w-xl opacity-60" />
 
       <div className="mt-10 max-w-xl rounded-sm border border-border bg-bg-raised p-5">
         <p className="tabular text-[11px] uppercase tracking-[0.1em] text-fg-muted">

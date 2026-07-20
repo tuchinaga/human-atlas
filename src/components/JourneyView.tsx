@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
-import { MeanwhileThread } from "@/components/MeanwhileThread";
 
 const TYPE_LABEL: Record<string, { en: string; ja: string }> = {
   year: { en: "Year", ja: "年" },
@@ -52,8 +51,6 @@ export function JourneyView({
           {(locale === "ja" && descriptionJa) || description}
         </p>
       )}
-
-      <MeanwhileThread animated={false} className="mt-10 h-3 w-full max-w-xl opacity-60" />
 
       <ol className="mt-12 max-w-xl space-y-10 border-l border-border pl-6">
         {steps.map((step, i) => (

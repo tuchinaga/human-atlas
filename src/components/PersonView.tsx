@@ -40,6 +40,7 @@ export type WorkLink = {
   title: string;
   titleJa: string | null;
   creationStartDate: string | null;
+  image: ImageAssetData | null;
 };
 
 export type MovementLink = { slug: string; name: string; nameJa: string | null };
@@ -116,6 +117,37 @@ export function PersonView({
             <p className="max-w-xl text-[14.5px] leading-relaxed text-fg-soft">{bio}</p>
           )}
 
+          {works.length > 0 && (
+            <section className="mt-12">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
+                {locale === "ja" ? "作品" : "Works"}
+              </p>
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {works.map((w) => {
+                  const workYear = yearOf(w.creationStartDate);
+                  const age = birthYear && workYear ? workYear - birthYear : null;
+                  const title = (locale === "ja" && w.titleJa) || w.title;
+                  return (
+                    <Link
+                      key={w.slug}
+                      href={linkWithTrail(`/works/${w.slug}`)}
+                      className="group block"
+                    >
+                      <EntityImage image={w.image} alt={title} aspect="aspect-square" />
+                      <p className="mt-2 text-[13px] text-fg-soft transition-colors group-hover:text-fg">
+                        {title}
+                      </p>
+                      <p className="tabular text-[11px] text-fg-muted">
+                        {workYear}
+                        {age !== null && ` · ${locale === "ja" ? "年齢" : "age"} ${age}`}
+                      </p>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           {journey.length > 0 && (
             <section className="mt-12">
               <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
@@ -182,34 +214,6 @@ export function PersonView({
                   );
                 })}
               </ol>
-            </section>
-          )}
-
-          {works.length > 0 && (
-            <section className="mt-12 max-w-xl">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-                {locale === "ja" ? "作品" : "Works"}
-              </p>
-              <ul className="mt-4 divide-y divide-border border-y border-border">
-                {works.map((w) => {
-                  const workYear = yearOf(w.creationStartDate);
-                  const age = birthYear && workYear ? workYear - birthYear : null;
-                  return (
-                    <li key={w.slug}>
-                      <Link
-                        href={linkWithTrail(`/works/${w.slug}`)}
-                        className="flex items-center justify-between py-3 text-[14px] text-fg-soft transition-colors hover:text-fg"
-                      >
-                        <span>{(locale === "ja" && w.titleJa) || w.title}</span>
-                        <span className="tabular text-[12px] text-fg-muted">
-                          {workYear}
-                          {age !== null && ` · ${locale === "ja" ? "年齢" : "age"} ${age}`}
-                        </span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
             </section>
           )}
         </div>

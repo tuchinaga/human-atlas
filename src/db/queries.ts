@@ -172,8 +172,9 @@ export async function getPersonBySlug(slug: string) {
     .where(eq(locationPeriods.personId, person.id))
     .orderBy(locationPeriods.startDate);
 
-  const createdWorks = await db
+  const createdWorksRaw = await db
     .select({
+      id: works.id,
       slug: works.slug,
       title: works.title,
       titleJa: works.titleJa,
@@ -182,6 +183,13 @@ export async function getPersonBySlug(slug: string) {
     .from(workCreators)
     .innerJoin(works, eq(works.id, workCreators.workId))
     .where(eq(workCreators.personId, person.id));
+
+  const createdWorks = await Promise.all(
+    createdWorksRaw.map(async (w) => ({
+      ...w,
+      image: await getImageForEntity("work", w.id),
+    })),
+  );
 
   const memberMovements = await db
     .select({ slug: movements.slug, name: movements.name, nameJa: movements.nameJa })
