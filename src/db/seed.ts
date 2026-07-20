@@ -65,6 +65,11 @@ async function main() {
     budapest: id(),
     kyoto: id(),
     edo: id(),
+    kristiania: id(),
+    chicago: id(),
+    aixEnProvence: id(),
+    newYork: id(),
+    berlin: id(),
   };
 
   await db.insert(places).values([
@@ -79,6 +84,11 @@ async function main() {
     { id: place.budapest, slug: "budapest", name: "Budapest", nameJa: "ブダペスト", placeType: "city", country: "Hungary", latitude: 47.5, longitude: 19.04 },
     { id: place.kyoto, slug: "kyoto", name: "Kyoto", nameJa: "京都", placeType: "city", country: "Japan", latitude: 35.01, longitude: 135.77 },
     { id: place.edo, slug: "edo", name: "Edo", nameJa: "江戸", historicalNamesJson: JSON.stringify(["Edo"]), placeType: "city", country: "Japan", latitude: 35.68, longitude: 139.65 },
+    { id: place.kristiania, slug: "kristiania", name: "Kristiania", nameJa: "クリスチャニア", historicalNamesJson: JSON.stringify(["Oslo"]), placeType: "city", country: "Norway", latitude: 59.91, longitude: 10.75 },
+    { id: place.chicago, slug: "chicago", name: "Chicago", nameJa: "シカゴ", placeType: "city", country: "United States", latitude: 41.88, longitude: -87.63 },
+    { id: place.aixEnProvence, slug: "aix-en-provence", name: "Aix-en-Provence", nameJa: "エクス=アン=プロヴァンス", placeType: "town", country: "France", latitude: 43.53, longitude: 5.45 },
+    { id: place.newYork, slug: "new-york", name: "New York", nameJa: "ニューヨーク", placeType: "city", country: "United States", latitude: 40.71, longitude: -74.01 },
+    { id: place.berlin, slug: "berlin", name: "Berlin", nameJa: "ベルリン", placeType: "city", country: "Germany", latitude: 52.52, longitude: 13.40 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -93,6 +103,12 @@ async function main() {
     yamauchi: id(),
     hokusai: id(),
     curie: id(),
+    munch: id(),
+    tesla: id(),
+    rodin: id(),
+    cezanne: id(),
+    zola: id(),
+    debussy: id(),
   };
 
   await db.insert(people).values([
@@ -232,6 +248,84 @@ async function main() {
       biographyJa:
         "放射性物質の研究で先駆的な業績を残した物理学者・化学者。研究生活の大半をパリで送った。",
     },
+    {
+      id: person.munch,
+      slug: "edvard-munch",
+      name: "Edvard Munch",
+      nameJa: "エドヴァルド・ムンク",
+      birthDate: "1863-12-12",
+      deathDate: "1944-01-23",
+      birthPlaceId: place.kristiania,
+      occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
+      nationalitiesJson: JSON.stringify(["Norwegian"]),
+      biography:
+        "Norwegian painter whose emotionally raw work anticipated Expressionism; spent long periods in Paris and Berlin.",
+      biographyJa:
+        "感情を生々しく描く作風で表現主義を先取りしたノルウェーの画家。パリやベルリンで長く過ごした。",
+    },
+    {
+      id: person.tesla,
+      slug: "nikola-tesla",
+      name: "Nikola Tesla",
+      nameJa: "ニコラ・テスラ",
+      birthDate: "1856-07-10",
+      deathDate: "1943-01-07",
+      occupationsJson: JSON.stringify(["engineer", "inventor"]),
+      occupationsJsonJa: JSON.stringify(["技術者", "発明家"]),
+      nationalitiesJson: JSON.stringify(["Serbian", "American"]),
+      biography:
+        "Engineer and inventor whose work on alternating current systems shaped the era's electrical infrastructure.",
+      biographyJa:
+        "交流電力システムの研究で、この時代の電力インフラの基礎を築いた技術者・発明家。",
+    },
+    {
+      id: person.rodin,
+      slug: "auguste-rodin",
+      name: "Auguste Rodin",
+      nameJa: "オーギュスト・ロダン",
+      birthDate: "1840-11-12",
+      deathDate: "1917-11-17",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["sculptor"]),
+      occupationsJsonJa: JSON.stringify(["彫刻家"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+    },
+    {
+      id: person.cezanne,
+      slug: "paul-cezanne",
+      name: "Paul Cézanne",
+      nameJa: "ポール・セザンヌ",
+      birthDate: "1839-01-19",
+      deathDate: "1906-10-22",
+      occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+    },
+    {
+      id: person.zola,
+      slug: "emile-zola",
+      name: "Émile Zola",
+      nameJa: "エミール・ゾラ",
+      birthDate: "1840-04-02",
+      deathDate: "1902-09-29",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+    },
+    {
+      id: person.debussy,
+      slug: "claude-debussy",
+      name: "Claude Debussy",
+      nameJa: "クロード・ドビュッシー",
+      birthDate: "1862-08-22",
+      deathDate: "1918-03-25",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -305,6 +399,56 @@ async function main() {
     })),
   );
 
+  // ---- Munch's geographic journey ------------------------------------
+  const munchJourneyStops: {
+    placeId: string;
+    startDate: string;
+    endDate: string;
+    reason: string;
+    reasonJa: string;
+  }[] = [
+    {
+      placeId: place.kristiania,
+      startDate: "1863-12-12",
+      endDate: "1889-01-01",
+      reason: "Born and raised here; began painting in the city's bohemian circles.",
+      reasonJa: "生まれ育った地。この街のボヘミアン的な芸術家仲間の中で絵を描き始めた。",
+    },
+    {
+      placeId: place.paris,
+      startDate: "1889-01-01",
+      endDate: "1892-01-01",
+      reason: "Studied and exhibited, absorbing Post-Impressionist and Symbolist influences.",
+      reasonJa: "研究と出品を重ね、後期印象派や象徴主義の影響を吸収した。",
+    },
+    {
+      placeId: place.berlin,
+      startDate: "1892-01-01",
+      endDate: "1897-01-01",
+      reason: "A controversial exhibition here made him a central figure in the city's avant-garde.",
+      reasonJa: "この地での物議を醸した展覧会をきっかけに、前衛芸術の中心人物のひとりとなった。",
+    },
+    {
+      placeId: place.kristiania,
+      startDate: "1897-01-01",
+      endDate: "1944-01-23",
+      reason: "Returned home, continuing to work for the rest of his life.",
+      reasonJa: "故郷に戻り、生涯にわたって制作を続けた。",
+    },
+  ];
+  await db.insert(locationPeriods).values(
+    munchJourneyStops.map((stop) => ({
+      id: id(),
+      personId: person.munch,
+      placeId: stop.placeId,
+      startDate: stop.startDate,
+      endDate: stop.endDate,
+      reason: stop.reason,
+      reasonJa: stop.reasonJa,
+      confidence: "probable" as const,
+    })),
+  );
+
   // ---- Works ------------------------------------------------------------
   const work = {
     starryNight: id(),
@@ -313,6 +457,11 @@ async function main() {
     greatWave: id(),
     lesDemoiselles: id(),
     iAmACat: id(),
+    theScream: id(),
+    theThinker: id(),
+    montSainteVictoire: id(),
+    germinal: id(),
+    clairDeLune: id(),
   };
 
   await db.insert(works).values([
@@ -432,6 +581,100 @@ async function main() {
       descriptionJa: "名もなき猫の視点から、明治期のある教師の家庭を風刺的に描いた小説。",
       confidence: "verified",
     },
+    {
+      id: work.theScream,
+      slug: "the-scream",
+      title: "The Scream",
+      titleJa: "叫び",
+      workType: "painting",
+      workTypeJa: "絵画",
+      category: "art",
+      creationStartDate: "1893-01-01",
+      displayDate: "1893",
+      datePrecision: "approximate",
+      creationPlaceId: place.kristiania,
+      medium: "Oil, tempera and pastel on cardboard",
+      mediumJa: "油彩・テンペラ・パステル、厚紙",
+      currentInstitution: "National Museum of Norway, Oslo",
+      description:
+        "Painted after what Munch described as a moment of overwhelming anxiety on a walk at sunset.",
+      descriptionJa: "日没時の散歩中に感じた強い不安の瞬間をもとに描かれたとムンク自身が語っている。",
+      confidence: "verified",
+    },
+    {
+      id: work.theThinker,
+      slug: "the-thinker",
+      title: "The Thinker",
+      titleJa: "考える人",
+      workType: "sculpture",
+      workTypeJa: "彫刻",
+      category: "art",
+      creationStartDate: "1904-01-01",
+      displayDate: "1904 (enlarged bronze cast)",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      medium: "Bronze",
+      mediumJa: "ブロンズ",
+      currentInstitution: "Musée Rodin, Paris",
+      description:
+        "Originally conceived as part of a larger door commission, later cast independently as its own work.",
+      descriptionJa: "もともとは大型の扉の装飾の一部として構想され、のちに独立した作品として鋳造された。",
+      confidence: "verified",
+    },
+    {
+      id: work.montSainteVictoire,
+      slug: "mont-sainte-victoire",
+      title: "Mont Sainte-Victoire",
+      titleJa: "サント=ヴィクトワール山",
+      workType: "painting",
+      workTypeJa: "絵画",
+      category: "art",
+      creationStartDate: "1904-01-01",
+      displayDate: "1904",
+      datePrecision: "approximate",
+      creationPlaceId: place.aixEnProvence,
+      medium: "Oil on canvas",
+      mediumJa: "油彩、カンヴァス",
+      description:
+        "One of dozens of views Cézanne painted of the same mountain near his home in southern France.",
+      descriptionJa: "南フランスの自宅近くにあるこの山を、セザンヌは生涯に何十枚と描いた。",
+      confidence: "approximate",
+    },
+    {
+      id: work.germinal,
+      slug: "germinal",
+      title: "Germinal",
+      titleJa: "ジェルミナール",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1885-01-01",
+      displayDate: "1885",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      description:
+        "A novel about a miners' strike in northern France, part of Zola's twenty-volume Rougon-Macquart cycle.",
+      descriptionJa: "フランス北部の炭鉱ストライキを描いた小説。ゾラの大長編『ルーゴン=マッカール叢書』の一冊。",
+      confidence: "verified",
+    },
+    {
+      id: work.clairDeLune,
+      slug: "clair-de-lune",
+      title: "Clair de Lune",
+      titleJa: "月の光",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1890-01-01",
+      creationEndDate: "1905-01-01",
+      displayDate: "composed 1890, published 1905",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      description:
+        "The best-known movement of the Suite bergamasque, composed years before its eventual publication.",
+      descriptionJa: "組曲『ベルガマスク』の中で最もよく知られる曲。作曲から出版まで長い年月を経た。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -441,6 +684,11 @@ async function main() {
     { workId: work.greatWave, personId: person.hokusai },
     { workId: work.lesDemoiselles, personId: person.picasso },
     { workId: work.iAmACat, personId: person.soseki },
+    { workId: work.theScream, personId: person.munch },
+    { workId: work.theThinker, personId: person.rodin },
+    { workId: work.montSainteVictoire, personId: person.cezanne },
+    { workId: work.germinal, personId: person.zola },
+    { workId: work.clairDeLune, personId: person.debussy },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -450,6 +698,7 @@ async function main() {
     nintendoFounded: id(),
     meijiRestoration: id(),
     radiumDiscovery: id(),
+    columbianExposition: id(),
   };
 
   await db.insert(events).values([
@@ -521,6 +770,21 @@ async function main() {
       significanceScore: 80,
       confidence: "verified",
     },
+    {
+      id: event.columbianExposition,
+      slug: "worlds-columbian-exposition-1893",
+      title: "World's Columbian Exposition",
+      titleJa: "シカゴ万国博覧会",
+      category: "technology",
+      startDate: "1893-05-01",
+      endDate: "1893-10-30",
+      displayDate: "May–October 1893",
+      description:
+        "A world's fair whose grounds were lit by alternating current, a large-scale public demonstration of the technology.",
+      descriptionJa: "会場全体が交流電力によって照明され、その技術を大規模に一般公開する場となった。",
+      significanceScore: 75,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -529,10 +793,12 @@ async function main() {
     { eventId: event.nintendoFounded, placeId: place.kyoto },
     { eventId: event.meijiRestoration, placeId: place.tokyo },
     { eventId: event.radiumDiscovery, placeId: place.paris },
+    { eventId: event.columbianExposition, placeId: place.chicago },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
     { eventId: event.radiumDiscovery, personId: person.curie },
+    { eventId: event.columbianExposition, personId: person.tesla },
   ]);
   await db.insert(eventRelatedWorks).values([
     { eventId: event.expositionUniverselle, workId: work.eiffelTower },
@@ -543,6 +809,7 @@ async function main() {
     impressionism: id(),
     ukiyoE: id(),
     cubism: id(),
+    postImpressionism: id(),
   };
 
   await db.insert(movements).values([
@@ -580,6 +847,17 @@ async function main() {
         "An early-20th-century movement that broke subjects into geometric fragments viewed from multiple angles at once.",
       descriptionJa: "20世紀初頭の芸術運動。対象を幾何学的な断片に分解し、複数の視点から同時に描いた。",
     },
+    {
+      id: movement.postImpressionism,
+      slug: "post-impressionism",
+      name: "Post-Impressionism",
+      nameJa: "後期印象派",
+      startDate: "1886-01-01",
+      endDate: "1905-01-01",
+      description:
+        "A loose successor to Impressionism that pushed toward more structured form and symbolic color rather than pure optical effect.",
+      descriptionJa: "印象派の後を継ぎつつ、純粋な視覚効果よりも形の構造や象徴的な色彩を重視した緩やかな潮流。",
+    },
   ]);
 
   await db.insert(movementPeople).values([
@@ -587,10 +865,14 @@ async function main() {
     { movementId: movement.impressionism, personId: person.renoir },
     { movementId: movement.ukiyoE, personId: person.hokusai },
     { movementId: movement.cubism, personId: person.picasso },
+    { movementId: movement.postImpressionism, personId: person.vanGogh },
+    { movementId: movement.postImpressionism, personId: person.cezanne },
   ]);
   await db.insert(movementWorks).values([
     { movementId: movement.ukiyoE, workId: work.greatWave },
     { movementId: movement.cubism, workId: work.lesDemoiselles },
+    { movementId: movement.postImpressionism, workId: work.starryNight },
+    { movementId: movement.postImpressionism, workId: work.montSainteVictoire },
   ]);
 
   // ---- Relationships: documented cross-cultural influences ------------
@@ -674,6 +956,37 @@ async function main() {
       creator: "Unknown",
       rightsStatement: "Public Domain Mark",
       license: "PDM",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.theScream,
+      imageUrl: commonsFilePath("The_Scream.jpg"),
+      sourceName: "Wikimedia Commons",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:The_Scream.jpg",
+      creator: "Edvard Munch",
+      rightsStatement: "Public domain — author died more than 70 years ago",
+      license: "PD-old-70-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.theThinker,
+      imageUrl: commonsFilePath("Auguste_Rodin,_The_Thinker_(Le_Penseur),_model_1880,_cast_1901,_NGA_1005.jpg"),
+      sourceName: "Wikimedia Commons (National Gallery of Art)",
+      sourceRecordUrl:
+        "https://commons.wikimedia.org/wiki/File:Auguste_Rodin,_The_Thinker_(Le_Penseur),_model_1880,_cast_1901,_NGA_1005.jpg",
+      creator: "Auguste Rodin",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
       publicDomain: true,
       commercialUseAllowed: true,
       derivativesAllowed: true,

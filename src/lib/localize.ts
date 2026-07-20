@@ -9,6 +9,9 @@ const COUNTRY_JA: Record<string, string> = {
   Netherlands: "オランダ",
   "United Kingdom": "イギリス",
   Hungary: "ハンガリー",
+  Norway: "ノルウェー",
+  "United States": "アメリカ合衆国",
+  Germany: "ドイツ",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {
