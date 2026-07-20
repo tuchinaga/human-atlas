@@ -73,6 +73,8 @@ async function main() {
     philadelphia: id(),
     beijing: id(),
     sanFrancisco: id(),
+    boston: id(),
+    portsmouth: id(),
   };
 
   await db.insert(places).values([
@@ -95,6 +97,8 @@ async function main() {
     { id: place.philadelphia, slug: "philadelphia", name: "Philadelphia", nameJa: "フィラデルフィア", placeType: "city", country: "United States", latitude: 39.95, longitude: -75.17 },
     { id: place.beijing, slug: "beijing", name: "Beijing", nameJa: "北京", placeType: "city", country: "China", latitude: 39.90, longitude: 116.41 },
     { id: place.sanFrancisco, slug: "san-francisco", name: "San Francisco", nameJa: "サンフランシスコ", placeType: "city", country: "United States", latitude: 37.77, longitude: -122.42 },
+    { id: place.boston, slug: "boston", name: "Boston", nameJa: "ボストン", placeType: "city", country: "United States", latitude: 42.36, longitude: -71.06 },
+    { id: place.portsmouth, slug: "portsmouth-nh", name: "Portsmouth", nameJa: "ポーツマス", placeType: "city", country: "United States", latitude: 43.07, longitude: -70.76 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -117,6 +121,10 @@ async function main() {
     debussy: id(),
     einstein: id(),
     sunYatSen: id(),
+    itoHirobumi: id(),
+    moriOgai: id(),
+    higuchiIchiyo: id(),
+    okakuraTenshin: id(),
   };
 
   await db.insert(people).values([
@@ -363,6 +371,65 @@ async function main() {
         "Revolutionary and statesman regarded as a founding father of the Republic of China after the fall of the Qing dynasty.",
       biographyJa: "清朝滅亡後の中華民国建国の父とされる革命家・政治家。",
     },
+    {
+      id: person.itoHirobumi,
+      slug: "ito-hirobumi",
+      name: "Itō Hirobumi",
+      nameJa: "伊藤博文",
+      birthDate: "1841-10-16",
+      deathDate: "1909-10-26",
+      birthPlaceId: place.edo,
+      occupationsJson: JSON.stringify(["statesman"]),
+      occupationsJsonJa: JSON.stringify(["政治家"]),
+      nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Statesman who led the drafting of the Meiji Constitution and served as Japan's first prime minister.",
+      biographyJa: "大日本帝国憲法の起草を主導し、初代内閣総理大臣も務めた政治家。",
+    },
+    {
+      id: person.moriOgai,
+      slug: "mori-ogai",
+      name: "Mori Ōgai",
+      nameJa: "森鷗外",
+      birthDate: "1862-02-17",
+      deathDate: "1922-07-09",
+      occupationsJson: JSON.stringify(["novelist", "physician"]),
+      occupationsJsonJa: JSON.stringify(["小説家", "軍医"]),
+      nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Novelist and army surgeon, a contemporary of Sōseki, who studied in Germany before returning to Japan.",
+      biographyJa: "夏目漱石と同時代の小説家・軍医。ドイツ留学ののち帰国した。",
+    },
+    {
+      id: person.higuchiIchiyo,
+      slug: "higuchi-ichiyo",
+      name: "Higuchi Ichiyō",
+      nameJa: "樋口一葉",
+      birthDate: "1872-05-02",
+      deathDate: "1896-11-23",
+      birthPlaceId: place.tokyo,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Novelist whose short career produced some of the most acclaimed fiction of the Meiji era before her early death.",
+      biographyJa: "短い活動期間の中で、明治期を代表する評価を得た小説を残した作家。若くして世を去った。",
+    },
+    {
+      id: person.okakuraTenshin,
+      slug: "okakura-tenshin",
+      name: "Okakura Tenshin",
+      nameJa: "岡倉天心",
+      birthDate: "1863-02-14",
+      deathDate: "1913-09-02",
+      birthPlaceId: place.edo,
+      occupationsJson: JSON.stringify(["art critic", "curator"]),
+      occupationsJsonJa: JSON.stringify(["美術評論家", "学芸員"]),
+      nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Art critic and curator who promoted Japanese art internationally while working with the Museum of Fine Arts, Boston.",
+      biographyJa: "ボストン美術館とも関わりながら、日本美術を海外に広く紹介した美術評論家・学芸員。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -499,6 +566,9 @@ async function main() {
     montSainteVictoire: id(),
     germinal: id(),
     clairDeLune: id(),
+    takekurabe: id(),
+    theDancingGirl: id(),
+    theBookOfTea: id(),
   };
 
   await db.insert(works).values([
@@ -712,6 +782,58 @@ async function main() {
       descriptionJa: "組曲『ベルガマスク』の中で最もよく知られる曲。作曲から出版まで長い年月を経た。",
       confidence: "verified",
     },
+    {
+      id: work.takekurabe,
+      slug: "takekurabe",
+      title: "Child's Play",
+      titleJa: "たけくらべ",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1895-01-01",
+      creationEndDate: "1896-01-01",
+      displayDate: "1895–1896",
+      datePrecision: "approximate",
+      creationPlaceId: place.tokyo,
+      description:
+        "A novella following children on the cusp of adolescence in a Tokyo pleasure quarter, published serially.",
+      descriptionJa: "東京の遊郭近くで暮らす、思春期を迎えつつある子どもたちを描いた連載小説。",
+      confidence: "verified",
+    },
+    {
+      id: work.theDancingGirl,
+      slug: "the-dancing-girl",
+      title: "The Dancing Girl",
+      titleJa: "舞姫",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1890-01-01",
+      displayDate: "1890",
+      datePrecision: "approximate",
+      creationPlaceId: place.tokyo,
+      description:
+        "A short story drawing on the author's own years studying in Germany, narrated by a Japanese student in Berlin.",
+      descriptionJa: "著者自身のドイツ留学経験をもとにした短編小説で、ベルリンに留学中の日本人学生を語り手とする。",
+      confidence: "verified",
+    },
+    {
+      id: work.theBookOfTea,
+      slug: "the-book-of-tea",
+      title: "The Book of Tea",
+      titleJa: "茶の本",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1906-01-01",
+      displayDate: "1906",
+      datePrecision: "approximate",
+      creationPlaceId: place.boston,
+      description:
+        "An English-language essay introducing Japanese tea culture and aesthetics to a Western audience.",
+      descriptionJa: "日本の茶文化と美意識を、英語で西洋の読者に向けて紹介したエッセイ。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -726,6 +848,9 @@ async function main() {
     { workId: work.montSainteVictoire, personId: person.cezanne },
     { workId: work.germinal, personId: person.zola },
     { workId: work.clairDeLune, personId: person.debussy },
+    { workId: work.takekurabe, personId: person.higuchiIchiyo },
+    { workId: work.theDancingGirl, personId: person.moriOgai },
+    { workId: work.theBookOfTea, personId: person.okakuraTenshin },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -741,6 +866,7 @@ async function main() {
     xinhaiRevolution: id(),
     generalRelativity: id(),
     unitedNationsFounded: id(),
+    russoJapaneseWar: id(),
   };
 
   await db.insert(events).values([
@@ -897,6 +1023,20 @@ async function main() {
       significanceScore: 85,
       confidence: "verified",
     },
+    {
+      id: event.russoJapaneseWar,
+      slug: "treaty-of-portsmouth",
+      title: "Treaty of Portsmouth ends the Russo-Japanese War",
+      titleJa: "ポーツマス条約(日露戦争終結)",
+      category: "history",
+      startDate: "1905-09-05",
+      displayDate: "September 1905",
+      description:
+        "Ended a war in which Japan defeated a major European power, reshaping perceptions of Japan on the world stage.",
+      descriptionJa: "日本がヨーロッパの大国を破って終結した戦争で、国際社会における日本の位置づけを大きく変えた。",
+      significanceScore: 85,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -911,6 +1051,7 @@ async function main() {
     { eventId: event.xinhaiRevolution, placeId: place.beijing },
     { eventId: event.generalRelativity, placeId: place.berlin },
     { eventId: event.unitedNationsFounded, placeId: place.sanFrancisco },
+    { eventId: event.russoJapaneseWar, placeId: place.portsmouth },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -918,6 +1059,7 @@ async function main() {
     { eventId: event.columbianExposition, personId: person.tesla },
     { eventId: event.xinhaiRevolution, personId: person.sunYatSen },
     { eventId: event.generalRelativity, personId: person.einstein },
+    { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
   await db.insert(eventRelatedWorks).values([
     { eventId: event.expositionUniverselle, workId: work.eiffelTower },
