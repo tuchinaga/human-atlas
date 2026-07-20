@@ -70,6 +70,9 @@ async function main() {
     aixEnProvence: id(),
     newYork: id(),
     berlin: id(),
+    philadelphia: id(),
+    beijing: id(),
+    sanFrancisco: id(),
   };
 
   await db.insert(places).values([
@@ -89,6 +92,9 @@ async function main() {
     { id: place.aixEnProvence, slug: "aix-en-provence", name: "Aix-en-Provence", nameJa: "エクス=アン=プロヴァンス", placeType: "town", country: "France", latitude: 43.53, longitude: 5.45 },
     { id: place.newYork, slug: "new-york", name: "New York", nameJa: "ニューヨーク", placeType: "city", country: "United States", latitude: 40.71, longitude: -74.01 },
     { id: place.berlin, slug: "berlin", name: "Berlin", nameJa: "ベルリン", placeType: "city", country: "Germany", latitude: 52.52, longitude: 13.40 },
+    { id: place.philadelphia, slug: "philadelphia", name: "Philadelphia", nameJa: "フィラデルフィア", placeType: "city", country: "United States", latitude: 39.95, longitude: -75.17 },
+    { id: place.beijing, slug: "beijing", name: "Beijing", nameJa: "北京", placeType: "city", country: "China", latitude: 39.90, longitude: 116.41 },
+    { id: place.sanFrancisco, slug: "san-francisco", name: "San Francisco", nameJa: "サンフランシスコ", placeType: "city", country: "United States", latitude: 37.77, longitude: -122.42 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -109,6 +115,8 @@ async function main() {
     cezanne: id(),
     zola: id(),
     debussy: id(),
+    einstein: id(),
+    sunYatSen: id(),
   };
 
   await db.insert(people).values([
@@ -325,6 +333,35 @@ async function main() {
       occupationsJson: JSON.stringify(["composer"]),
       occupationsJsonJa: JSON.stringify(["作曲家"]),
       nationalitiesJson: JSON.stringify(["French"]),
+    },
+    {
+      id: person.einstein,
+      slug: "albert-einstein",
+      name: "Albert Einstein",
+      nameJa: "アルベルト・アインシュタイン",
+      birthDate: "1879-03-14",
+      deathDate: "1955-04-18",
+      occupationsJson: JSON.stringify(["physicist"]),
+      occupationsJsonJa: JSON.stringify(["物理学者"]),
+      nationalitiesJson: JSON.stringify(["German", "Swiss"]),
+      biography:
+        "Physicist whose work on relativity, developed while based in Berlin, reshaped modern physics.",
+      biographyJa:
+        "ベルリンを拠点に相対性理論を発展させ、近代物理学のあり方を変えた物理学者。",
+    },
+    {
+      id: person.sunYatSen,
+      slug: "sun-yat-sen",
+      name: "Sun Yat-sen",
+      nameJa: "孫文",
+      birthDate: "1866-11-12",
+      deathDate: "1925-03-12",
+      occupationsJson: JSON.stringify(["revolutionary", "statesman"]),
+      occupationsJsonJa: JSON.stringify(["革命家", "政治家"]),
+      nationalitiesJson: JSON.stringify(["Chinese"]),
+      biography:
+        "Revolutionary and statesman regarded as a founding father of the Republic of China after the fall of the Qing dynasty.",
+      biographyJa: "清朝滅亡後の中華民国建国の父とされる革命家・政治家。",
     },
   ]);
 
@@ -699,6 +736,11 @@ async function main() {
     meijiRestoration: id(),
     radiumDiscovery: id(),
     columbianExposition: id(),
+    declarationOfIndependence: id(),
+    stormingOfTheBastille: id(),
+    xinhaiRevolution: id(),
+    generalRelativity: id(),
+    unitedNationsFounded: id(),
   };
 
   await db.insert(events).values([
@@ -785,6 +827,76 @@ async function main() {
       significanceScore: 75,
       confidence: "verified",
     },
+    {
+      id: event.declarationOfIndependence,
+      slug: "us-declaration-of-independence",
+      title: "Declaration of Independence",
+      titleJa: "アメリカ独立宣言",
+      category: "society",
+      startDate: "1776-07-04",
+      displayDate: "July 4, 1776",
+      description:
+        "Thirteen American colonies formally declared independence from Great Britain.",
+      descriptionJa: "13の植民地がイギリスからの独立を正式に宣言した。",
+      significanceScore: 90,
+      confidence: "verified",
+    },
+    {
+      id: event.stormingOfTheBastille,
+      slug: "storming-of-the-bastille",
+      title: "Storming of the Bastille",
+      titleJa: "バスティーユ襲撃",
+      category: "history",
+      startDate: "1789-07-14",
+      displayDate: "July 14, 1789",
+      description:
+        "A Paris uprising that became the symbolic beginning of the French Revolution.",
+      descriptionJa: "パリでの蜂起で、フランス革命の象徴的な始まりとされる。",
+      significanceScore: 90,
+      confidence: "verified",
+    },
+    {
+      id: event.xinhaiRevolution,
+      slug: "xinhai-revolution",
+      title: "Xinhai Revolution",
+      titleJa: "辛亥革命",
+      category: "society",
+      startDate: "1911-10-10",
+      endDate: "1912-02-12",
+      displayDate: "1911–1912",
+      description:
+        "A revolution that ended over two thousand years of imperial rule in China and led to the founding of the Republic of China.",
+      descriptionJa: "二千年以上続いた中国の帝政に終止符を打ち、中華民国建国につながった革命。",
+      significanceScore: 90,
+      confidence: "verified",
+    },
+    {
+      id: event.generalRelativity,
+      slug: "publication-of-general-relativity",
+      title: "Publication of general relativity",
+      titleJa: "一般相対性理論の発表",
+      category: "science",
+      startDate: "1915-11-25",
+      displayDate: "November 1915",
+      description:
+        "Einstein presented the field equations of general relativity to the Prussian Academy of Sciences in Berlin.",
+      descriptionJa: "アインシュタインがベルリンのプロイセン科学アカデミーで一般相対性理論の場の方程式を発表した。",
+      significanceScore: 85,
+      confidence: "verified",
+    },
+    {
+      id: event.unitedNationsFounded,
+      slug: "united-nations-founded",
+      title: "Founding of the United Nations",
+      titleJa: "国際連合の設立",
+      category: "society",
+      startDate: "1945-06-26",
+      displayDate: "June 1945",
+      description: "Fifty nations signed the UN Charter in San Francisco after the end of the Second World War.",
+      descriptionJa: "第二次世界大戦終結後、サンフランシスコで50カ国が国連憲章に署名した。",
+      significanceScore: 85,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -794,11 +906,18 @@ async function main() {
     { eventId: event.meijiRestoration, placeId: place.tokyo },
     { eventId: event.radiumDiscovery, placeId: place.paris },
     { eventId: event.columbianExposition, placeId: place.chicago },
+    { eventId: event.declarationOfIndependence, placeId: place.philadelphia },
+    { eventId: event.stormingOfTheBastille, placeId: place.paris },
+    { eventId: event.xinhaiRevolution, placeId: place.beijing },
+    { eventId: event.generalRelativity, placeId: place.berlin },
+    { eventId: event.unitedNationsFounded, placeId: place.sanFrancisco },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
     { eventId: event.radiumDiscovery, personId: person.curie },
     { eventId: event.columbianExposition, personId: person.tesla },
+    { eventId: event.xinhaiRevolution, personId: person.sunYatSen },
+    { eventId: event.generalRelativity, personId: person.einstein },
   ]);
   await db.insert(eventRelatedWorks).values([
     { eventId: event.expositionUniverselle, workId: work.eiffelTower },

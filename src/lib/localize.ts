@@ -12,6 +12,7 @@ const COUNTRY_JA: Record<string, string> = {
   Norway: "ノルウェー",
   "United States": "アメリカ合衆国",
   Germany: "ドイツ",
+  China: "中国",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {
