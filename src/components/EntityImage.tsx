@@ -72,7 +72,7 @@ export function EntityImage({
       <div
         role="img"
         aria-label={alt}
-        className="h-full w-full"
+        className="absolute inset-0"
         style={{
           backgroundImage: `url(${image.imageUrl})`,
           backgroundSize: "contain",

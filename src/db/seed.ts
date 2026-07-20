@@ -1225,7 +1225,7 @@ async function main() {
   // jurisdictions; its page renders the neutral rights-pending placeholder
   // instead, which is the system working as intended, not a gap.
   const commonsFilePath = (filename: string, width = 1200) =>
-    `https://commons.wikimedia.org/wiki/Special:FilePath/${filename}?width=${width}`;
+    `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=${width}`;
 
   await db.insert(imageAssets).values([
     {
@@ -1264,7 +1264,7 @@ async function main() {
       entityType: "work",
       entityId: work.eiffelTower,
       imageUrl: commonsFilePath(
-        "Eiffel_Tower,_looking_toward_Trocad%C3%A9ro_Palace,_Paris_Exposition,_1889_LCCN92519630.jpg",
+        "Eiffel_Tower,_looking_toward_Trocadéro_Palace,_Paris_Exposition,_1889_LCCN92519630.jpg",
       ),
       sourceName: "Wikimedia Commons (Library of Congress)",
       sourceRecordUrl:

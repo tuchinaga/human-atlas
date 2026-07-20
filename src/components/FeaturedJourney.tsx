@@ -29,7 +29,7 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
             <div
               role="img"
               aria-label={title}
-              className="h-full w-full"
+              className="absolute inset-0"
               style={{
                 backgroundImage: `url(${journey.image.imageUrl})`,
                 backgroundSize: "contain",
