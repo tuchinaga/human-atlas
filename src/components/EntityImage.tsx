@@ -69,16 +69,19 @@ export function EntityImage({
     </div>
   ) : (
     <div className={`relative ${aspect} overflow-hidden rounded-sm border border-border bg-bg-raised`}>
-      <div
-        role="img"
-        aria-label={alt}
-        className="absolute inset-0"
+      {/* eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source; not part of the Next.js image pipeline */}
+      <img
+        src={image.imageUrl}
+        alt={alt}
         style={{
-          backgroundImage: `url(${image.imageUrl})`,
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
         }}
+        loading="lazy"
       />
     </div>
   );

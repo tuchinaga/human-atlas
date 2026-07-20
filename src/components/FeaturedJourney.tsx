@@ -26,16 +26,19 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
       >
         <div className="relative h-[260px] overflow-hidden bg-bg-raised sm:h-[360px]">
           {journey.image ? (
-            <div
-              role="img"
-              aria-label={title}
-              className="absolute inset-0"
+            // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
+            <img
+              src={journey.image.imageUrl}
+              alt={title}
               style={{
-                backgroundImage: `url(${journey.image.imageUrl})`,
-                backgroundSize: "contain",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                objectPosition: "center",
               }}
+              loading="lazy"
             />
           ) : (
             <RightsPendingPlaceholder />
