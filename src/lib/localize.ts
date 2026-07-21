@@ -19,6 +19,8 @@ const COUNTRY_JA: Record<string, string> = {
   Sweden: "スウェーデン",
   Italy: "イタリア",
   Venezuela: "ベネズエラ",
+  Mexico: "メキシコ",
+  Ireland: "アイルランド",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {

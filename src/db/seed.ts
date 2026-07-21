@@ -82,6 +82,8 @@ async function main() {
     stockholm: id(),
     milan: id(),
     angostura: id(),
+    mexicoCity: id(),
+    dublin: id(),
   };
 
   await db.insert(places).values([
@@ -113,6 +115,8 @@ async function main() {
     { id: place.stockholm, slug: "stockholm", name: "Stockholm", nameJa: "ストックホルム", placeType: "city", country: "Sweden", latitude: 59.33, longitude: 18.07 },
     { id: place.milan, slug: "milan", name: "Milan", nameJa: "ミラノ", placeType: "city", country: "Italy", latitude: 45.46, longitude: 9.19 },
     { id: place.angostura, slug: "angostura", name: "Angostura", nameJa: "アンゴストゥーラ", historicalNamesJson: JSON.stringify(["Ciudad Bolívar"]), placeType: "town", country: "Venezuela", latitude: 8.13, longitude: -63.55 },
+    { id: place.mexicoCity, slug: "mexico-city", name: "Mexico City", nameJa: "メキシコシティ", placeType: "city", country: "Mexico", latitude: 19.43, longitude: -99.13 },
+    { id: place.dublin, slug: "dublin", name: "Dublin", nameJa: "ダブリン", placeType: "city", country: "Ireland", latitude: 53.35, longitude: -6.26 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -152,6 +156,11 @@ async function main() {
     nobel: id(),
     verdi: id(),
     bolivar: id(),
+    kahlo: id(),
+    woolf: id(),
+    joyce: id(),
+    stravinsky: id(),
+    mozart: id(),
   };
 
   await db.insert(people).values([
@@ -643,6 +652,80 @@ async function main() {
         "Revolutionary leader who led much of South America to independence from Spanish rule.",
       biographyJa: "南米の広い地域をスペインの支配から独立に導いた革命指導者。",
     },
+    {
+      id: person.kahlo,
+      slug: "frida-kahlo",
+      name: "Frida Kahlo",
+      nameJa: "フリーダ・カーロ",
+      birthDate: "1907-07-06",
+      deathDate: "1954-07-13",
+      birthPlaceId: place.mexicoCity,
+      occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
+      nationalitiesJson: JSON.stringify(["Mexican"]),
+      biography:
+        "Painter known above all for her self-portraits, many painted while recovering from a serious injury sustained in her youth.",
+      biographyJa: "とりわけ自画像で知られる画家。若い頃の重傷からの療養中に描いた作品も多い。",
+    },
+    {
+      id: person.woolf,
+      slug: "virginia-woolf",
+      name: "Virginia Woolf",
+      nameJa: "ヴァージニア・ウルフ",
+      birthDate: "1882-01-25",
+      deathDate: "1941-03-28",
+      birthPlaceId: place.london,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["British"]),
+      biography:
+        "Novelist whose stream-of-consciousness style became central to literary modernism.",
+      biographyJa: "意識の流れという手法を用いた作風で、文学的モダニズムの中心的存在となった小説家。",
+    },
+    {
+      id: person.joyce,
+      slug: "james-joyce",
+      name: "James Joyce",
+      nameJa: "ジェイムズ・ジョイス",
+      birthDate: "1882-02-02",
+      deathDate: "1941-01-13",
+      birthPlaceId: place.dublin,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["Irish"]),
+      biography:
+        "Novelist whose dense, experimental fiction set in his native Dublin became a landmark of literary modernism.",
+      biographyJa: "故郷ダブリンを舞台にした緻密で実験的な作風で、文学的モダニズムの金字塔となる作品を残した小説家。",
+    },
+    {
+      id: person.stravinsky,
+      slug: "igor-stravinsky",
+      name: "Igor Stravinsky",
+      nameJa: "イーゴリ・ストラヴィンスキー",
+      birthDate: "1882-06-17",
+      deathDate: "1971-04-06",
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["Russian"]),
+      biography:
+        "Composer whose rhythmically radical scores, some premiered in Paris, provoked and then reshaped 20th-century music.",
+      biographyJa: "リズム面で革新的な楽曲(一部はパリで初演)で物議を醸しつつ、20世紀の音楽のあり方を変えた作曲家。",
+    },
+    {
+      id: person.mozart,
+      slug: "wolfgang-amadeus-mozart",
+      name: "Wolfgang Amadeus Mozart",
+      nameJa: "ヴォルフガング・アマデウス・モーツァルト",
+      birthDate: "1756-01-27",
+      deathDate: "1791-12-05",
+      birthPlaceId: place.vienna,
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["Austrian"]),
+      biography:
+        "Composer active in Vienna whose prolific output across nearly every genre of his time made him one of the most influential figures in music history.",
+      biographyJa: "ウィーンで活躍し、当時のほぼすべての音楽ジャンルにわたる多作な創作活動を行った、音楽史上最も影響力のある作曲家のひとり。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -794,6 +877,11 @@ async function main() {
     greatExpectations: id(),
     huckleberryFinn: id(),
     laTraviata: id(),
+    selfPortraitThornNecklace: id(),
+    mrsDalloway: id(),
+    ulysses: id(),
+    theRiteOfSpring: id(),
+    theMagicFlute: id(),
   };
 
   await db.insert(works).values([
@@ -1279,6 +1367,94 @@ async function main() {
       descriptionJa: "パリの高級娼婦を主人公とするオペラ。初演の評判は芳しくなかったが、今では世界で最も上演される演目のひとつ。",
       confidence: "verified",
     },
+    {
+      id: work.selfPortraitThornNecklace,
+      slug: "self-portrait-with-thorn-necklace-and-hummingbird",
+      title: "Self-Portrait with Thorn Necklace and Hummingbird",
+      titleJa: "蜂鳥と棘の首飾りのある自画像",
+      workType: "painting",
+      workTypeJa: "絵画",
+      category: "art",
+      creationStartDate: "1940-01-01",
+      displayDate: "1940",
+      datePrecision: "approximate",
+      creationPlaceId: place.mexicoCity,
+      medium: "Oil on canvas",
+      mediumJa: "油彩、カンヴァス",
+      currentInstitution: "Harry Ransom Center, University of Texas at Austin",
+      description:
+        "One of Kahlo's many self-portraits, painted the year of her divorce from Diego Rivera and their remarriage.",
+      descriptionJa: "カーロによる数多くの自画像の一枚。ディエゴ・リベラとの離婚、そして同年の再婚の年に描かれた。",
+      confidence: "verified",
+    },
+    {
+      id: work.mrsDalloway,
+      slug: "mrs-dalloway",
+      title: "Mrs Dalloway",
+      titleJa: "ダロウェイ夫人",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1925-01-01",
+      displayDate: "1925",
+      datePrecision: "approximate",
+      creationPlaceId: place.london,
+      description:
+        "A novel following a single day in the life of its title character in post-war London.",
+      descriptionJa: "戦後のロンドンを舞台に、主人公の一日を追った小説。",
+      confidence: "verified",
+    },
+    {
+      id: work.ulysses,
+      slug: "ulysses",
+      title: "Ulysses",
+      titleJa: "ユリシーズ",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1922-02-02",
+      displayDate: "1922",
+      datePrecision: "approximate",
+      creationPlaceId: place.dublin,
+      description:
+        "A novel set over a single day in Dublin, loosely structured around Homer's Odyssey.",
+      descriptionJa: "ダブリンでのある一日を舞台にした小説で、ホメロスの『オデュッセイア』を緩やかな下敷きにしている。",
+      confidence: "verified",
+    },
+    {
+      id: work.theRiteOfSpring,
+      slug: "the-rite-of-spring",
+      title: "The Rite of Spring",
+      titleJa: "春の祭典",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1913-05-29",
+      displayDate: "May 1913",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      description:
+        "A ballet score whose premiere in Paris reportedly provoked a near-riot; now regarded as a turning point in music history.",
+      descriptionJa: "パリでの初演が騒動に近い反応を引き起こしたと伝わるバレエ音楽。現在は音楽史の転換点とされる。",
+      confidence: "verified",
+    },
+    {
+      id: work.theMagicFlute,
+      slug: "the-magic-flute",
+      title: "The Magic Flute",
+      titleJa: "魔笛",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1791-09-30",
+      displayDate: "September 1791",
+      datePrecision: "approximate",
+      creationPlaceId: place.vienna,
+      description:
+        "An opera premiered in Vienna just weeks before Mozart's death, blending fairy-tale plot with Masonic symbolism.",
+      descriptionJa: "モーツァルトの死のわずか数週間前にウィーンで初演されたオペラ。おとぎ話的な筋立てにフリーメイソンの象徴性を織り込んでいる。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -1308,6 +1484,11 @@ async function main() {
     { workId: work.greatExpectations, personId: person.dickens },
     { workId: work.huckleberryFinn, personId: person.twain },
     { workId: work.laTraviata, personId: person.verdi },
+    { workId: work.selfPortraitThornNecklace, personId: person.kahlo },
+    { workId: work.mrsDalloway, personId: person.woolf },
+    { workId: work.ulysses, personId: person.joyce },
+    { workId: work.theRiteOfSpring, personId: person.stravinsky },
+    { workId: work.theMagicFlute, personId: person.mozart },
   ]);
 
   // ---- Events -------------------------------------------------------

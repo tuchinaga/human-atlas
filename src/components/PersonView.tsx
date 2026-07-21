@@ -40,6 +40,7 @@ export type WorkLink = {
   title: string;
   titleJa: string | null;
   creationStartDate: string | null;
+  workType: string;
   image: ImageAssetData | null;
 };
 
@@ -133,7 +134,15 @@ export function PersonView({
                       href={linkWithTrail(`/works/${w.slug}`)}
                       className="group block"
                     >
-                      <EntityImage image={w.image} alt={title} aspect="aspect-square" />
+                      {w.image || w.workType !== "musical composition" ? (
+                        <EntityImage image={w.image} alt={title} aspect="aspect-square" />
+                      ) : (
+                        <div className="flex aspect-square items-center justify-center rounded-sm border border-border bg-bg-raised">
+                          <span className="font-display text-3xl text-fg-muted" aria-hidden>
+                            ♪
+                          </span>
+                        </div>
+                      )}
                       <p className="mt-2 text-[13px] text-fg-soft transition-colors group-hover:text-fg">
                         {title}
                       </p>

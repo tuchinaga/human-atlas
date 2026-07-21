@@ -142,13 +142,15 @@ export function WorkView({
             {work.displayDate && <span className="tabular">{work.displayDate}</span>}
           </div>
 
-          <EntityImage
-            image={image}
-            alt={title}
-            zoomable
-            hero
-            className="mt-8 max-w-2xl"
-          />
+          {(image || work.workType !== "musical composition") && (
+            <EntityImage
+              image={image}
+              alt={title}
+              zoomable
+              hero
+              className="mt-8 max-w-2xl"
+            />
+          )}
 
           {description && (
             <p className="mt-6 max-w-xl text-[14.5px] leading-relaxed text-fg-soft">

@@ -179,6 +179,7 @@ export async function getPersonBySlug(slug: string) {
       title: works.title,
       titleJa: works.titleJa,
       creationStartDate: works.creationStartDate,
+      workType: works.workType,
     })
     .from(workCreators)
     .innerJoin(works, eq(works.id, workCreators.workId))
