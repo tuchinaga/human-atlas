@@ -16,6 +16,9 @@ const COUNTRY_JA: Record<string, string> = {
   Austria: "オーストリア",
   Russia: "ロシア",
   India: "インド",
+  Sweden: "スウェーデン",
+  Italy: "イタリア",
+  Venezuela: "ベネズエラ",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {

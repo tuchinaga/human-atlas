@@ -78,6 +78,10 @@ async function main() {
     vienna: id(),
     moscow: id(),
     kolkata: id(),
+    gettysburg: id(),
+    stockholm: id(),
+    milan: id(),
+    angostura: id(),
   };
 
   await db.insert(places).values([
@@ -105,6 +109,10 @@ async function main() {
     { id: place.vienna, slug: "vienna", name: "Vienna", nameJa: "ウィーン", placeType: "city", country: "Austria", latitude: 48.21, longitude: 16.37 },
     { id: place.moscow, slug: "moscow", name: "Moscow", nameJa: "モスクワ", placeType: "city", country: "Russia", latitude: 55.76, longitude: 37.62 },
     { id: place.kolkata, slug: "kolkata", name: "Kolkata", nameJa: "コルカタ", historicalNamesJson: JSON.stringify(["Calcutta"]), placeType: "city", country: "India", latitude: 22.57, longitude: 88.36 },
+    { id: place.gettysburg, slug: "gettysburg", name: "Gettysburg", nameJa: "ゲティスバーグ", placeType: "town", country: "United States", latitude: 39.83, longitude: -77.23 },
+    { id: place.stockholm, slug: "stockholm", name: "Stockholm", nameJa: "ストックホルム", placeType: "city", country: "Sweden", latitude: 59.33, longitude: 18.07 },
+    { id: place.milan, slug: "milan", name: "Milan", nameJa: "ミラノ", placeType: "city", country: "Italy", latitude: 45.46, longitude: 9.19 },
+    { id: place.angostura, slug: "angostura", name: "Angostura", nameJa: "アンゴストゥーラ", historicalNamesJson: JSON.stringify(["Ciudad Bolívar"]), placeType: "town", country: "Venezuela", latitude: 8.13, longitude: -63.55 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -137,6 +145,13 @@ async function main() {
     klimt: id(),
     darwin: id(),
     marx: id(),
+    dickens: id(),
+    nightingale: id(),
+    lincoln: id(),
+    twain: id(),
+    nobel: id(),
+    verdi: id(),
+    bolivar: id(),
   };
 
   await db.insert(people).values([
@@ -528,6 +543,106 @@ async function main() {
         "Philosopher and economist who spent much of his later life in London researching and writing about capitalism.",
       biographyJa: "晩年の多くをロンドンで過ごし、資本主義についての研究・著述を行った哲学者・経済学者。",
     },
+    {
+      id: person.dickens,
+      slug: "charles-dickens",
+      name: "Charles Dickens",
+      nameJa: "チャールズ・ディケンズ",
+      birthDate: "1812-02-07",
+      deathDate: "1870-06-09",
+      birthPlaceId: place.london,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["British"]),
+      biography:
+        "Novelist whose serialized fiction, often addressing poverty and social reform, made him hugely popular in his lifetime.",
+      biographyJa: "貧困や社会改革をたびたび題材にした連載小説で、生前から絶大な人気を誇った小説家。",
+    },
+    {
+      id: person.nightingale,
+      slug: "florence-nightingale",
+      name: "Florence Nightingale",
+      nameJa: "フローレンス・ナイチンゲール",
+      birthDate: "1820-05-12",
+      deathDate: "1910-08-13",
+      occupationsJson: JSON.stringify(["nurse", "statistician"]),
+      occupationsJsonJa: JSON.stringify(["看護師", "統計学者"]),
+      nationalitiesJson: JSON.stringify(["British"]),
+      biography:
+        "Nurse and statistician whose work during the Crimean War laid the foundations of modern nursing practice.",
+      biographyJa: "クリミア戦争での活動を通じて、近代看護の基礎を築いた看護師・統計学者。",
+    },
+    {
+      id: person.lincoln,
+      slug: "abraham-lincoln",
+      name: "Abraham Lincoln",
+      nameJa: "エイブラハム・リンカーン",
+      birthDate: "1809-02-12",
+      deathDate: "1865-04-15",
+      occupationsJson: JSON.stringify(["statesman"]),
+      occupationsJsonJa: JSON.stringify(["政治家"]),
+      nationalitiesJson: JSON.stringify(["American"]),
+      biography:
+        "The 16th President of the United States, who led the country through the Civil War.",
+      biographyJa: "南北戦争期にアメリカ合衆国を率いた第16代大統領。",
+    },
+    {
+      id: person.twain,
+      slug: "mark-twain",
+      name: "Mark Twain",
+      nameJa: "マーク・トウェイン",
+      birthDate: "1835-11-30",
+      deathDate: "1910-04-21",
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["American"]),
+      biography:
+        "Novelist and humorist whose fiction, drawing on his childhood along the Mississippi, became central to American literature.",
+      biographyJa: "ミシシッピ川沿いで過ごした少年時代を題材にした作品で、アメリカ文学の中心的存在となった小説家・ユーモア作家。",
+    },
+    {
+      id: person.nobel,
+      slug: "alfred-nobel",
+      name: "Alfred Nobel",
+      nameJa: "アルフレッド・ノーベル",
+      birthDate: "1833-10-21",
+      deathDate: "1896-12-10",
+      birthPlaceId: place.stockholm,
+      occupationsJson: JSON.stringify(["chemist", "engineer", "industrialist"]),
+      occupationsJsonJa: JSON.stringify(["化学者", "技術者", "実業家"]),
+      nationalitiesJson: JSON.stringify(["Swedish"]),
+      biography:
+        "Chemist and industrialist who invented dynamite and, in his will, established the prizes that bear his name.",
+      biographyJa: "ダイナマイトを発明した化学者・実業家。遺言により、自身の名を冠した賞を創設した。",
+    },
+    {
+      id: person.verdi,
+      slug: "giuseppe-verdi",
+      name: "Giuseppe Verdi",
+      nameJa: "ジュゼッペ・ヴェルディ",
+      birthDate: "1813-10-09",
+      deathDate: "1901-01-27",
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["Italian"]),
+      biography:
+        "Composer whose operas, many premiered in Milan, remain among the most performed works in the repertoire.",
+      biographyJa: "多くの作品がミラノで初演された作曲家。そのオペラは今なお最も上演される作品群のひとつ。",
+    },
+    {
+      id: person.bolivar,
+      slug: "simon-bolivar",
+      name: "Simón Bolívar",
+      nameJa: "シモン・ボリバル",
+      birthDate: "1783-07-24",
+      deathDate: "1830-12-17",
+      occupationsJson: JSON.stringify(["revolutionary", "statesman"]),
+      occupationsJsonJa: JSON.stringify(["革命家", "政治家"]),
+      nationalitiesJson: JSON.stringify(["Venezuelan"]),
+      biography:
+        "Revolutionary leader who led much of South America to independence from Spanish rule.",
+      biographyJa: "南米の広い地域をスペインの支配から独立に導いた革命指導者。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -676,6 +791,9 @@ async function main() {
     theKiss: id(),
     originOfSpecies: id(),
     dasKapital: id(),
+    greatExpectations: id(),
+    huckleberryFinn: id(),
+    laTraviata: id(),
   };
 
   await db.insert(works).values([
@@ -1110,6 +1228,57 @@ async function main() {
       descriptionJa: "資本主義とその経済的な仕組みを批判的に分析した著作。全3巻のうちの第1巻。",
       confidence: "verified",
     },
+    {
+      id: work.greatExpectations,
+      slug: "great-expectations",
+      title: "Great Expectations",
+      titleJa: "大いなる遺産",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1860-12-01",
+      creationEndDate: "1861-08-01",
+      displayDate: "1860–1861",
+      datePrecision: "approximate",
+      creationPlaceId: place.london,
+      description:
+        "A coming-of-age novel following the orphan Pip, published in weekly serial installments.",
+      descriptionJa: "孤児ピップの成長を描いた小説。週刊誌に連載される形で発表された。",
+      confidence: "verified",
+    },
+    {
+      id: work.huckleberryFinn,
+      slug: "adventures-of-huckleberry-finn",
+      title: "Adventures of Huckleberry Finn",
+      titleJa: "ハックルベリー・フィンの冒険",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1884-01-01",
+      displayDate: "1884",
+      datePrecision: "approximate",
+      description:
+        "A novel narrated by a boy rafting down the Mississippi River, widely regarded as a foundational work of American fiction.",
+      descriptionJa: "ミシシッピ川を筏で下る少年を語り手とする小説。アメリカ文学の基礎的な作品のひとつとされる。",
+      confidence: "verified",
+    },
+    {
+      id: work.laTraviata,
+      slug: "la-traviata",
+      title: "La Traviata",
+      titleJa: "椿姫",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1853-03-06",
+      displayDate: "March 1853",
+      datePrecision: "approximate",
+      creationPlaceId: place.milan,
+      description:
+        "An opera about a Parisian courtesan, poorly received at its premiere but now one of the most performed operas worldwide.",
+      descriptionJa: "パリの高級娼婦を主人公とするオペラ。初演の評判は芳しくなかったが、今では世界で最も上演される演目のひとつ。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -1136,6 +1305,9 @@ async function main() {
     { workId: work.theKiss, personId: person.klimt },
     { workId: work.originOfSpecies, personId: person.darwin },
     { workId: work.dasKapital, personId: person.marx },
+    { workId: work.greatExpectations, personId: person.dickens },
+    { workId: work.huckleberryFinn, personId: person.twain },
+    { workId: work.laTraviata, personId: person.verdi },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -1152,6 +1324,9 @@ async function main() {
     generalRelativity: id(),
     unitedNationsFounded: id(),
     russoJapaneseWar: id(),
+    gettysburgAddress: id(),
+    firstNobelPrizes: id(),
+    congressOfAngostura: id(),
   };
 
   await db.insert(events).values([
@@ -1322,6 +1497,48 @@ async function main() {
       significanceScore: 85,
       confidence: "verified",
     },
+    {
+      id: event.gettysburgAddress,
+      slug: "gettysburg-address",
+      title: "Gettysburg Address",
+      titleJa: "ゲティスバーグ演説",
+      category: "society",
+      startDate: "1863-11-19",
+      displayDate: "November 19, 1863",
+      description:
+        "A brief speech by Lincoln at a Civil War cemetery dedication, now among the most quoted in American history.",
+      descriptionJa: "南北戦争の戦没者墓地の献納式で行われたリンカーンの短い演説。アメリカ史上最も引用される演説のひとつとされる。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
+    {
+      id: event.firstNobelPrizes,
+      slug: "first-nobel-prizes-awarded",
+      title: "First Nobel Prizes awarded",
+      titleJa: "第1回ノーベル賞授与",
+      category: "society",
+      startDate: "1901-12-10",
+      displayDate: "December 10, 1901",
+      description:
+        "The first prizes were awarded five years after Alfred Nobel's death, funded by his will.",
+      descriptionJa: "アルフレッド・ノーベルの遺言による基金をもとに、その死から5年後に第1回の授賞が行われた。",
+      significanceScore: 75,
+      confidence: "verified",
+    },
+    {
+      id: event.congressOfAngostura,
+      slug: "congress-of-angostura",
+      title: "Congress of Angostura",
+      titleJa: "アンゴストゥーラ会議",
+      category: "society",
+      startDate: "1819-02-15",
+      displayDate: "February 1819",
+      description:
+        "Bolívar addressed the congress that laid the groundwork for the short-lived republic of Gran Colombia.",
+      descriptionJa: "ボリバルが演説を行った会議で、短命に終わった大コロンビア共和国樹立の土台となった。",
+      significanceScore: 70,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -1337,12 +1554,18 @@ async function main() {
     { eventId: event.generalRelativity, placeId: place.berlin },
     { eventId: event.unitedNationsFounded, placeId: place.sanFrancisco },
     { eventId: event.russoJapaneseWar, placeId: place.portsmouth },
+    { eventId: event.gettysburgAddress, placeId: place.gettysburg },
+    { eventId: event.firstNobelPrizes, placeId: place.stockholm },
+    { eventId: event.congressOfAngostura, placeId: place.angostura },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
     { eventId: event.radiumDiscovery, personId: person.curie },
     { eventId: event.columbianExposition, personId: person.tesla },
     { eventId: event.xinhaiRevolution, personId: person.sunYatSen },
+    { eventId: event.gettysburgAddress, personId: person.lincoln },
+    { eventId: event.firstNobelPrizes, personId: person.nobel },
+    { eventId: event.congressOfAngostura, personId: person.bolivar },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
