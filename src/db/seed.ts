@@ -75,6 +75,9 @@ async function main() {
     sanFrancisco: id(),
     boston: id(),
     portsmouth: id(),
+    vienna: id(),
+    moscow: id(),
+    kolkata: id(),
   };
 
   await db.insert(places).values([
@@ -99,6 +102,9 @@ async function main() {
     { id: place.sanFrancisco, slug: "san-francisco", name: "San Francisco", nameJa: "サンフランシスコ", placeType: "city", country: "United States", latitude: 37.77, longitude: -122.42 },
     { id: place.boston, slug: "boston", name: "Boston", nameJa: "ボストン", placeType: "city", country: "United States", latitude: 42.36, longitude: -71.06 },
     { id: place.portsmouth, slug: "portsmouth-nh", name: "Portsmouth", nameJa: "ポーツマス", placeType: "city", country: "United States", latitude: 43.07, longitude: -70.76 },
+    { id: place.vienna, slug: "vienna", name: "Vienna", nameJa: "ウィーン", placeType: "city", country: "Austria", latitude: 48.21, longitude: 16.37 },
+    { id: place.moscow, slug: "moscow", name: "Moscow", nameJa: "モスクワ", placeType: "city", country: "Russia", latitude: 55.76, longitude: 37.62 },
+    { id: place.kolkata, slug: "kolkata", name: "Kolkata", nameJa: "コルカタ", historicalNamesJson: JSON.stringify(["Calcutta"]), placeType: "city", country: "India", latitude: 22.57, longitude: 88.36 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -125,6 +131,12 @@ async function main() {
     moriOgai: id(),
     higuchiIchiyo: id(),
     okakuraTenshin: id(),
+    tolstoy: id(),
+    freud: id(),
+    tagore: id(),
+    klimt: id(),
+    darwin: id(),
+    marx: id(),
   };
 
   await db.insert(people).values([
@@ -430,6 +442,92 @@ async function main() {
         "Art critic and curator who promoted Japanese art internationally while working with the Museum of Fine Arts, Boston.",
       biographyJa: "ボストン美術館とも関わりながら、日本美術を海外に広く紹介した美術評論家・学芸員。",
     },
+    {
+      id: person.tolstoy,
+      slug: "leo-tolstoy",
+      name: "Leo Tolstoy",
+      nameJa: "レフ・トルストイ",
+      birthDate: "1828-09-09",
+      deathDate: "1910-11-20",
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["Russian"]),
+      biography:
+        "Novelist whose sweeping historical fiction and later moral writings made him one of the most influential figures of his era.",
+      biographyJa: "壮大な歴史小説と、晩年の道徳的な著作で、この時代を代表する影響力を持った作家。",
+    },
+    {
+      id: person.freud,
+      slug: "sigmund-freud",
+      name: "Sigmund Freud",
+      nameJa: "ジークムント・フロイト",
+      birthDate: "1856-05-06",
+      deathDate: "1939-09-23",
+      occupationsJson: JSON.stringify(["neurologist", "psychoanalyst"]),
+      occupationsJsonJa: JSON.stringify(["神経学者", "精神分析家"]),
+      nationalitiesJson: JSON.stringify(["Austrian"]),
+      biography:
+        "Neurologist who founded psychoanalysis while based in Vienna, reshaping how the mind was studied and discussed.",
+      biographyJa: "ウィーンを拠点に精神分析を創始した神経学者。精神をめぐる研究と語り方を大きく変えた。",
+    },
+    {
+      id: person.tagore,
+      slug: "rabindranath-tagore",
+      name: "Rabindranath Tagore",
+      nameJa: "ラビンドラナート・タゴール",
+      birthDate: "1861-05-07",
+      deathDate: "1941-08-07",
+      birthPlaceId: place.kolkata,
+      occupationsJson: JSON.stringify(["poet", "writer"]),
+      occupationsJsonJa: JSON.stringify(["詩人", "作家"]),
+      nationalitiesJson: JSON.stringify(["Indian"]),
+      biography:
+        "Poet and writer based in Kolkata who became the first non-European to win the Nobel Prize in Literature.",
+      biographyJa: "コルカタを拠点に活動した詩人・作家。ヨーロッパ出身者以外で初めてノーベル文学賞を受賞した。",
+    },
+    {
+      id: person.klimt,
+      slug: "gustav-klimt",
+      name: "Gustav Klimt",
+      nameJa: "グスタフ・クリムト",
+      birthDate: "1862-07-14",
+      deathDate: "1918-02-06",
+      birthPlaceId: place.vienna,
+      occupationsJson: JSON.stringify(["painter"]),
+      occupationsJsonJa: JSON.stringify(["画家"]),
+      nationalitiesJson: JSON.stringify(["Austrian"]),
+      biography:
+        "Painter and founding member of the Vienna Secession, known for the gold-leaf works of his 'Golden Phase'.",
+      biographyJa: "ウィーン分離派の創設メンバーのひとりで、金箔を用いた「黄金様式」の作品で知られる画家。",
+    },
+    {
+      id: person.darwin,
+      slug: "charles-darwin",
+      name: "Charles Darwin",
+      nameJa: "チャールズ・ダーウィン",
+      birthDate: "1809-02-12",
+      deathDate: "1882-04-19",
+      occupationsJson: JSON.stringify(["naturalist"]),
+      occupationsJsonJa: JSON.stringify(["博物学者"]),
+      nationalitiesJson: JSON.stringify(["British"]),
+      biography:
+        "Naturalist whose theory of evolution by natural selection reshaped the life sciences.",
+      biographyJa: "自然選択による進化論を提唱し、生命科学のあり方を大きく変えた博物学者。",
+    },
+    {
+      id: person.marx,
+      slug: "karl-marx",
+      name: "Karl Marx",
+      nameJa: "カール・マルクス",
+      birthDate: "1818-05-05",
+      deathDate: "1883-03-14",
+      occupationsJson: JSON.stringify(["philosopher", "economist"]),
+      occupationsJsonJa: JSON.stringify(["哲学者", "経済学者"]),
+      nationalitiesJson: JSON.stringify(["German"]),
+      biography:
+        "Philosopher and economist who spent much of his later life in London researching and writing about capitalism.",
+      biographyJa: "晩年の多くをロンドンで過ごし、資本主義についての研究・著述を行った哲学者・経済学者。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -572,6 +670,12 @@ async function main() {
     sunflowers: id(),
     theBedroom: id(),
     wheatfieldWithCrows: id(),
+    warAndPeace: id(),
+    interpretationOfDreams: id(),
+    gitanjali: id(),
+    theKiss: id(),
+    originOfSpecies: id(),
+    dasKapital: id(),
   };
 
   await db.insert(works).values([
@@ -900,6 +1004,112 @@ async function main() {
       descriptionJa: "生涯最後の数週間に描かれた作品。彼の死と結びつけて語られることが多いが、確証はない。",
       confidence: "approximate",
     },
+    {
+      id: work.warAndPeace,
+      slug: "war-and-peace",
+      title: "War and Peace",
+      titleJa: "戦争と平和",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1865-01-01",
+      creationEndDate: "1869-01-01",
+      displayDate: "1865–1869",
+      datePrecision: "approximate",
+      description:
+        "A sprawling novel following several families through the Napoleonic Wars, published in serial installments.",
+      descriptionJa: "ナポレオン戦争の時代を、複数の家族の視点から描いた大長編小説。連載形式で発表された。",
+      confidence: "verified",
+    },
+    {
+      id: work.interpretationOfDreams,
+      slug: "the-interpretation-of-dreams",
+      title: "The Interpretation of Dreams",
+      titleJa: "夢判断",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "science",
+      creationStartDate: "1899-11-04",
+      displayDate: "November 1899 (dated 1900)",
+      datePrecision: "approximate",
+      creationPlaceId: place.vienna,
+      description:
+        "Introduced Freud's theory that dreams offer insight into unconscious desire, foundational to psychoanalysis.",
+      descriptionJa: "夢が無意識の欲望を映し出すというフロイトの理論を提示した、精神分析の基礎となる著作。",
+      confidence: "verified",
+    },
+    {
+      id: work.gitanjali,
+      slug: "gitanjali",
+      title: "Gitanjali",
+      titleJa: "ギーターンジャリ(歌の捧げもの)",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1910-01-01",
+      displayDate: "1910",
+      datePrecision: "approximate",
+      creationPlaceId: place.kolkata,
+      description:
+        "A collection of devotional poems; its English translation led directly to Tagore's Nobel Prize in 1913.",
+      descriptionJa: "宗教的な詩を集めた作品集。その英訳が1913年のタゴールのノーベル文学賞受賞に直結した。",
+      confidence: "verified",
+    },
+    {
+      id: work.theKiss,
+      slug: "the-kiss",
+      title: "The Kiss",
+      titleJa: "接吻",
+      workType: "painting",
+      workTypeJa: "絵画",
+      category: "art",
+      creationStartDate: "1907-01-01",
+      creationEndDate: "1908-01-01",
+      displayDate: "1907–1908",
+      datePrecision: "approximate",
+      creationPlaceId: place.vienna,
+      medium: "Oil and gold leaf on canvas",
+      mediumJa: "油彩・金箔、カンヴァス",
+      dimensions: "180 cm × 180 cm",
+      currentInstitution: "Österreichische Galerie Belvedere, Vienna",
+      description:
+        "A square canvas from Klimt's 'Golden Phase', among the best-known works of the Vienna Secession.",
+      descriptionJa: "クリムトの「黄金様式」期を代表する正方形のカンヴァス作品。ウィーン分離派を代表する一枚とされる。",
+      confidence: "verified",
+    },
+    {
+      id: work.originOfSpecies,
+      slug: "on-the-origin-of-species",
+      title: "On the Origin of Species",
+      titleJa: "種の起源",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "science",
+      creationStartDate: "1859-11-24",
+      displayDate: "November 1859",
+      datePrecision: "approximate",
+      description:
+        "Laid out the theory of evolution by natural selection, drawing on decades of observation and correspondence.",
+      descriptionJa: "数十年にわたる観察と書簡のやり取りをもとに、自然選択による進化論を提示した。",
+      confidence: "verified",
+    },
+    {
+      id: work.dasKapital,
+      slug: "das-kapital",
+      title: "Capital",
+      titleJa: "資本論",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1867-01-01",
+      displayDate: "1867 (Volume I)",
+      datePrecision: "approximate",
+      creationPlaceId: place.london,
+      description:
+        "A critical analysis of capitalism and its underlying economic mechanisms, the first of three volumes.",
+      descriptionJa: "資本主義とその経済的な仕組みを批判的に分析した著作。全3巻のうちの第1巻。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -920,6 +1130,12 @@ async function main() {
     { workId: work.sunflowers, personId: person.vanGogh },
     { workId: work.theBedroom, personId: person.vanGogh },
     { workId: work.wheatfieldWithCrows, personId: person.vanGogh },
+    { workId: work.warAndPeace, personId: person.tolstoy },
+    { workId: work.interpretationOfDreams, personId: person.freud },
+    { workId: work.gitanjali, personId: person.tagore },
+    { workId: work.theKiss, personId: person.klimt },
+    { workId: work.originOfSpecies, personId: person.darwin },
+    { workId: work.dasKapital, personId: person.marx },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -1140,6 +1356,7 @@ async function main() {
     ukiyoE: id(),
     cubism: id(),
     postImpressionism: id(),
+    viennaSecession: id(),
   };
 
   await db.insert(movements).values([
@@ -1188,6 +1405,17 @@ async function main() {
         "A loose successor to Impressionism that pushed toward more structured form and symbolic color rather than pure optical effect.",
       descriptionJa: "印象派の後を継ぎつつ、純粋な視覚効果よりも形の構造や象徴的な色彩を重視した緩やかな潮流。",
     },
+    {
+      id: movement.viennaSecession,
+      slug: "vienna-secession",
+      name: "Vienna Secession",
+      nameJa: "ウィーン分離派",
+      startDate: "1897-01-01",
+      endDate: "1918-01-01",
+      description:
+        "A group of Austrian artists who broke from the conservative art establishment to promote new, unconventional styles.",
+      descriptionJa: "保守的な美術界から離脱し、新しく因習にとらわれない様式を打ち出したオーストリアの芸術家集団。",
+    },
   ]);
 
   await db.insert(movementPeople).values([
@@ -1197,12 +1425,14 @@ async function main() {
     { movementId: movement.cubism, personId: person.picasso },
     { movementId: movement.postImpressionism, personId: person.vanGogh },
     { movementId: movement.postImpressionism, personId: person.cezanne },
+    { movementId: movement.viennaSecession, personId: person.klimt },
   ]);
   await db.insert(movementWorks).values([
     { movementId: movement.ukiyoE, workId: work.greatWave },
     { movementId: movement.cubism, workId: work.lesDemoiselles },
     { movementId: movement.postImpressionism, workId: work.starryNight },
     { movementId: movement.postImpressionism, workId: work.montSainteVictoire },
+    { movementId: movement.viennaSecession, workId: work.theKiss },
   ]);
 
   // ---- Relationships: documented cross-cultural influences ------------
@@ -1363,6 +1593,21 @@ async function main() {
       sourceRecordUrl:
         "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Wheatfield_with_crows_-_Google_Art_Project.jpg",
       creator: "Vincent van Gogh",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.theKiss,
+      imageUrl: commonsFilePath("Klimt_-_The_Kiss.jpg"),
+      sourceName: "Wikimedia Commons (Österreichische Galerie Belvedere)",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Klimt_-_The_Kiss.jpg",
+      creator: "Gustav Klimt",
       rightsStatement: "Public domain — author died more than 100 years ago",
       license: "PD-old-100-expired",
       publicDomain: true,
