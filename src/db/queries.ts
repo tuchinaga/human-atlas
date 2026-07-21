@@ -458,6 +458,79 @@ export async function getNetworkData(): Promise<{ nodes: NetworkNode[]; edges: N
   return { nodes, edges };
 }
 
+export type PersonIndexEntry = {
+  slug: string;
+  name: string;
+  nameJa: string | null;
+  birthDate: string | null;
+  deathDate: string | null;
+  occupationsJson: string | null;
+  occupationsJsonJa: string | null;
+  image: Awaited<ReturnType<typeof getImageForEntity>>;
+};
+
+/**
+ * All people sorted by birth year (spec's temporal philosophy — see
+ * §8/§13 — favors chronology over alphabetical order everywhere).
+ * Backs the /people browse page (the "Follow a Person" entry point).
+ */
+export async function getPeopleIndex(): Promise<PersonIndexEntry[]> {
+  const rows = await db
+    .select({
+      slug: people.slug,
+      name: people.name,
+      nameJa: people.nameJa,
+      birthDate: people.birthDate,
+      deathDate: people.deathDate,
+      occupationsJson: people.occupationsJson,
+      occupationsJsonJa: people.occupationsJsonJa,
+      id: people.id,
+    })
+    .from(people)
+    .orderBy(people.birthDate);
+
+  return Promise.all(
+    rows.map(async (p) => ({
+      ...p,
+      image: await getImageForEntity("person", p.id),
+    })),
+  );
+}
+
+export type WorkIndexEntry = {
+  slug: string;
+  title: string;
+  titleJa: string | null;
+  category: Category;
+  workType: string;
+  creationStartDate: string | null;
+  image: Awaited<ReturnType<typeof getImageForEntity>>;
+};
+
+/** All works sorted by creation year. Backs the /works browse page. */
+export async function getWorksIndex(): Promise<WorkIndexEntry[]> {
+  const rows = await db
+    .select({
+      slug: works.slug,
+      title: works.title,
+      titleJa: works.titleJa,
+      category: works.category,
+      workType: works.workType,
+      creationStartDate: works.creationStartDate,
+      id: works.id,
+    })
+    .from(works)
+    .orderBy(works.creationStartDate);
+
+  return Promise.all(
+    rows.map(async (w) => ({
+      ...w,
+      category: w.category as Category,
+      image: await getImageForEntity("work", w.id),
+    })),
+  );
+}
+
 export async function getAllPeopleForPicker() {
   return db
     .select({ slug: people.slug, name: people.name, nameJa: people.nameJa })

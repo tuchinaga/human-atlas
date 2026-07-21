@@ -8,10 +8,9 @@ const ENTRY_POINTS: {
   href: string;
 }[] = [
   { key: "year", href: "/year/1889" },
-  { key: "person", href: "/people/vincent-van-gogh" },
-  { key: "place", href: "/places/paris" },
-  { key: "work", href: "/works/the-starry-night" },
-  { key: "compare", href: "/compare" },
+  { key: "person", href: "/people" },
+  { key: "place", href: "/map" },
+  { key: "work", href: "/works" },
 ];
 
 export function EntryPoints() {
@@ -20,7 +19,7 @@ export function EntryPoints() {
   return (
     <nav
       aria-label={t.home.searchPlaceholder}
-      className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-5"
+      className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-4"
     >
       {ENTRY_POINTS.map((entry) => (
         <Link
