@@ -84,6 +84,10 @@ async function main() {
     angostura: id(),
     mexicoCity: id(),
     dublin: id(),
+    menloPark: id(),
+    warsaw: id(),
+    capHaitien: id(),
+    dandi: id(),
   };
 
   await db.insert(places).values([
@@ -117,6 +121,10 @@ async function main() {
     { id: place.angostura, slug: "angostura", name: "Angostura", nameJa: "アンゴストゥーラ", historicalNamesJson: JSON.stringify(["Ciudad Bolívar"]), placeType: "town", country: "Venezuela", latitude: 8.13, longitude: -63.55 },
     { id: place.mexicoCity, slug: "mexico-city", name: "Mexico City", nameJa: "メキシコシティ", placeType: "city", country: "Mexico", latitude: 19.43, longitude: -99.13 },
     { id: place.dublin, slug: "dublin", name: "Dublin", nameJa: "ダブリン", placeType: "city", country: "Ireland", latitude: 53.35, longitude: -6.26 },
+    { id: place.menloPark, slug: "menlo-park-nj", name: "Menlo Park", nameJa: "メンロパーク", placeType: "town", country: "United States", latitude: 40.49, longitude: -74.36 },
+    { id: place.warsaw, slug: "warsaw", name: "Warsaw", nameJa: "ワルシャワ", placeType: "city", country: "Poland", latitude: 52.23, longitude: 21.01 },
+    { id: place.capHaitien, slug: "cap-haitien", name: "Cap-Haïtien", nameJa: "カパイシャン", placeType: "city", country: "Haiti", latitude: 19.76, longitude: -72.20 },
+    { id: place.dandi, slug: "dandi", name: "Dandi", nameJa: "ダーンディー", placeType: "town", country: "India", latitude: 21.05, longitude: 72.81 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -161,6 +169,13 @@ async function main() {
     joyce: id(),
     stravinsky: id(),
     mozart: id(),
+    pasteur: id(),
+    edison: id(),
+    bell: id(),
+    chopin: id(),
+    tubman: id(),
+    louverture: id(),
+    gandhi: id(),
   };
 
   await db.insert(people).values([
@@ -726,6 +741,105 @@ async function main() {
         "Composer active in Vienna whose prolific output across nearly every genre of his time made him one of the most influential figures in music history.",
       biographyJa: "ウィーンで活躍し、当時のほぼすべての音楽ジャンルにわたる多作な創作活動を行った、音楽史上最も影響力のある作曲家のひとり。",
     },
+    {
+      id: person.pasteur,
+      slug: "louis-pasteur",
+      name: "Louis Pasteur",
+      nameJa: "ルイ・パスツール",
+      birthDate: "1822-12-27",
+      deathDate: "1895-09-28",
+      occupationsJson: JSON.stringify(["chemist", "microbiologist"]),
+      occupationsJsonJa: JSON.stringify(["化学者", "微生物学者"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+      biography:
+        "Chemist whose work on germ theory and vaccination, much of it conducted in Paris, transformed medicine and food safety.",
+      biographyJa: "パリを中心に行った病原菌説とワクチンをめぐる研究で、医学と食品安全のあり方を大きく変えた化学者。",
+    },
+    {
+      id: person.edison,
+      slug: "thomas-edison",
+      name: "Thomas Edison",
+      nameJa: "トーマス・エジソン",
+      birthDate: "1847-02-11",
+      deathDate: "1931-10-18",
+      occupationsJson: JSON.stringify(["inventor"]),
+      occupationsJsonJa: JSON.stringify(["発明家"]),
+      nationalitiesJson: JSON.stringify(["American"]),
+      biography:
+        "Inventor whose laboratory at Menlo Park produced the phonograph, a practical light bulb, and hundreds of other patents.",
+      biographyJa: "メンロパークの研究所で、蓄音機や実用的な白熱電球をはじめ数百件の特許を生み出した発明家。",
+    },
+    {
+      id: person.bell,
+      slug: "alexander-graham-bell",
+      name: "Alexander Graham Bell",
+      nameJa: "アレクサンダー・グラハム・ベル",
+      birthDate: "1847-03-03",
+      deathDate: "1922-08-02",
+      occupationsJson: JSON.stringify(["inventor"]),
+      occupationsJsonJa: JSON.stringify(["発明家"]),
+      nationalitiesJson: JSON.stringify(["Scottish", "American"]),
+      biography:
+        "Inventor credited with patenting the first practical telephone while working in Boston.",
+      biographyJa: "ボストンでの研究の中で、実用的な電話機として初めて特許を取得した発明家。",
+    },
+    {
+      id: person.chopin,
+      slug: "frederic-chopin",
+      name: "Frédéric Chopin",
+      nameJa: "フレデリック・ショパン",
+      birthDate: "1810-03-01",
+      deathDate: "1849-10-17",
+      birthPlaceId: place.warsaw,
+      occupationsJson: JSON.stringify(["composer", "pianist"]),
+      occupationsJsonJa: JSON.stringify(["作曲家", "ピアニスト"]),
+      nationalitiesJson: JSON.stringify(["Polish"]),
+      biography:
+        "Composer and pianist who left Warsaw as a young man and spent most of his career in Paris.",
+      biographyJa: "若くしてワルシャワを離れ、その後の活動の大半をパリで送った作曲家・ピアニスト。",
+    },
+    {
+      id: person.tubman,
+      slug: "harriet-tubman",
+      name: "Harriet Tubman",
+      nameJa: "ハリエット・タブマン",
+      birthDate: "1822-03-01",
+      deathDate: "1913-03-10",
+      occupationsJson: JSON.stringify(["abolitionist"]),
+      occupationsJsonJa: JSON.stringify(["奴隷制廃止運動家"]),
+      nationalitiesJson: JSON.stringify(["American"]),
+      biography:
+        "Escaped slavery and returned repeatedly to lead others to freedom via the Underground Railroad network.",
+      biographyJa: "自ら奴隷制から逃れたのち、「地下鉄道」と呼ばれる逃亡支援網を通じて、繰り返し他の人々を自由へと導いた。",
+    },
+    {
+      id: person.louverture,
+      slug: "toussaint-louverture",
+      name: "Toussaint Louverture",
+      nameJa: "トゥサン・ルーヴェルテュール",
+      birthDate: "1743-05-20",
+      deathDate: "1803-04-07",
+      occupationsJson: JSON.stringify(["revolutionary", "military leader"]),
+      occupationsJsonJa: JSON.stringify(["革命家", "軍事指導者"]),
+      nationalitiesJson: JSON.stringify(["Haitian"]),
+      biography:
+        "Leader of the Haitian Revolution, the only successful slave revolt to result in an independent nation.",
+      biographyJa: "ハイチ革命の指導者。史上唯一、独立国家の樹立にまで至った奴隷反乱を率いた。",
+    },
+    {
+      id: person.gandhi,
+      slug: "mahatma-gandhi",
+      name: "Mahatma Gandhi",
+      nameJa: "マハトマ・ガンディー",
+      birthDate: "1869-10-02",
+      deathDate: "1948-01-30",
+      occupationsJson: JSON.stringify(["lawyer", "activist"]),
+      occupationsJsonJa: JSON.stringify(["弁護士", "活動家"]),
+      nationalitiesJson: JSON.stringify(["Indian"]),
+      biography:
+        "Leader of India's independence movement, known for organizing nonviolent civil disobedience campaigns.",
+      biographyJa: "非暴力の市民的不服従運動を組織したことで知られる、インド独立運動の指導者。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -882,6 +996,7 @@ async function main() {
     ulysses: id(),
     theRiteOfSpring: id(),
     theMagicFlute: id(),
+    nocturnes: id(),
   };
 
   await db.insert(works).values([
@@ -1455,6 +1570,24 @@ async function main() {
       descriptionJa: "モーツァルトの死のわずか数週間前にウィーンで初演されたオペラ。おとぎ話的な筋立てにフリーメイソンの象徴性を織り込んでいる。",
       confidence: "verified",
     },
+    {
+      id: work.nocturnes,
+      slug: "nocturnes-chopin",
+      title: "Nocturnes",
+      titleJa: "夜想曲(ノクターン)",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1827-01-01",
+      creationEndDate: "1846-01-01",
+      displayDate: "1827–1846",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      description:
+        "A set of 21 solo piano pieces composed over two decades, among the most widely performed works in the piano repertoire.",
+      descriptionJa: "20年近くにわたって作曲された全21曲のピアノ独奏曲集。ピアノ演奏曲目の中で最も広く演奏される作品群のひとつ。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -1489,6 +1622,7 @@ async function main() {
     { workId: work.ulysses, personId: person.joyce },
     { workId: work.theRiteOfSpring, personId: person.stravinsky },
     { workId: work.theMagicFlute, personId: person.mozart },
+    { workId: work.nocturnes, personId: person.chopin },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -1508,6 +1642,10 @@ async function main() {
     gettysburgAddress: id(),
     firstNobelPrizes: id(),
     congressOfAngostura: id(),
+    phonographInvented: id(),
+    telephonePatented: id(),
+    haitianRevolutionBegins: id(),
+    saltMarch: id(),
   };
 
   await db.insert(events).values([
@@ -1720,6 +1858,61 @@ async function main() {
       significanceScore: 70,
       confidence: "verified",
     },
+    {
+      id: event.phonographInvented,
+      slug: "invention-of-the-phonograph",
+      title: "Invention of the phonograph",
+      titleJa: "蓄音機の発明",
+      category: "technology",
+      startDate: "1877-11-21",
+      displayDate: "November 1877",
+      description: "Edison's laboratory at Menlo Park produced the first device able to record and reproduce sound.",
+      descriptionJa: "メンロパークのエジソンの研究所で、音を記録・再生できる初の装置が生み出された。",
+      significanceScore: 75,
+      confidence: "verified",
+    },
+    {
+      id: event.telephonePatented,
+      slug: "telephone-patented",
+      title: "Telephone patented",
+      titleJa: "電話の特許取得",
+      category: "technology",
+      startDate: "1876-03-07",
+      displayDate: "March 1876",
+      description: "Bell was granted a patent for a device to transmit speech electrically, developed while working in Boston.",
+      descriptionJa: "ボストンでの研究の中で開発された、音声を電気的に伝える装置についてベルが特許を取得した。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
+    {
+      id: event.haitianRevolutionBegins,
+      slug: "haitian-revolution-begins",
+      title: "Haitian Revolution begins",
+      titleJa: "ハイチ革命の始まり",
+      category: "society",
+      startDate: "1791-08-22",
+      displayDate: "August 1791",
+      description:
+        "An uprising began that Louverture would come to lead, eventually resulting in Haiti's independence in 1804.",
+      descriptionJa: "のちにルーヴェルテュールが率いることになる蜂起が始まり、1804年のハイチ独立へとつながった。",
+      significanceScore: 85,
+      confidence: "verified",
+    },
+    {
+      id: event.saltMarch,
+      slug: "salt-march",
+      title: "Salt March",
+      titleJa: "塩の行進",
+      category: "society",
+      startDate: "1930-03-12",
+      endDate: "1930-04-06",
+      displayDate: "March–April 1930",
+      description:
+        "Gandhi led a march to the coast to produce salt in defiance of British colonial law, a landmark act of nonviolent resistance.",
+      descriptionJa: "イギリス植民地法に反して塩を製造するため、ガンディーが海岸まで行進を率いた、非暴力抵抗を象徴する出来事。",
+      significanceScore: 85,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -1738,6 +1931,10 @@ async function main() {
     { eventId: event.gettysburgAddress, placeId: place.gettysburg },
     { eventId: event.firstNobelPrizes, placeId: place.stockholm },
     { eventId: event.congressOfAngostura, placeId: place.angostura },
+    { eventId: event.phonographInvented, placeId: place.menloPark },
+    { eventId: event.telephonePatented, placeId: place.boston },
+    { eventId: event.haitianRevolutionBegins, placeId: place.capHaitien },
+    { eventId: event.saltMarch, placeId: place.dandi },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -1747,6 +1944,10 @@ async function main() {
     { eventId: event.gettysburgAddress, personId: person.lincoln },
     { eventId: event.firstNobelPrizes, personId: person.nobel },
     { eventId: event.congressOfAngostura, personId: person.bolivar },
+    { eventId: event.phonographInvented, personId: person.edison },
+    { eventId: event.telephonePatented, personId: person.bell },
+    { eventId: event.haitianRevolutionBegins, personId: person.louverture },
+    { eventId: event.saltMarch, personId: person.gandhi },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
