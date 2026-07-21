@@ -30,6 +30,7 @@ export function EntityImage({
   className = "",
   zoomable = false,
   hero = false,
+  compact = false,
 }: {
   image: ImageAssetData | null;
   alt: string;
@@ -37,6 +38,7 @@ export function EntityImage({
   className?: string;
   zoomable?: boolean;
   hero?: boolean;
+  compact?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -52,7 +54,7 @@ export function EntityImage({
   if (!image) {
     return (
       <div className={`relative ${aspect} ${className}`}>
-        <RightsPendingPlaceholder />
+        <RightsPendingPlaceholder compact={compact} />
       </div>
     );
   }
@@ -149,12 +151,14 @@ export function EntityImage({
   );
 }
 
-export function RightsPendingPlaceholder() {
+export function RightsPendingPlaceholder({ compact = false }: { compact?: boolean }) {
   return (
     <div className="absolute inset-0 flex items-center justify-center rounded-sm border border-border bg-[repeating-linear-gradient(135deg,var(--color-border)_0px,var(--color-border)_1px,transparent_1px,transparent_14px)] bg-bg-raised">
-      <span className="rounded-full border border-border bg-bg px-3 py-1 text-[10px] uppercase tracking-[0.1em] text-fg-muted">
-        Image pending rights review
-      </span>
+      {!compact && (
+        <span className="rounded-full border border-border bg-bg px-3 py-1 text-[10px] uppercase tracking-[0.1em] text-fg-muted">
+          Image pending rights review
+        </span>
+      )}
     </div>
   );
 }

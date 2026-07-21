@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
 import { WorldMap, type MapPoint } from "@/components/WorldMap";
+import { FilterChip } from "@/components/FilterChip";
+import { localizeCountry } from "@/lib/localize";
 
 export type MapPlace = {
   slug: string;
@@ -36,7 +38,7 @@ export function MapExplorer({ places }: { places: MapPlace[] }) {
   return (
     <PageShell>
       <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-        Map
+        {locale === "ja" ? "地図" : "Map"}
       </p>
       <h1 className="font-display mt-3 text-4xl leading-[1.1] md:text-5xl">
         {locale === "ja" ? "地図" : "Map"}
@@ -52,30 +54,14 @@ export function MapExplorer({ places }: { places: MapPlace[] }) {
           <span className="text-[11px] uppercase tracking-[0.08em] text-fg-muted">
             {t.regions.label}
           </span>
-          <button
-            type="button"
-            onClick={() => setCountry("all")}
-            className={`rounded-full border px-3 py-1 text-[12px] transition-colors ${
-              country === "all"
-                ? "border-fg text-fg"
-                : "border-border text-fg-soft hover:border-fg-soft"
-            }`}
-          >
-            {t.regions.all}
-          </button>
+          <FilterChip active={country === "all"} onClick={() => setCountry("all")} label={t.regions.all} />
           {countries.map((c) => (
-            <button
+            <FilterChip
               key={c}
-              type="button"
+              active={country === c}
               onClick={() => setCountry(c)}
-              className={`rounded-full border px-3 py-1 text-[12px] transition-colors ${
-                country === c
-                  ? "border-fg text-fg"
-                  : "border-border text-fg-soft hover:border-fg-soft"
-              }`}
-            >
-              {c}
-            </button>
+              label={localizeCountry(c, locale) ?? c}
+            />
           ))}
         </div>
       )}

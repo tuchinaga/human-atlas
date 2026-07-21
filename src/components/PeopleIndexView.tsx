@@ -29,7 +29,7 @@ export function PeopleIndexView({ people }: { people: PersonIndexEntry[] }) {
           : `${people.length} people, sorted by birth year.`}
       </p>
 
-      <ul className="mt-10 max-w-2xl divide-y divide-border border-y border-border">
+      <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {people.map((p) => {
           const name = (locale === "ja" && p.nameJa) || p.name;
           const occupations: string[] = JSON.parse(
@@ -38,31 +38,20 @@ export function PeopleIndexView({ people }: { people: PersonIndexEntry[] }) {
           const birthYear = yearOf(p.birthDate);
           const deathYear = yearOf(p.deathDate);
           return (
-            <li key={p.slug}>
-              <Link
-                href={`/people/${p.slug}`}
-                className="group flex items-center gap-4 py-3 transition-colors hover:bg-bg-raised"
-              >
-                <div className="w-12 shrink-0">
-                  <EntityImage image={p.image} alt={name} aspect="aspect-square" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[14.5px] text-fg transition-colors group-hover:text-accent">
-                    {name}
-                  </p>
-                  {occupations.length > 0 && (
-                    <p className="truncate text-[12px] text-fg-muted">{occupations.join(" · ")}</p>
-                  )}
-                </div>
-                <p className="tabular shrink-0 text-[12px] text-fg-muted">
-                  {birthYear ?? "?"}
-                  {deathYear ? `–${deathYear}` : ""}
-                </p>
-              </Link>
-            </li>
+            <Link key={p.slug} href={`/people/${p.slug}`} className="group block">
+              <EntityImage image={p.image} alt={name} aspect="aspect-square" />
+              <p className="mt-2 truncate text-[13px] text-fg-soft transition-colors group-hover:text-fg">
+                {name}
+              </p>
+              <p className="tabular truncate text-[11px] text-fg-muted">
+                {birthYear ?? "?"}
+                {deathYear ? `–${deathYear}` : ""}
+                {occupations.length > 0 && ` · ${occupations[0]}`}
+              </p>
+            </Link>
           );
         })}
-      </ul>
+      </div>
     </PageShell>
   );
 }
