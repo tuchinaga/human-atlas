@@ -31,6 +31,9 @@ const COUNTRY_JA: Record<string, string> = {
   "Czech Republic": "チェコ",
   "South Africa": "南アフリカ",
   Portugal: "ポルトガル",
+  Canada: "カナダ",
+  Australia: "オーストラリア",
+  Egypt: "エジプト",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {

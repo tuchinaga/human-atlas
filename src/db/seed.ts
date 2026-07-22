@@ -98,6 +98,10 @@ async function main() {
     brno: id(),
     capeTown: id(),
     lisbon: id(),
+    victoria: id(),
+    sydney: id(),
+    cairo: id(),
+    edinburgh: id(),
   };
 
   await db.insert(places).values([
@@ -145,6 +149,10 @@ async function main() {
     { id: place.brno, slug: "brno", name: "Brno", nameJa: "ブルノ", placeType: "city", country: "Czech Republic", latitude: 49.20, longitude: 16.61 },
     { id: place.capeTown, slug: "cape-town", name: "Cape Town", nameJa: "ケープタウン", placeType: "city", country: "South Africa", latitude: -33.92, longitude: 18.42 },
     { id: place.lisbon, slug: "lisbon", name: "Lisbon", nameJa: "リスボン", placeType: "city", country: "Portugal", latitude: 38.72, longitude: -9.14 },
+    { id: place.victoria, slug: "victoria-bc", name: "Victoria", nameJa: "ヴィクトリア", placeType: "city", country: "Canada", latitude: 48.43, longitude: -123.37 },
+    { id: place.sydney, slug: "sydney", name: "Sydney", nameJa: "シドニー", placeType: "city", country: "Australia", latitude: -33.87, longitude: 151.21 },
+    { id: place.cairo, slug: "cairo", name: "Cairo", nameJa: "カイロ", placeType: "city", country: "Egypt", latitude: 30.04, longitude: 31.24 },
+    { id: place.edinburgh, slug: "edinburgh", name: "Edinburgh", nameJa: "エディンバラ", placeType: "city", country: "United Kingdom", latitude: 55.95, longitude: -3.19 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -210,6 +218,12 @@ async function main() {
     mendel: id(),
     schreiner: id(),
     pessoa: id(),
+    deodoro: id(),
+    emilyCarr: id(),
+    banjoPaterson: id(),
+    muhammadAli: id(),
+    maxwell: id(),
+    kovalevskaya: id(),
   };
 
   await db.insert(people).values([
@@ -1076,6 +1090,95 @@ async function main() {
         "Poet who wrote under dozens of distinct literary personas, most of his work published only after his death.",
       biographyJa: "数十もの異なる筆名(異名)を使い分けた詩人。作品の多くは死後に出版された。",
     },
+    {
+      id: person.deodoro,
+      slug: "deodoro-da-fonseca",
+      name: "Deodoro da Fonseca",
+      nameJa: "デオドロ・ダ・フォンセカ",
+      birthDate: "1827-08-05",
+      deathDate: "1892-08-23",
+      birthPlaceId: place.rioDeJaneiro,
+      occupationsJson: JSON.stringify(["military officer", "statesman"]),
+      occupationsJsonJa: JSON.stringify(["軍人", "政治家"]),
+      nationalitiesJson: JSON.stringify(["Brazilian"]),
+      biography:
+        "Military officer who led the coup that ended the Brazilian monarchy and became the country's first president.",
+      biographyJa: "ブラジル帝政を終わらせたクーデターを主導し、同国初代大統領となった軍人。",
+    },
+    {
+      id: person.emilyCarr,
+      slug: "emily-carr",
+      name: "Emily Carr",
+      nameJa: "エミリー・カー",
+      birthDate: "1871-12-13",
+      deathDate: "1945-03-02",
+      birthPlaceId: place.victoria,
+      occupationsJson: JSON.stringify(["painter", "writer"]),
+      occupationsJsonJa: JSON.stringify(["画家", "作家"]),
+      nationalitiesJson: JSON.stringify(["Canadian"]),
+      biography:
+        "Painter and writer known for works depicting Indigenous villages and the landscapes of coastal British Columbia.",
+      biographyJa: "先住民の村や、ブリティッシュコロンビア州沿岸部の風景を描いた作品で知られる画家・作家。",
+    },
+    {
+      id: person.banjoPaterson,
+      slug: "banjo-paterson",
+      name: "Banjo Paterson",
+      nameJa: "バンジョー・パターソン",
+      birthDate: "1864-02-17",
+      deathDate: "1941-02-05",
+      occupationsJson: JSON.stringify(["poet", "journalist"]),
+      occupationsJsonJa: JSON.stringify(["詩人", "ジャーナリスト"]),
+      nationalitiesJson: JSON.stringify(["Australian"]),
+      biography:
+        "Poet and journalist whose bush ballads, including one that became an unofficial national song, shaped a distinct Australian literary voice.",
+      biographyJa: "非公式ながら国民的な歌となった作品を含む「ブッシュ・バラード」で、独自のオーストラリア文学の語り口を築いた詩人・ジャーナリスト。",
+    },
+    {
+      id: person.muhammadAli,
+      slug: "muhammad-ali-of-egypt",
+      name: "Muhammad Ali of Egypt",
+      nameJa: "ムハンマド・アリー",
+      birthDate: "1769-03-04",
+      deathDate: "1849-08-02",
+      birthPlaceId: place.cairo,
+      occupationsJson: JSON.stringify(["statesman"]),
+      occupationsJsonJa: JSON.stringify(["政治家"]),
+      nationalitiesJson: JSON.stringify(["Egyptian"]),
+      biography:
+        "Ottoman governor who built an autonomous, modernizing state in Egypt, often regarded as the founder of modern Egypt.",
+      biographyJa: "オスマン帝国の総督として、エジプトに自立的で近代化された国家を築いた。近代エジプトの創設者とされることが多い。",
+    },
+    {
+      id: person.maxwell,
+      slug: "james-clerk-maxwell",
+      name: "James Clerk Maxwell",
+      nameJa: "ジェームズ・クラーク・マクスウェル",
+      birthDate: "1831-06-13",
+      deathDate: "1879-11-05",
+      birthPlaceId: place.edinburgh,
+      occupationsJson: JSON.stringify(["physicist"]),
+      occupationsJsonJa: JSON.stringify(["物理学者"]),
+      nationalitiesJson: JSON.stringify(["Scottish"]),
+      biography:
+        "Physicist whose unification of electricity, magnetism, and light into a single theory shaped the course of modern physics.",
+      biographyJa: "電気・磁気・光を単一の理論に統合し、近代物理学の方向性を大きく決定づけた物理学者。",
+    },
+    {
+      id: person.kovalevskaya,
+      slug: "sofia-kovalevskaya",
+      name: "Sofia Kovalevskaya",
+      nameJa: "ソフィア・コワレフスカヤ",
+      birthDate: "1850-01-15",
+      deathDate: "1891-02-10",
+      birthPlaceId: place.moscow,
+      occupationsJson: JSON.stringify(["mathematician"]),
+      occupationsJsonJa: JSON.stringify(["数学者"]),
+      nationalitiesJson: JSON.stringify(["Russian"]),
+      biography:
+        "Mathematician who became the first woman in Europe to hold a full professorship and to earn a doctorate in the field.",
+      biographyJa: "ヨーロッパで初めて数学の博士号を取得し、正教授の座に就いた女性数学者。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -1245,6 +1348,9 @@ async function main() {
     impressionSunrise: id(),
     luncheonOfTheBoatingParty: id(),
     guernica: id(),
+    bigRaven: id(),
+    waltzingMatilda: id(),
+    partialDifferentialEquations: id(),
   };
 
   await db.insert(works).values([
@@ -2049,6 +2155,58 @@ async function main() {
       descriptionJa: "スペイン内戦中のバスク地方の町ゲルニカへの空爆を受けて描かれた作品。",
       confidence: "verified",
     },
+    {
+      id: work.bigRaven,
+      slug: "big-raven",
+      title: "Big Raven",
+      titleJa: "ビッグ・レイヴン",
+      workType: "painting",
+      workTypeJa: "絵画",
+      category: "art",
+      creationStartDate: "1931-01-01",
+      displayDate: "1931",
+      datePrecision: "approximate",
+      creationPlaceId: place.victoria,
+      medium: "Oil on canvas",
+      mediumJa: "油彩、カンヴァス",
+      currentInstitution: "Vancouver Art Gallery",
+      description:
+        "A large carved raven figure being gradually reclaimed by the forest, a recurring theme in Carr's work.",
+      descriptionJa: "森に少しずつ飲み込まれていく大きな彫刻のカラスを描いた作品で、カーの作品に繰り返し現れる主題。",
+      confidence: "verified",
+    },
+    {
+      id: work.waltzingMatilda,
+      slug: "waltzing-matilda",
+      title: "Waltzing Matilda",
+      titleJa: "ワルツィング・マチルダ",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1895-01-01",
+      displayDate: "1895",
+      datePrecision: "approximate",
+      description:
+        "A bush ballad about an itinerant worker, often regarded as Australia's unofficial national song.",
+      descriptionJa: "放浪の労働者を歌った「ブッシュ・バラード」で、しばしば非公式のオーストラリア国民歌とされる。",
+      confidence: "verified",
+    },
+    {
+      id: work.partialDifferentialEquations,
+      slug: "on-the-theory-of-partial-differential-equations",
+      title: "On the Theory of Partial Differential Equations",
+      titleJa: "偏微分方程式の理論について",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "science",
+      creationStartDate: "1874-01-01",
+      displayDate: "1874",
+      datePrecision: "approximate",
+      description:
+        "Kovalevskaya's doctoral thesis, completed at the University of Göttingen, which earned her a doctorate summa cum laude.",
+      descriptionJa: "ゲッティンゲン大学で提出したコワレフスカヤの博士論文で、最優秀の成績で博士号を取得した。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -2096,6 +2254,9 @@ async function main() {
     { workId: work.impressionSunrise, personId: person.monet },
     { workId: work.luncheonOfTheBoatingParty, personId: person.renoir },
     { workId: work.guernica, personId: person.picasso },
+    { workId: work.bigRaven, personId: person.emilyCarr },
+    { workId: work.waltzingMatilda, personId: person.banjoPaterson },
+    { workId: work.partialDifferentialEquations, personId: person.kovalevskaya },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -2123,6 +2284,8 @@ async function main() {
     turkishRepublicProclaimed: id(),
     crossingOfTheAndes: id(),
     wspuFounded: id(),
+    brazilRepublicProclaimed: id(),
+    muhammadAliWali: id(),
   };
 
   await db.insert(events).values([
@@ -2446,6 +2609,34 @@ async function main() {
       significanceScore: 75,
       confidence: "verified",
     },
+    {
+      id: event.brazilRepublicProclaimed,
+      slug: "proclamation-of-the-republic-of-brazil",
+      title: "Proclamation of the Republic of Brazil",
+      titleJa: "ブラジル共和制宣言",
+      category: "society",
+      startDate: "1889-11-15",
+      displayDate: "November 15, 1889",
+      description:
+        "A military coup led by Deodoro da Fonseca ended the Brazilian monarchy and established a republic.",
+      descriptionJa: "デオドロ・ダ・フォンセカが主導した軍事クーデターにより、ブラジルの帝政が終わり共和制が樹立された。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
+    {
+      id: event.muhammadAliWali,
+      slug: "muhammad-ali-becomes-wali-of-egypt",
+      title: "Muhammad Ali becomes Wali of Egypt",
+      titleJa: "ムハンマド・アリー、エジプト総督に就任",
+      category: "history",
+      startDate: "1805-05-17",
+      displayDate: "May 1805",
+      description:
+        "Marked the beginning of a dynasty and a period of state-building that reshaped Egypt's role in the region.",
+      descriptionJa: "王朝の始まりであり、エジプトの地域における位置づけを大きく変える国家建設の時代の幕開けとなった。",
+      significanceScore: 70,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -2472,6 +2663,8 @@ async function main() {
     { eventId: event.turkishRepublicProclaimed, placeId: place.ankara },
     { eventId: event.crossingOfTheAndes, placeId: place.mendoza },
     { eventId: event.wspuFounded, placeId: place.manchester },
+    { eventId: event.brazilRepublicProclaimed, placeId: place.rioDeJaneiro },
+    { eventId: event.muhammadAliWali, placeId: place.cairo },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -2489,6 +2682,8 @@ async function main() {
     { eventId: event.turkishRepublicProclaimed, personId: person.ataturk },
     { eventId: event.crossingOfTheAndes, personId: person.sanMartin },
     { eventId: event.wspuFounded, personId: person.pankhurst },
+    { eventId: event.brazilRepublicProclaimed, personId: person.deodoro },
+    { eventId: event.muhammadAliWali, personId: person.muhammadAli },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
