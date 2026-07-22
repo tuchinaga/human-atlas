@@ -106,7 +106,10 @@ async function main() {
     helsinki: id(),
     southPole: id(),
     lyon: id(),
-    ujiji: id(),
+    bonn: id(),
+    nelahozeves: id(),
+    blantyre: id(),
+    osaka: id(),
   };
 
   await db.insert(places).values([
@@ -162,7 +165,10 @@ async function main() {
     { id: place.helsinki, slug: "helsinki", name: "Helsinki", nameJa: "ヘルシンキ", placeType: "city", country: "Finland", latitude: 60.17, longitude: 24.94 },
     { id: place.southPole, slug: "south-pole", name: "South Pole", nameJa: "南極点", placeType: "town", country: "Antarctica", latitude: -90, longitude: 0 },
     { id: place.lyon, slug: "lyon", name: "Lyon", nameJa: "リヨン", placeType: "city", country: "France", latitude: 45.76, longitude: 4.83 },
-    { id: place.ujiji, slug: "ujiji", name: "Ujiji", nameJa: "ウジジ", placeType: "town", country: "Tanzania", latitude: -4.91, longitude: 29.68 },
+    { id: place.bonn, slug: "bonn", name: "Bonn", nameJa: "ボン", placeType: "city", country: "Germany", latitude: 50.74, longitude: 7.10 },
+    { id: place.nelahozeves, slug: "nelahozeves", name: "Nelahozeves", nameJa: "ネラホゼヴェス", placeType: "town", country: "Czech Republic", latitude: 50.500, longitude: 14.317 },
+    { id: place.blantyre, slug: "blantyre-scotland", name: "Blantyre", nameJa: "ブランタイア", placeType: "town", country: "United Kingdom", latitude: 55.80, longitude: -4.10 },
+    { id: place.osaka, slug: "osaka", name: "Osaka", nameJa: "大阪", placeType: "city", country: "Japan", latitude: 34.69, longitude: 135.50 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -246,13 +252,13 @@ async function main() {
     amundsen: id(),
     sibelius: id(),
     lumiere: id(),
-    pierreCurie: id(),
     dostoevsky: id(),
     degas: id(),
+    beethoven: id(),
     livingstone: id(),
     dvorak: id(),
-    yosanoAkiko: id(),
-    beethoven: id(),
+    yosano: id(),
+    pierreCurie: id(),
   };
 
   await db.insert(people).values([
@@ -1384,21 +1390,6 @@ async function main() {
       biographyJa: "弟のルイとともにシネマトグラフを開発し、世界初期の映画の公開上映を行った発明家。",
     },
     {
-      id: person.pierreCurie,
-      slug: "pierre-curie",
-      name: "Pierre Curie",
-      nameJa: "ピエール・キュリー",
-      birthDate: "1859-05-15",
-      deathDate: "1906-04-19",
-      birthPlaceId: place.paris,
-      occupationsJson: JSON.stringify(["physicist", "chemist"]),
-      occupationsJsonJa: JSON.stringify(["物理学者", "化学者"]),
-      nationalitiesJson: JSON.stringify(["French"]),
-      biography:
-        "Physicist who, working alongside his wife Marie Curie in Paris, shared in the discovery of radium and polonium.",
-      biographyJa: "パリで妻マリー・キュリーとともに研究を行い、ラジウムとポロニウムの発見に共に取り組んだ物理学者。",
-    },
-    {
       id: person.dostoevsky,
       slug: "fyodor-dostoevsky",
       name: "Fyodor Dostoevsky",
@@ -1410,8 +1401,9 @@ async function main() {
       occupationsJsonJa: JSON.stringify(["小説家"]),
       nationalitiesJson: JSON.stringify(["Russian"]),
       biography:
-        "Novelist whose psychologically intense fiction, much of it written in Saint Petersburg, explored guilt, faith, and moral struggle.",
-      biographyJa: "サンクトペテルブルクで多くを執筆した、心理的な緊張感に満ちた小説で罪や信仰、道徳的な葛藤を描いた小説家。",
+        "Novelist whose psychologically intense fiction probed faith, guilt, and freedom in the moral crises of 19th-century Russia.",
+      biographyJa:
+        "19世紀ロシアの精神的危機を舞台に、信仰・罪・自由を鋭く掘り下げた心理描写で知られる小説家。",
     },
     {
       id: person.degas,
@@ -1425,51 +1417,9 @@ async function main() {
       occupationsJsonJa: JSON.stringify(["画家", "彫刻家"]),
       nationalitiesJson: JSON.stringify(["French"]),
       biography:
-        "Painter associated with the Impressionists, known above all for his depictions of ballet dancers.",
-      biographyJa: "印象派と結びつけられる画家で、とりわけバレエダンサーを描いた作品で知られる。",
-    },
-    {
-      id: person.livingstone,
-      slug: "david-livingstone",
-      name: "David Livingstone",
-      nameJa: "デイヴィッド・リヴィングストン",
-      birthDate: "1813-03-19",
-      deathDate: "1873-05-01",
-      occupationsJson: JSON.stringify(["explorer", "missionary"]),
-      occupationsJsonJa: JSON.stringify(["探検家", "宣教師"]),
-      nationalitiesJson: JSON.stringify(["Scottish"]),
-      biography:
-        "Explorer and missionary whose expeditions across central Africa, and long disappearance, made him a subject of intense public interest.",
-      biographyJa: "アフリカ中部を探検した探検家・宣教師。長期にわたり消息を絶ったことで、当時大きな注目を集めた。",
-    },
-    {
-      id: person.dvorak,
-      slug: "antonin-dvorak",
-      name: "Antonín Dvořák",
-      nameJa: "アントニン・ドヴォルザーク",
-      birthDate: "1841-09-08",
-      deathDate: "1904-05-01",
-      birthPlaceId: place.brno,
-      occupationsJson: JSON.stringify(["composer"]),
-      occupationsJsonJa: JSON.stringify(["作曲家"]),
-      nationalitiesJson: JSON.stringify(["Czech"]),
-      biography:
-        "Composer who drew on Czech folk music, and later spent several years directing a conservatory in New York.",
-      biographyJa: "チェコの民俗音楽を取り入れた作曲家。後年はニューヨークの音楽院で数年にわたり院長を務めた。",
-    },
-    {
-      id: person.yosanoAkiko,
-      slug: "yosano-akiko",
-      name: "Yosano Akiko",
-      nameJa: "与謝野晶子",
-      birthDate: "1878-12-07",
-      deathDate: "1942-05-29",
-      occupationsJson: JSON.stringify(["poet"]),
-      occupationsJsonJa: JSON.stringify(["歌人"]),
-      nationalitiesJson: JSON.stringify(["Japanese"]),
-      biography:
-        "Poet whose collection of tanka verse broke with convention in its frank treatment of desire and individuality.",
-      biographyJa: "情熱や個の自我を率直に詠んだ歌集で、旧来の型を打ち破った歌人。",
+        "Painter closely tied to the Impressionists, known for capturing dancers and everyday Parisian life in unconventional compositions.",
+      biographyJa:
+        "印象派に近い立場から、踊り子やパリの日常を大胆な構図で描いた画家。",
     },
     {
       id: person.beethoven,
@@ -1478,12 +1428,78 @@ async function main() {
       nameJa: "ルートヴィヒ・ヴァン・ベートーヴェン",
       birthDate: "1770-12-17",
       deathDate: "1827-03-26",
+      birthPlaceId: place.bonn,
       occupationsJson: JSON.stringify(["composer"]),
       occupationsJsonJa: JSON.stringify(["作曲家"]),
       nationalitiesJson: JSON.stringify(["German"]),
       biography:
-        "Composer active mainly in Vienna whose symphonies, composed even as his hearing failed, bridged the Classical and Romantic eras.",
-      biographyJa: "主にウィーンで活動した作曲家。聴力を失いながらも作曲を続けた交響曲群は、古典派とロマン派の橋渡しとなった。",
+        "Composer who bridged the Classical and Romantic eras, continuing to compose landmark symphonies even after losing his hearing.",
+      biographyJa:
+        "古典派とロマン派を橋渡しした作曲家。聴力を失った後も交響曲の傑作を生み出し続けた。",
+    },
+    {
+      id: person.livingstone,
+      slug: "david-livingstone",
+      name: "David Livingstone",
+      nameJa: "デイヴィッド・リヴィングストン",
+      birthDate: "1813-03-19",
+      deathDate: "1873-05-01",
+      birthPlaceId: place.blantyre,
+      occupationsJson: JSON.stringify(["explorer", "missionary"]),
+      occupationsJsonJa: JSON.stringify(["探検家", "宣教師"]),
+      nationalitiesJson: JSON.stringify(["Scottish"]),
+      biography:
+        "Explorer and missionary whose journeys across central and southern Africa reshaped European maps and understanding of the continent's interior.",
+      biographyJa:
+        "アフリカ中南部を踏査した探検家・宣教師。その旅は当時のヨーロッパにおけるアフリカ内陸部の地理理解を大きく塗り替えた。",
+    },
+    {
+      id: person.dvorak,
+      slug: "antonin-dvorak",
+      name: "Antonín Dvořák",
+      nameJa: "アントニン・ドヴォルザーク",
+      birthDate: "1841-09-08",
+      deathDate: "1904-05-01",
+      birthPlaceId: place.nelahozeves,
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["Czech"]),
+      biography:
+        "Composer who wove Czech and Slavic folk idioms into symphonic and chamber music, including the New World Symphony written while in the United States.",
+      biographyJa:
+        "チェコやスラヴの民俗音楽の語法を交響曲・室内楽に織り込んだ作曲家。渡米中に書いた交響曲第9番「新世界より」で知られる。",
+    },
+    {
+      id: person.yosano,
+      slug: "yosano-akiko",
+      name: "Yosano Akiko",
+      nameJa: "与謝野晶子",
+      birthDate: "1878-12-07",
+      deathDate: "1942-05-29",
+      birthPlaceId: place.osaka,
+      occupationsJson: JSON.stringify(["poet"]),
+      occupationsJsonJa: JSON.stringify(["歌人"]),
+      nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Poet whose passionate tanka collection Midaregami broke with convention and gave voice to women's desire and individuality in Meiji-era Japan.",
+      biographyJa:
+        "情熱的な歌集『みだれ髪』で旧来の型を打ち破り、明治期日本における女性の欲望と個性に言葉を与えた歌人。",
+    },
+    {
+      id: person.pierreCurie,
+      slug: "pierre-curie",
+      name: "Pierre Curie",
+      nameJa: "ピエール・キュリー",
+      birthDate: "1859-05-15",
+      deathDate: "1906-04-19",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["physicist", "chemist"]),
+      occupationsJsonJa: JSON.stringify(["物理学者", "化学者"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+      biography:
+        "Physicist who, working alongside his wife Marie Curie, isolated radium and shared the 1903 Nobel Prize in Physics for research on radioactivity.",
+      biographyJa:
+        "妻マリー・キュリーとともにラジウムを単離した物理学者。放射能研究により1903年のノーベル物理学賞を共同受賞した。",
     },
   ]);
 
@@ -1661,11 +1677,6 @@ async function main() {
     twentyFourCaprices: id(),
     finlandia: id(),
     workersLeavingTheFactory: id(),
-    crimeAndPunishment: id(),
-    theDanceClass: id(),
-    symphonyNo9NewWorld: id(),
-    tangledHair: id(),
-    symphonyNo9Choral: id(),
   };
 
   await db.insert(works).values([
@@ -2590,94 +2601,6 @@ async function main() {
       descriptionJa: "工場から出てくる労働者たちを写した46秒の映像で、有料の観客に向けて上映された最初期の映画のひとつ。",
       confidence: "verified",
     },
-    {
-      id: work.crimeAndPunishment,
-      slug: "crime-and-punishment",
-      title: "Crime and Punishment",
-      titleJa: "罪と罰",
-      workType: "book",
-      workTypeJa: "書籍",
-      category: "literature",
-      creationStartDate: "1866-01-01",
-      displayDate: "1866",
-      datePrecision: "approximate",
-      creationPlaceId: place.saintPetersburg,
-      description:
-        "A novel following an impoverished former student who murders a pawnbroker, wrestling afterward with guilt and the possibility of redemption.",
-      descriptionJa: "貧しい元学生が質屋の老女を殺害したのち、罪の意識と贖罪の可能性の間で苦悩する姿を描いた小説。",
-      confidence: "verified",
-    },
-    {
-      id: work.theDanceClass,
-      slug: "the-dance-class",
-      title: "The Dance Class",
-      titleJa: "ダンスの教室",
-      workType: "painting",
-      workTypeJa: "絵画",
-      category: "art",
-      creationStartDate: "1874-01-01",
-      displayDate: "1874",
-      datePrecision: "approximate",
-      creationPlaceId: place.paris,
-      medium: "Oil on canvas",
-      mediumJa: "油彩、カンヴァス",
-      dimensions: "83.5 cm × 77.2 cm",
-      currentInstitution: "Metropolitan Museum of Art, New York",
-      description: "A ballet rehearsal scene, one of many Degas painted showing dancers off-stage and mid-practice.",
-      descriptionJa: "バレエの稽古風景を描いた作品。ドガは舞台裏や練習中のダンサーを繰り返し題材にした。",
-      confidence: "verified",
-    },
-    {
-      id: work.symphonyNo9NewWorld,
-      slug: "symphony-no-9-from-the-new-world",
-      title: "Symphony No. 9, \"From the New World\"",
-      titleJa: "交響曲第9番『新世界より』",
-      workType: "musical composition",
-      workTypeJa: "音楽作品",
-      category: "music",
-      creationStartDate: "1893-01-01",
-      displayDate: "1893",
-      datePrecision: "approximate",
-      creationPlaceId: place.newYork,
-      description:
-        "Composed while Dvořák directed a conservatory in New York, drawing on his impressions of American music alongside his own Czech idiom.",
-      descriptionJa: "ドヴォルザークがニューヨークの音楽院院長を務めていた時期の作品。アメリカ音楽から受けた印象と、自身のチェコ的な作風を織り交ぜている。",
-      confidence: "verified",
-    },
-    {
-      id: work.tangledHair,
-      slug: "tangled-hair",
-      title: "Tangled Hair",
-      titleJa: "みだれ髪",
-      workType: "book",
-      workTypeJa: "書籍",
-      category: "literature",
-      creationStartDate: "1901-01-01",
-      displayDate: "1901",
-      datePrecision: "approximate",
-      creationPlaceId: place.tokyo,
-      description:
-        "A collection of tanka poems whose frank expression of passion and selfhood broke with the conventions of the form.",
-      descriptionJa: "情熱と自我を率直に表現し、旧来の短歌の型を打ち破った歌集。",
-      confidence: "verified",
-    },
-    {
-      id: work.symphonyNo9Choral,
-      slug: "symphony-no-9-choral",
-      title: "Symphony No. 9",
-      titleJa: "交響曲第9番『合唱』",
-      workType: "musical composition",
-      workTypeJa: "音楽作品",
-      category: "music",
-      creationStartDate: "1824-05-07",
-      displayDate: "May 1824",
-      datePrecision: "approximate",
-      creationPlaceId: place.vienna,
-      description:
-        "Beethoven's final complete symphony, its choral finale setting Schiller's 'Ode to Joy' — among the first major symphonies to include voices.",
-      descriptionJa: "ベートーヴェン最後の完成された交響曲。終楽章にシラーの「歓喜の歌」を用いており、声楽を伴う交響曲としては最初期の主要作品のひとつ。",
-      confidence: "verified",
-    },
   ]);
 
   await db.insert(workCreators).values([
@@ -2732,11 +2655,6 @@ async function main() {
     { workId: work.twentyFourCaprices, personId: person.paganini },
     { workId: work.finlandia, personId: person.sibelius },
     { workId: work.workersLeavingTheFactory, personId: person.lumiere },
-    { workId: work.crimeAndPunishment, personId: person.dostoevsky },
-    { workId: work.theDanceClass, personId: person.degas },
-    { workId: work.symphonyNo9NewWorld, personId: person.dvorak },
-    { workId: work.tangledHair, personId: person.yosanoAkiko },
-    { workId: work.symphonyNo9Choral, personId: person.beethoven },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -2770,7 +2688,6 @@ async function main() {
     riteOfSpringPremiere: id(),
     electromagneticInduction: id(),
     southPoleReached: id(),
-    stanleyFindsLivingstone: id(),
   };
 
   await db.insert(events).values([
@@ -3175,20 +3092,6 @@ async function main() {
       significanceScore: 80,
       confidence: "verified",
     },
-    {
-      id: event.stanleyFindsLivingstone,
-      slug: "stanley-finds-livingstone",
-      title: "Stanley finds Livingstone",
-      titleJa: "スタンリー、リヴィングストンを発見",
-      category: "history",
-      startDate: "1871-11-10",
-      displayDate: "November 1871",
-      description:
-        "Journalist Henry Morton Stanley located Livingstone, who had not been heard from in years, near Lake Tanganyika.",
-      descriptionJa: "ジャーナリストのヘンリー・モートン・スタンリーが、長らく消息不明だったリヴィングストンをタンガニーカ湖近郊で発見した。",
-      significanceScore: 70,
-      confidence: "verified",
-    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -3221,7 +3124,6 @@ async function main() {
     { eventId: event.riteOfSpringPremiere, placeId: place.paris },
     { eventId: event.electromagneticInduction, placeId: place.london },
     { eventId: event.southPoleReached, placeId: place.southPole },
-    { eventId: event.stanleyFindsLivingstone, placeId: place.ujiji },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -3247,7 +3149,6 @@ async function main() {
     { eventId: event.riteOfSpringPremiere, personId: person.stravinsky },
     { eventId: event.electromagneticInduction, personId: person.faraday },
     { eventId: event.southPoleReached, personId: person.amundsen },
-    { eventId: event.stanleyFindsLivingstone, personId: person.livingstone },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
@@ -3351,6 +3252,15 @@ async function main() {
       description:
         "Van Gogh collected and studied Japanese woodblock prints, including Hokusai's; the influence is stylistic and documented through his letters, not a personal acquaintance.",
       confidence: "probable",
+    },
+    {
+      id: id(),
+      subjectId: person.curie,
+      objectId: person.pierreCurie,
+      relationshipType: "spouse",
+      description:
+        "Married in 1895, the Curies worked side by side in the same Paris laboratory, co-publishing the discovery of radium and polonium.",
+      confidence: "confirmed",
     },
   ]);
 
@@ -3648,14 +3558,75 @@ async function main() {
     },
     {
       id: id(),
-      entityType: "work",
-      entityId: work.theDanceClass,
-      imageUrl: commonsFilePath("Edgar_Degas_The_Dance_Class.jpg"),
-      sourceName: "Wikimedia Commons (Metropolitan Museum of Art)",
-      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Edgar_Degas_The_Dance_Class.jpg",
-      creator: "Edgar Degas",
+      entityType: "person",
+      entityId: person.edison,
+      imageUrl: commonsFilePath("Thomas_Edison2.jpg", 400),
+      sourceName: "Wikimedia Commons (Louis Fabian Bachrach)",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg",
+      creator: "Louis Fabian Bachrach",
+      rightsStatement: "Public domain in the United States",
+      license: "PD-US",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "person",
+      entityId: person.marx,
+      imageUrl: commonsFilePath("Karl_Marx_001.jpg", 400),
+      sourceName: "Wikimedia Commons (International Institute of Social History)",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Karl_Marx_001.jpg",
+      creator: "John Jabez Edwin Mayall",
       rightsStatement: "Public domain — author died more than 100 years ago",
       license: "PD-old-100-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "person",
+      entityId: person.lincoln,
+      imageUrl: commonsFilePath("Abraham_Lincoln_November_1863.jpg", 400),
+      sourceName: "Wikimedia Commons",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_November_1863.jpg",
+      creator: "Alexander Gardner",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "person",
+      entityId: person.twain,
+      imageUrl: commonsFilePath("Mark_Twain,_Brady-Handy_photo_portrait,_Feb_7,_1871,_cropped.jpg", 400),
+      sourceName: "Wikimedia Commons (Library of Congress, Brady-Handy)",
+      sourceRecordUrl:
+        "https://commons.wikimedia.org/wiki/File:Mark_Twain,_Brady-Handy_photo_portrait,_Feb_7,_1871,_cropped.jpg",
+      creator: "Mathew Brady studio",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "person",
+      entityId: person.faraday,
+      imageUrl: commonsFilePath("Michael_Faraday.jpg", 400),
+      sourceName: "Wikimedia Commons (Smithsonian Institution Archives)",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Michael_Faraday.jpg",
+      creator: "Unknown",
+      rightsStatement: "No known copyright restrictions",
+      license: "PD-US",
       publicDomain: true,
       commercialUseAllowed: true,
       derivativesAllowed: true,
