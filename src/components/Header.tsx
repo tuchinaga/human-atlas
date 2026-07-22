@@ -5,10 +5,10 @@ import { useLanguage } from "@/lib/language-provider";
 import { useTheme } from "@/lib/theme-provider";
 
 const NAV_ITEMS: { key: keyof ReturnType<typeof useLanguage>["t"]["nav"]; href: string }[] = [
-  { key: "explore", href: "/explore" },
-  { key: "timeline", href: "/year/1889" },
-  { key: "map", href: "/map" },
-  { key: "people", href: "/explore?type=person" },
+  { key: "explore", href: "/year/1889" },
+  { key: "people", href: "/people" },
+  { key: "place", href: "/map" },
+  { key: "work", href: "/works" },
 ];
 
 export function Header() {
