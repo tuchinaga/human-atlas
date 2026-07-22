@@ -92,6 +92,7 @@ export function YearView({
           value={year}
           onChange={(e) => router.push(`/year/${e.target.value}`)}
           aria-label={locale === "ja" ? "登録済みの年から選ぶ" : "Jump to a registered year"}
+          style={{ textAlignLast: "center" }}
           className="tabular w-full appearance-none rounded-full border border-border bg-bg-raised px-3 py-1 text-center text-[12px] text-fg outline-none transition-colors focus:border-fg-soft"
         >
           {yearOptions.map((y) => (
