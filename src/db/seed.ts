@@ -103,6 +103,9 @@ async function main() {
     cairo: id(),
     edinburgh: id(),
     saintPetersburg: id(),
+    helsinki: id(),
+    southPole: id(),
+    lyon: id(),
   };
 
   await db.insert(places).values([
@@ -155,6 +158,9 @@ async function main() {
     { id: place.cairo, slug: "cairo", name: "Cairo", nameJa: "カイロ", placeType: "city", country: "Egypt", latitude: 30.04, longitude: 31.24 },
     { id: place.edinburgh, slug: "edinburgh", name: "Edinburgh", nameJa: "エディンバラ", placeType: "city", country: "United Kingdom", latitude: 55.95, longitude: -3.19 },
     { id: place.saintPetersburg, slug: "saint-petersburg", name: "Saint Petersburg", nameJa: "サンクトペテルブルク", placeType: "city", country: "Russia", latitude: 59.93, longitude: 30.34 },
+    { id: place.helsinki, slug: "helsinki", name: "Helsinki", nameJa: "ヘルシンキ", placeType: "city", country: "Finland", latitude: 60.17, longitude: 24.94 },
+    { id: place.southPole, slug: "south-pole", name: "South Pole", nameJa: "南極点", placeType: "town", country: "Antarctica", latitude: -90, longitude: 0 },
+    { id: place.lyon, slug: "lyon", name: "Lyon", nameJa: "リヨン", placeType: "city", country: "France", latitude: 45.76, longitude: 4.83 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -232,6 +238,12 @@ async function main() {
     pavlova: id(),
     nijinsky: id(),
     toscanini: id(),
+    bernhardt: id(),
+    faraday: id(),
+    mendeleev: id(),
+    amundsen: id(),
+    sibelius: id(),
+    lumiere: id(),
   };
 
   await db.insert(people).values([
@@ -1273,6 +1285,95 @@ async function main() {
         "Conductor renowned for the intensity and precision of his performances, leading major opera houses and orchestras across two continents.",
       biographyJa: "演奏の緊張感と精密さで知られた指揮者。二つの大陸にまたがる主要な歌劇場・オーケストラを率いた。",
     },
+    {
+      id: person.bernhardt,
+      slug: "sarah-bernhardt",
+      name: "Sarah Bernhardt",
+      nameJa: "サラ・ベルナール",
+      birthDate: "1844-10-22",
+      deathDate: "1923-03-26",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["actress"]),
+      occupationsJsonJa: JSON.stringify(["女優"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+      biography:
+        "Stage actress whose international tours and commanding presence made her one of the most famous performers of her era.",
+      biographyJa: "国際的な巡業公演と圧倒的な存在感で、この時代を代表する舞台俳優のひとりとなった女優。",
+    },
+    {
+      id: person.faraday,
+      slug: "michael-faraday",
+      name: "Michael Faraday",
+      nameJa: "マイケル・ファラデー",
+      birthDate: "1791-09-22",
+      deathDate: "1867-08-25",
+      birthPlaceId: place.london,
+      occupationsJson: JSON.stringify(["scientist"]),
+      occupationsJsonJa: JSON.stringify(["科学者"]),
+      nationalitiesJson: JSON.stringify(["British"]),
+      biography:
+        "Scientist whose experiments on electromagnetism laid groundwork later formalized by Maxwell into a unified theory.",
+      biographyJa: "電磁気に関する実験を行い、のちにマクスウェルが統一理論としてまとめる基礎を築いた科学者。",
+    },
+    {
+      id: person.mendeleev,
+      slug: "dmitri-mendeleev",
+      name: "Dmitri Mendeleev",
+      nameJa: "ドミトリ・メンデレーエフ",
+      birthDate: "1834-02-08",
+      deathDate: "1907-02-02",
+      birthPlaceId: place.saintPetersburg,
+      occupationsJson: JSON.stringify(["chemist"]),
+      occupationsJsonJa: JSON.stringify(["化学者"]),
+      nationalitiesJson: JSON.stringify(["Russian"]),
+      biography:
+        "Chemist who arranged the known elements into a periodic table, leaving gaps that predicted elements not yet discovered.",
+      biographyJa: "既知の元素を周期表として整理した化学者。空白にしておいた箇所は、後に発見される未知の元素を予言する形になった。",
+    },
+    {
+      id: person.amundsen,
+      slug: "roald-amundsen",
+      name: "Roald Amundsen",
+      nameJa: "ロアール・アムンセン",
+      birthDate: "1872-07-16",
+      deathDate: "1928-06-18",
+      birthPlaceId: place.kristiania,
+      occupationsJson: JSON.stringify(["explorer"]),
+      occupationsJsonJa: JSON.stringify(["探検家"]),
+      nationalitiesJson: JSON.stringify(["Norwegian"]),
+      biography:
+        "Polar explorer who led the first expedition to reach the South Pole.",
+      biographyJa: "南極点に初めて到達した探検隊を率いた極地探検家。",
+    },
+    {
+      id: person.sibelius,
+      slug: "jean-sibelius",
+      name: "Jean Sibelius",
+      nameJa: "ジャン・シベリウス",
+      birthDate: "1865-12-08",
+      deathDate: "1957-09-20",
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["Finnish"]),
+      biography:
+        "Composer whose works, closely tied to Finnish national identity, made him a central figure in the country's cultural life.",
+      biographyJa: "フィンランドの国民意識と深く結びついた作品群で、同国の文化的な中心人物となった作曲家。",
+    },
+    {
+      id: person.lumiere,
+      slug: "auguste-lumiere",
+      name: "Auguste Lumière",
+      nameJa: "オーギュスト・リュミエール",
+      birthDate: "1862-10-19",
+      deathDate: "1954-04-10",
+      birthPlaceId: place.lyon,
+      occupationsJson: JSON.stringify(["inventor"]),
+      occupationsJsonJa: JSON.stringify(["発明家"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+      biography:
+        "Inventor who, together with his brother Louis, developed the Cinématographe and staged some of the first public film screenings.",
+      biographyJa: "弟のルイとともにシネマトグラフを開発し、世界初期の映画の公開上映を行った発明家。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -1447,6 +1548,8 @@ async function main() {
     partialDifferentialEquations: id(),
     hungarianRhapsodies: id(),
     twentyFourCaprices: id(),
+    finlandia: id(),
+    workersLeavingTheFactory: id(),
   };
 
   await db.insert(works).values([
@@ -2337,6 +2440,40 @@ async function main() {
       descriptionJa: "極めて高い技巧を要求される無伴奏ヴァイオリン曲集で、今なおヴァイオリンの超絶技巧の指標とされている。",
       confidence: "verified",
     },
+    {
+      id: work.finlandia,
+      slug: "finlandia",
+      title: "Finlandia",
+      titleJa: "フィンランディア",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1899-01-01",
+      displayDate: "1899",
+      datePrecision: "approximate",
+      creationPlaceId: place.helsinki,
+      description:
+        "A tone poem written partly in protest of Russian censorship, which became closely tied to Finnish national identity.",
+      descriptionJa: "ロシアによる検閲への抗議の意味合いも込めて書かれた交響詩で、フィンランドの国民的アイデンティティと深く結びついた。",
+      confidence: "verified",
+    },
+    {
+      id: work.workersLeavingTheFactory,
+      slug: "workers-leaving-the-lumiere-factory",
+      title: "Workers Leaving the Lumière Factory",
+      titleJa: "工場の出口",
+      workType: "film",
+      workTypeJa: "映画",
+      category: "art",
+      creationStartDate: "1895-01-01",
+      displayDate: "1895",
+      datePrecision: "approximate",
+      creationPlaceId: place.lyon,
+      description:
+        "A 46-second film of workers leaving a factory, among the very first motion pictures shown to a paying audience.",
+      descriptionJa: "工場から出てくる労働者たちを写した46秒の映像で、有料の観客に向けて上映された最初期の映画のひとつ。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -2389,6 +2526,8 @@ async function main() {
     { workId: work.partialDifferentialEquations, personId: person.kovalevskaya },
     { workId: work.hungarianRhapsodies, personId: person.liszt },
     { workId: work.twentyFourCaprices, personId: person.paganini },
+    { workId: work.finlandia, personId: person.sibelius },
+    { workId: work.workersLeavingTheFactory, personId: person.lumiere },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -2420,6 +2559,8 @@ async function main() {
     muhammadAliWali: id(),
     carusoMetDebut: id(),
     riteOfSpringPremiere: id(),
+    electromagneticInduction: id(),
+    southPoleReached: id(),
   };
 
   await db.insert(events).values([
@@ -2798,6 +2939,32 @@ async function main() {
       significanceScore: 80,
       confidence: "verified",
     },
+    {
+      id: event.electromagneticInduction,
+      slug: "faraday-electromagnetic-induction",
+      title: "Demonstration of electromagnetic induction",
+      titleJa: "電磁誘導の実証",
+      category: "science",
+      startDate: "1831-08-29",
+      displayDate: "August 1831",
+      description: "Faraday's experiments in London showed that a changing magnetic field could generate an electric current.",
+      descriptionJa: "ロンドンでのファラデーの実験により、変化する磁場が電流を生み出すことが示された。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
+    {
+      id: event.southPoleReached,
+      slug: "south-pole-reached",
+      title: "First expedition reaches the South Pole",
+      titleJa: "南極点への初到達",
+      category: "history",
+      startDate: "1911-12-14",
+      displayDate: "December 1911",
+      description: "Amundsen's team became the first people confirmed to reach the South Pole, beating a British expedition by about a month.",
+      descriptionJa: "アムンセン隊が、確認されている中で史上初めて南極点に到達した。イギリス隊にわずか1ヶ月ほど先んじた。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -2828,6 +2995,8 @@ async function main() {
     { eventId: event.muhammadAliWali, placeId: place.cairo },
     { eventId: event.carusoMetDebut, placeId: place.newYork },
     { eventId: event.riteOfSpringPremiere, placeId: place.paris },
+    { eventId: event.electromagneticInduction, placeId: place.london },
+    { eventId: event.southPoleReached, placeId: place.southPole },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -2850,6 +3019,8 @@ async function main() {
     { eventId: event.carusoMetDebut, personId: person.caruso },
     { eventId: event.riteOfSpringPremiere, personId: person.nijinsky },
     { eventId: event.riteOfSpringPremiere, personId: person.stravinsky },
+    { eventId: event.electromagneticInduction, personId: person.faraday },
+    { eventId: event.southPoleReached, personId: person.amundsen },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);

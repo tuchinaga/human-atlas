@@ -34,6 +34,8 @@ const COUNTRY_JA: Record<string, string> = {
   Canada: "カナダ",
   Australia: "オーストラリア",
   Egypt: "エジプト",
+  Finland: "フィンランド",
+  Antarctica: "南極",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {
