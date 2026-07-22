@@ -91,6 +91,9 @@ async function main() {
     adwa: id(),
     ankara: id(),
     rioDeJaneiro: id(),
+    copenhagen: id(),
+    mendoza: id(),
+    manchester: id(),
   };
 
   await db.insert(places).values([
@@ -131,6 +134,9 @@ async function main() {
     { id: place.adwa, slug: "adwa", name: "Adwa", nameJa: "アドワ", placeType: "town", country: "Ethiopia", latitude: 14.17, longitude: 38.90 },
     { id: place.ankara, slug: "ankara", name: "Ankara", nameJa: "アンカラ", placeType: "city", country: "Turkey", latitude: 39.93, longitude: 32.86 },
     { id: place.rioDeJaneiro, slug: "rio-de-janeiro", name: "Rio de Janeiro", nameJa: "リオデジャネイロ", placeType: "city", country: "Brazil", latitude: -22.91, longitude: -43.17 },
+    { id: place.copenhagen, slug: "copenhagen", name: "Copenhagen", nameJa: "コペンハーゲン", placeType: "city", country: "Denmark", latitude: 55.68, longitude: 12.57 },
+    { id: place.mendoza, slug: "mendoza", name: "Mendoza", nameJa: "メンドーサ", placeType: "city", country: "Argentina", latitude: -32.89, longitude: -68.83 },
+    { id: place.manchester, slug: "manchester", name: "Manchester", nameJa: "マンチェスター", placeType: "city", country: "United Kingdom", latitude: 53.48, longitude: -2.24 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -186,6 +192,12 @@ async function main() {
     ataturk: id(),
     machadoDeAssis: id(),
     luXun: id(),
+    andersen: id(),
+    sanMartin: id(),
+    bohr: id(),
+    pankhurst: id(),
+    shaw: id(),
+    qiuJin: id(),
   };
 
   await db.insert(people).values([
@@ -907,6 +919,93 @@ async function main() {
         "Writer regarded as a founding figure of modern Chinese literature, much of it written in the vernacular language.",
       biographyJa: "口語体を多く用いた作品で、現代中国文学の創始者のひとりとされる作家。",
     },
+    {
+      id: person.andersen,
+      slug: "hans-christian-andersen",
+      name: "Hans Christian Andersen",
+      nameJa: "ハンス・クリスチャン・アンデルセン",
+      birthDate: "1805-04-02",
+      deathDate: "1875-08-04",
+      birthPlaceId: place.copenhagen,
+      occupationsJson: JSON.stringify(["writer"]),
+      occupationsJsonJa: JSON.stringify(["作家"]),
+      nationalitiesJson: JSON.stringify(["Danish"]),
+      biography:
+        "Writer whose fairy tales, published from Copenhagen, became among the most widely translated works in the world.",
+      biographyJa: "コペンハーゲンから発表した童話が、世界で最も広く翻訳された作品群のひとつとなった作家。",
+    },
+    {
+      id: person.sanMartin,
+      slug: "jose-de-san-martin",
+      name: "José de San Martín",
+      nameJa: "ホセ・デ・サン=マルティン",
+      birthDate: "1778-02-25",
+      deathDate: "1850-08-17",
+      occupationsJson: JSON.stringify(["military leader"]),
+      occupationsJsonJa: JSON.stringify(["軍事指導者"]),
+      nationalitiesJson: JSON.stringify(["Argentine"]),
+      biography:
+        "Military leader who led independence campaigns across Argentina, Chile, and Peru.",
+      biographyJa: "アルゼンチン・チリ・ペルーにまたがる独立運動を率いた軍事指導者。",
+    },
+    {
+      id: person.bohr,
+      slug: "niels-bohr",
+      name: "Niels Bohr",
+      nameJa: "ニールス・ボーア",
+      birthDate: "1885-10-07",
+      deathDate: "1962-11-18",
+      birthPlaceId: place.copenhagen,
+      occupationsJson: JSON.stringify(["physicist"]),
+      occupationsJsonJa: JSON.stringify(["物理学者"]),
+      nationalitiesJson: JSON.stringify(["Danish"]),
+      biography:
+        "Physicist based in Copenhagen whose model of atomic structure became a foundation of quantum theory.",
+      biographyJa: "コペンハーゲンを拠点にした物理学者。その原子構造モデルは量子論の基礎のひとつとなった。",
+    },
+    {
+      id: person.pankhurst,
+      slug: "emmeline-pankhurst",
+      name: "Emmeline Pankhurst",
+      nameJa: "エメリン・パンクハースト",
+      birthDate: "1858-07-15",
+      deathDate: "1928-06-14",
+      occupationsJson: JSON.stringify(["activist"]),
+      occupationsJsonJa: JSON.stringify(["活動家"]),
+      nationalitiesJson: JSON.stringify(["British"]),
+      biography:
+        "Activist who founded and led the Women's Social and Political Union, a leading force in the British suffrage movement.",
+      biographyJa: "女性社会政治同盟を設立・主導し、イギリスの女性参政権運動を牽引した活動家。",
+    },
+    {
+      id: person.shaw,
+      slug: "george-bernard-shaw",
+      name: "George Bernard Shaw",
+      nameJa: "ジョージ・バーナード・ショー",
+      birthDate: "1856-07-26",
+      deathDate: "1950-11-02",
+      birthPlaceId: place.dublin,
+      occupationsJson: JSON.stringify(["playwright"]),
+      occupationsJsonJa: JSON.stringify(["劇作家"]),
+      nationalitiesJson: JSON.stringify(["Irish"]),
+      biography:
+        "Playwright and critic, active mainly in London, whose plays combined social commentary with sharp wit.",
+      biographyJa: "主にロンドンで活動した劇作家・批評家。社会風刺と鋭い機知を組み合わせた戯曲で知られる。",
+    },
+    {
+      id: person.qiuJin,
+      slug: "qiu-jin",
+      name: "Qiu Jin",
+      nameJa: "秋瑾",
+      birthDate: "1875-11-08",
+      deathDate: "1907-07-15",
+      occupationsJson: JSON.stringify(["revolutionary", "writer"]),
+      occupationsJsonJa: JSON.stringify(["革命家", "作家"]),
+      nationalitiesJson: JSON.stringify(["Chinese"]),
+      biography:
+        "Revolutionary and writer who campaigned for women's rights and against the Qing dynasty.",
+      biographyJa: "女性の権利拡大と清朝打倒を掲げて活動した革命家・作家。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -1066,6 +1165,8 @@ async function main() {
     nocturnes: id(),
     domCasmurro: id(),
     aMadmansDiary: id(),
+    theLittleMermaid: id(),
+    pygmalion: id(),
   };
 
   await db.insert(works).values([
@@ -1691,6 +1792,39 @@ async function main() {
       descriptionJa: "現代中国の口語体文学の最初期の重要作品としてしばしば挙げられる短編小説。",
       confidence: "verified",
     },
+    {
+      id: work.theLittleMermaid,
+      slug: "the-little-mermaid",
+      title: "The Little Mermaid",
+      titleJa: "人魚姫",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1837-01-01",
+      displayDate: "1837",
+      datePrecision: "approximate",
+      creationPlaceId: place.copenhagen,
+      description: "A fairy tale about a mermaid who trades her voice for a chance at human life.",
+      descriptionJa: "人間になるため、自らの声と引き換えに取引をする人魚を描いた童話。",
+      confidence: "verified",
+    },
+    {
+      id: work.pygmalion,
+      slug: "pygmalion",
+      title: "Pygmalion",
+      titleJa: "ピグマリオン",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1913-01-01",
+      displayDate: "1913",
+      datePrecision: "approximate",
+      creationPlaceId: place.london,
+      description:
+        "A play about a phonetics professor who transforms a flower seller's speech and manner, satirizing British class distinctions.",
+      descriptionJa: "花売り娘の話し方と立ち居振る舞いを改造する音声学の教授を描いた戯曲。イギリスの階級意識を風刺している。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -1728,6 +1862,8 @@ async function main() {
     { workId: work.nocturnes, personId: person.chopin },
     { workId: work.domCasmurro, personId: person.machadoDeAssis },
     { workId: work.aMadmansDiary, personId: person.luXun },
+    { workId: work.theLittleMermaid, personId: person.andersen },
+    { workId: work.pygmalion, personId: person.shaw },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -1753,6 +1889,8 @@ async function main() {
     saltMarch: id(),
     battleOfAdwa: id(),
     turkishRepublicProclaimed: id(),
+    crossingOfTheAndes: id(),
+    wspuFounded: id(),
   };
 
   await db.insert(events).values([
@@ -2048,6 +2186,34 @@ async function main() {
       significanceScore: 80,
       confidence: "verified",
     },
+    {
+      id: event.crossingOfTheAndes,
+      slug: "crossing-of-the-andes",
+      title: "Crossing of the Andes",
+      titleJa: "アンデス越え",
+      category: "history",
+      startDate: "1817-01-01",
+      displayDate: "1817",
+      description:
+        "San Martín led an army across the Andes into Chile, a decisive campaign in the South American independence wars.",
+      descriptionJa: "サン=マルティンが軍を率いてアンデス山脈を越えチリへ進軍した、南米独立戦争における決定的な作戦。",
+      significanceScore: 75,
+      confidence: "verified",
+    },
+    {
+      id: event.wspuFounded,
+      slug: "wspu-founded",
+      title: "Women's Social and Political Union founded",
+      titleJa: "女性社会政治同盟の設立",
+      category: "society",
+      startDate: "1903-10-10",
+      displayDate: "October 1903",
+      description:
+        "Pankhurst founded the organization in Manchester, which became a leading force in the campaign for women's suffrage.",
+      descriptionJa: "パンクハーストがマンチェスターで設立した組織で、女性参政権運動を牽引する存在となった。",
+      significanceScore: 75,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -2072,6 +2238,8 @@ async function main() {
     { eventId: event.saltMarch, placeId: place.dandi },
     { eventId: event.battleOfAdwa, placeId: place.adwa },
     { eventId: event.turkishRepublicProclaimed, placeId: place.ankara },
+    { eventId: event.crossingOfTheAndes, placeId: place.mendoza },
+    { eventId: event.wspuFounded, placeId: place.manchester },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -2087,6 +2255,8 @@ async function main() {
     { eventId: event.saltMarch, personId: person.gandhi },
     { eventId: event.battleOfAdwa, personId: person.menelikII },
     { eventId: event.turkishRepublicProclaimed, personId: person.ataturk },
+    { eventId: event.crossingOfTheAndes, personId: person.sanMartin },
+    { eventId: event.wspuFounded, personId: person.pankhurst },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
