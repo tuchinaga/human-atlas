@@ -28,6 +28,9 @@ const COUNTRY_JA: Record<string, string> = {
   Brazil: "ブラジル",
   Denmark: "デンマーク",
   Argentina: "アルゼンチン",
+  "Czech Republic": "チェコ",
+  "South Africa": "南アフリカ",
+  Portugal: "ポルトガル",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {
