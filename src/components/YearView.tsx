@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "@/lib/language-provider";
 import { PageShell } from "@/components/PageShell";
@@ -33,11 +34,22 @@ export function YearView({
   trail?: string;
 }) {
   const { t, locale } = useLanguage();
+  const router = useRouter();
   const yearNum = Number(year);
   const [activeCategory, setActiveCategory] = useState<Category | null>(null);
   const [activeCountry, setActiveCountry] = useState<string | null>(null);
+  const [jumpValue, setJumpValue] = useState("");
   const breadcrumbSteps = parseTrail(trail);
   const yearStep: TrailStep = { type: "year", slug: year, label: year };
+
+  const handleJump = (e: FormEvent) => {
+    e.preventDefault();
+    const parsed = Number(jumpValue);
+    if (jumpValue.trim() && Number.isFinite(parsed)) {
+      router.push(`/year/${Math.round(parsed)}`);
+      setJumpValue("");
+    }
+  };
 
   const categoriesPresent = useMemo(
     () => [...new Set(cards.map((c) => c.category))],
@@ -76,6 +88,24 @@ export function YearView({
           {yearNum + 1} →
         </Link>
       </div>
+
+      <form onSubmit={handleJump} className="mx-auto mt-4 flex max-w-[220px] items-center gap-2">
+        <input
+          type="number"
+          inputMode="numeric"
+          value={jumpValue}
+          onChange={(e) => setJumpValue(e.target.value)}
+          placeholder={locale === "ja" ? "年を入力…" : "Jump to year…"}
+          aria-label={locale === "ja" ? "年を入力して移動" : "Jump to a year"}
+          className="w-full rounded-full border border-border bg-bg-raised px-3 py-1 text-center text-[12px] text-fg outline-none transition-colors focus:border-fg-soft"
+        />
+        <button
+          type="submit"
+          className="shrink-0 rounded-full border border-border px-3 py-1 text-[12px] text-fg-soft transition-colors hover:border-fg hover:text-fg"
+        >
+          {locale === "ja" ? "移動" : "Go"}
+        </button>
+      </form>
 
       <MeanwhileThread className="mx-auto mt-8 h-4 w-full max-w-2xl" />
 
