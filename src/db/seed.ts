@@ -102,6 +102,7 @@ async function main() {
     sydney: id(),
     cairo: id(),
     edinburgh: id(),
+    saintPetersburg: id(),
   };
 
   await db.insert(places).values([
@@ -153,6 +154,7 @@ async function main() {
     { id: place.sydney, slug: "sydney", name: "Sydney", nameJa: "シドニー", placeType: "city", country: "Australia", latitude: -33.87, longitude: 151.21 },
     { id: place.cairo, slug: "cairo", name: "Cairo", nameJa: "カイロ", placeType: "city", country: "Egypt", latitude: 30.04, longitude: 31.24 },
     { id: place.edinburgh, slug: "edinburgh", name: "Edinburgh", nameJa: "エディンバラ", placeType: "city", country: "United Kingdom", latitude: 55.95, longitude: -3.19 },
+    { id: place.saintPetersburg, slug: "saint-petersburg", name: "Saint Petersburg", nameJa: "サンクトペテルブルク", placeType: "city", country: "Russia", latitude: 59.93, longitude: 30.34 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -224,6 +226,12 @@ async function main() {
     muhammadAli: id(),
     maxwell: id(),
     kovalevskaya: id(),
+    liszt: id(),
+    paganini: id(),
+    caruso: id(),
+    pavlova: id(),
+    nijinsky: id(),
+    toscanini: id(),
   };
 
   await db.insert(people).values([
@@ -1179,6 +1187,92 @@ async function main() {
         "Mathematician who became the first woman in Europe to hold a full professorship and to earn a doctorate in the field.",
       biographyJa: "ヨーロッパで初めて数学の博士号を取得し、正教授の座に就いた女性数学者。",
     },
+    {
+      id: person.liszt,
+      slug: "franz-liszt",
+      name: "Franz Liszt",
+      nameJa: "フランツ・リスト",
+      birthDate: "1811-10-22",
+      deathDate: "1886-07-31",
+      occupationsJson: JSON.stringify(["pianist", "composer"]),
+      occupationsJsonJa: JSON.stringify(["ピアニスト", "作曲家"]),
+      nationalitiesJson: JSON.stringify(["Hungarian"]),
+      biography:
+        "Virtuoso pianist whose touring performances provoked scenes of audience fervor across Europe, alongside a substantial output as a composer.",
+      biographyJa: "ヨーロッパ各地の演奏旅行で聴衆を熱狂させた超絶技巧のピアニストであり、作曲家としても多くの作品を残した。",
+    },
+    {
+      id: person.paganini,
+      slug: "niccolo-paganini",
+      name: "Niccolò Paganini",
+      nameJa: "ニコロ・パガニーニ",
+      birthDate: "1782-10-27",
+      deathDate: "1840-05-27",
+      occupationsJson: JSON.stringify(["violinist", "composer"]),
+      occupationsJsonJa: JSON.stringify(["ヴァイオリニスト", "作曲家"]),
+      nationalitiesJson: JSON.stringify(["Italian"]),
+      biography:
+        "Violinist whose technical virtuosity was so extraordinary that rumors circulated during his lifetime attributing it to a supernatural pact.",
+      biographyJa: "その卓越した技巧のあまり、生前から超自然的な取引の噂まで立てられたヴァイオリニスト。",
+    },
+    {
+      id: person.caruso,
+      slug: "enrico-caruso",
+      name: "Enrico Caruso",
+      nameJa: "エンリコ・カルーソー",
+      birthDate: "1873-02-25",
+      deathDate: "1921-08-02",
+      occupationsJson: JSON.stringify(["opera singer"]),
+      occupationsJsonJa: JSON.stringify(["オペラ歌手"]),
+      nationalitiesJson: JSON.stringify(["Italian"]),
+      biography:
+        "Tenor whose early commercial recordings, made just as the technology was emerging, helped bring opera to a mass audience for the first time.",
+      biographyJa: "録音技術が登場したばかりの時期に商業録音を残し、オペラを初めて大衆に届けたテノール歌手。",
+    },
+    {
+      id: person.pavlova,
+      slug: "anna-pavlova",
+      name: "Anna Pavlova",
+      nameJa: "アンナ・パヴロワ",
+      birthDate: "1881-02-12",
+      deathDate: "1931-01-23",
+      birthPlaceId: place.saintPetersburg,
+      occupationsJson: JSON.stringify(["ballet dancer"]),
+      occupationsJsonJa: JSON.stringify(["バレエダンサー"]),
+      nationalitiesJson: JSON.stringify(["Russian"]),
+      biography:
+        "Ballerina best known for the solo The Dying Swan, and for touring extensively to bring ballet to audiences who had never seen it performed live.",
+      biographyJa: "代表作『瀕死の白鳥』で知られるバレリーナ。世界各地を巡演し、生の舞台を見たことのない観客にバレエを届けた。",
+    },
+    {
+      id: person.nijinsky,
+      slug: "vaslav-nijinsky",
+      name: "Vaslav Nijinsky",
+      nameJa: "ヴァーツラフ・ニジンスキー",
+      birthDate: "1889-12-12",
+      deathDate: "1950-04-08",
+      occupationsJson: JSON.stringify(["ballet dancer", "choreographer"]),
+      occupationsJsonJa: JSON.stringify(["バレエダンサー", "振付家"]),
+      nationalitiesJson: JSON.stringify(["Polish", "Russian"]),
+      biography:
+        "Dancer and choreographer of the Ballets Russes, whose choreography for The Rite of Spring provoked the famously chaotic reaction at its premiere.",
+      biographyJa: "バレエ・リュスのダンサー・振付家。『春の祭典』の振付は、初演で有名な大混乱を引き起こした。",
+    },
+    {
+      id: person.toscanini,
+      slug: "arturo-toscanini",
+      name: "Arturo Toscanini",
+      nameJa: "アルトゥーロ・トスカニーニ",
+      birthDate: "1867-03-25",
+      deathDate: "1957-01-16",
+      birthPlaceId: place.milan,
+      occupationsJson: JSON.stringify(["conductor"]),
+      occupationsJsonJa: JSON.stringify(["指揮者"]),
+      nationalitiesJson: JSON.stringify(["Italian"]),
+      biography:
+        "Conductor renowned for the intensity and precision of his performances, leading major opera houses and orchestras across two continents.",
+      biographyJa: "演奏の緊張感と精密さで知られた指揮者。二つの大陸にまたがる主要な歌劇場・オーケストラを率いた。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -1351,6 +1445,8 @@ async function main() {
     bigRaven: id(),
     waltzingMatilda: id(),
     partialDifferentialEquations: id(),
+    hungarianRhapsodies: id(),
+    twentyFourCaprices: id(),
   };
 
   await db.insert(works).values([
@@ -2207,6 +2303,40 @@ async function main() {
       descriptionJa: "ゲッティンゲン大学で提出したコワレフスカヤの博士論文で、最優秀の成績で博士号を取得した。",
       confidence: "verified",
     },
+    {
+      id: work.hungarianRhapsodies,
+      slug: "hungarian-rhapsodies",
+      title: "Hungarian Rhapsodies",
+      titleJa: "ハンガリー狂詩曲",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1846-01-01",
+      creationEndDate: "1853-01-01",
+      displayDate: "1846–1853",
+      datePrecision: "approximate",
+      description:
+        "A set of 19 solo piano works drawing on Hungarian and Romani musical themes, among Liszt's most frequently performed pieces.",
+      descriptionJa: "ハンガリーやロマの音楽的主題を取り入れた全19曲のピアノ独奏曲集で、リストの作品の中でも特に頻繁に演奏される。",
+      confidence: "verified",
+    },
+    {
+      id: work.twentyFourCaprices,
+      slug: "24-caprices",
+      title: "24 Caprices",
+      titleJa: "24の奇想曲",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1805-01-01",
+      creationEndDate: "1809-01-01",
+      displayDate: "c. 1805–1809",
+      datePrecision: "approximate",
+      description:
+        "A set of solo violin pieces of extreme technical difficulty, still used as a benchmark of violin virtuosity today.",
+      descriptionJa: "極めて高い技巧を要求される無伴奏ヴァイオリン曲集で、今なおヴァイオリンの超絶技巧の指標とされている。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -2257,6 +2387,8 @@ async function main() {
     { workId: work.bigRaven, personId: person.emilyCarr },
     { workId: work.waltzingMatilda, personId: person.banjoPaterson },
     { workId: work.partialDifferentialEquations, personId: person.kovalevskaya },
+    { workId: work.hungarianRhapsodies, personId: person.liszt },
+    { workId: work.twentyFourCaprices, personId: person.paganini },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -2286,6 +2418,8 @@ async function main() {
     wspuFounded: id(),
     brazilRepublicProclaimed: id(),
     muhammadAliWali: id(),
+    carusoMetDebut: id(),
+    riteOfSpringPremiere: id(),
   };
 
   await db.insert(events).values([
@@ -2637,6 +2771,33 @@ async function main() {
       significanceScore: 70,
       confidence: "verified",
     },
+    {
+      id: event.carusoMetDebut,
+      slug: "caruso-metropolitan-opera-debut",
+      title: "Caruso's Metropolitan Opera debut",
+      titleJa: "カルーソー、メトロポリタン歌劇場デビュー",
+      category: "music",
+      startDate: "1903-11-23",
+      displayDate: "November 1903",
+      description: "Caruso's debut at the Met began an association with the house that lasted the rest of his career.",
+      descriptionJa: "このデビュー公演をきっかけに、カルーソーはキャリアの残りをメトロポリタン歌劇場とともに過ごすことになった。",
+      significanceScore: 65,
+      confidence: "verified",
+    },
+    {
+      id: event.riteOfSpringPremiere,
+      slug: "rite-of-spring-premiere",
+      title: "Premiere of The Rite of Spring",
+      titleJa: "『春の祭典』初演",
+      category: "music",
+      startDate: "1913-05-29",
+      displayDate: "May 29, 1913",
+      description:
+        "Nijinsky's choreography and Stravinsky's score together provoked one of the most famous disturbances in the history of the concert hall.",
+      descriptionJa: "ニジンスキーの振付とストラヴィンスキーの楽曲が合わさり、演奏史上最も有名な騒動のひとつを引き起こした。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -2665,6 +2826,8 @@ async function main() {
     { eventId: event.wspuFounded, placeId: place.manchester },
     { eventId: event.brazilRepublicProclaimed, placeId: place.rioDeJaneiro },
     { eventId: event.muhammadAliWali, placeId: place.cairo },
+    { eventId: event.carusoMetDebut, placeId: place.newYork },
+    { eventId: event.riteOfSpringPremiere, placeId: place.paris },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -2684,11 +2847,15 @@ async function main() {
     { eventId: event.wspuFounded, personId: person.pankhurst },
     { eventId: event.brazilRepublicProclaimed, personId: person.deodoro },
     { eventId: event.muhammadAliWali, personId: person.muhammadAli },
+    { eventId: event.carusoMetDebut, personId: person.caruso },
+    { eventId: event.riteOfSpringPremiere, personId: person.nijinsky },
+    { eventId: event.riteOfSpringPremiere, personId: person.stravinsky },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
   await db.insert(eventRelatedWorks).values([
     { eventId: event.expositionUniverselle, workId: work.eiffelTower },
+    { eventId: event.riteOfSpringPremiere, workId: work.theRiteOfSpring },
   ]);
 
   // ---- Movements ------------------------------------------------------
