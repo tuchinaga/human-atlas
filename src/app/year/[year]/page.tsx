@@ -27,6 +27,8 @@ export default async function YearPage({
         nameJa: a.nameJa,
         slug: a.slug,
         age: a.age,
+        occupationsJson: a.occupationsJson,
+        occupationsJsonJa: a.occupationsJsonJa,
       }))}
       trail={trail}
       availableYears={availableYears}

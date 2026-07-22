@@ -20,6 +20,8 @@ export type AgeRow = {
   nameJa: string | null;
   slug: string;
   age: number;
+  occupationsJson: string | null;
+  occupationsJsonJa: string | null;
 };
 
 export function YearView({
@@ -63,6 +65,32 @@ export function YearView({
       (!activeCategory || c.category === activeCategory) &&
       (!activeCountry || c.country === activeCountry),
   );
+
+  const [activeOccupation, setActiveOccupation] = useState<string | null>(null);
+
+  const ageRowsWithOccupation = useMemo(
+    () =>
+      ages.map((p) => {
+        const list: string[] = JSON.parse(
+          (locale === "ja" && p.occupationsJsonJa) || p.occupationsJson || "[]",
+        );
+        return { ...p, primaryOccupation: list[0] ?? null };
+      }),
+    [ages, locale],
+  );
+
+  const occupationOptions = useMemo(() => {
+    const set = new Set(
+      ageRowsWithOccupation
+        .map((p) => p.primaryOccupation)
+        .filter((o): o is string => !!o),
+    );
+    return [...set].sort();
+  }, [ageRowsWithOccupation]);
+
+  const filteredAges = activeOccupation
+    ? ageRowsWithOccupation.filter((p) => p.primaryOccupation === activeOccupation)
+    : ageRowsWithOccupation;
 
   return (
     <PageShell>
@@ -177,10 +205,29 @@ export function YearView({
           {ages.length > 0 && (
             <section className="mt-16 max-w-2xl">
               <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
-                Age comparison
+                {locale === "ja" ? "年齢比較" : "Age comparison"}
               </p>
+
+              {occupationOptions.length > 1 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <FilterChip
+                    active={activeOccupation === null}
+                    onClick={() => setActiveOccupation(null)}
+                    label={t.regions.all}
+                  />
+                  {occupationOptions.map((o) => (
+                    <FilterChip
+                      key={o}
+                      active={activeOccupation === o}
+                      onClick={() => setActiveOccupation(o)}
+                      label={o}
+                    />
+                  ))}
+                </div>
+              )}
+
               <ul className="tabular mt-4 divide-y divide-border border-y border-border text-[14px]">
-                {ages.map((p) => (
+                {filteredAges.map((p) => (
                   <li
                     key={p.slug}
                     className="flex items-center justify-between py-2.5"
@@ -195,6 +242,13 @@ export function YearView({
                   </li>
                 ))}
               </ul>
+              {filteredAges.length === 0 && (
+                <p className="mt-4 text-[13px] text-fg-muted">
+                  {locale === "ja"
+                    ? "この条件に一致する人物はいません。"
+                    : "No one matches this filter."}
+                </p>
+              )}
             </section>
           )}
         </>
