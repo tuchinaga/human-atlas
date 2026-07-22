@@ -6,3 +6,4 @@ npm-debug.log*
 local.db
 local.db-shm
 local.db-wal
+.DS_Store
