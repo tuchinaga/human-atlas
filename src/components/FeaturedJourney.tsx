@@ -22,9 +22,9 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
     <section className="mx-auto mt-16 max-w-4xl">
       <Link
         href={`/journeys/${journey.slug}`}
-        className="group grid gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
+        className="group grid grid-cols-1 gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
       >
-        <div className="relative h-[260px] overflow-hidden bg-bg-raised sm:h-[360px]">
+        <div className="relative h-[260px] w-full min-w-0 overflow-hidden bg-bg-raised sm:h-[360px]">
           {journey.image ? (
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img

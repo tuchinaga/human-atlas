@@ -53,7 +53,7 @@ export function EntityImage({
 
   if (!image) {
     return (
-      <div className={`relative ${aspect} ${className}`}>
+      <div className={`relative ${aspect} w-full min-w-0 ${className}`}>
         <RightsPendingPlaceholder compact={compact} />
       </div>
     );
@@ -70,7 +70,7 @@ export function EntityImage({
       />
     </div>
   ) : (
-    <div className={`relative ${aspect} overflow-hidden rounded-sm border border-border bg-bg-raised`}>
+    <div className={`relative ${aspect} w-full min-w-0 overflow-hidden rounded-sm border border-border bg-bg-raised`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source; not part of the Next.js image pipeline */}
       <img
         src={image.imageUrl}
