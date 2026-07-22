@@ -36,6 +36,7 @@ const COUNTRY_JA: Record<string, string> = {
   Egypt: "エジプト",
   Finland: "フィンランド",
   Antarctica: "南極",
+  Tanzania: "タンザニア",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {

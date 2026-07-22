@@ -106,6 +106,7 @@ async function main() {
     helsinki: id(),
     southPole: id(),
     lyon: id(),
+    ujiji: id(),
   };
 
   await db.insert(places).values([
@@ -161,6 +162,7 @@ async function main() {
     { id: place.helsinki, slug: "helsinki", name: "Helsinki", nameJa: "ヘルシンキ", placeType: "city", country: "Finland", latitude: 60.17, longitude: 24.94 },
     { id: place.southPole, slug: "south-pole", name: "South Pole", nameJa: "南極点", placeType: "town", country: "Antarctica", latitude: -90, longitude: 0 },
     { id: place.lyon, slug: "lyon", name: "Lyon", nameJa: "リヨン", placeType: "city", country: "France", latitude: 45.76, longitude: 4.83 },
+    { id: place.ujiji, slug: "ujiji", name: "Ujiji", nameJa: "ウジジ", placeType: "town", country: "Tanzania", latitude: -4.91, longitude: 29.68 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -244,6 +246,13 @@ async function main() {
     amundsen: id(),
     sibelius: id(),
     lumiere: id(),
+    pierreCurie: id(),
+    dostoevsky: id(),
+    degas: id(),
+    livingstone: id(),
+    dvorak: id(),
+    yosanoAkiko: id(),
+    beethoven: id(),
   };
 
   await db.insert(people).values([
@@ -1374,6 +1383,108 @@ async function main() {
         "Inventor who, together with his brother Louis, developed the Cinématographe and staged some of the first public film screenings.",
       biographyJa: "弟のルイとともにシネマトグラフを開発し、世界初期の映画の公開上映を行った発明家。",
     },
+    {
+      id: person.pierreCurie,
+      slug: "pierre-curie",
+      name: "Pierre Curie",
+      nameJa: "ピエール・キュリー",
+      birthDate: "1859-05-15",
+      deathDate: "1906-04-19",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["physicist", "chemist"]),
+      occupationsJsonJa: JSON.stringify(["物理学者", "化学者"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+      biography:
+        "Physicist who, working alongside his wife Marie Curie in Paris, shared in the discovery of radium and polonium.",
+      biographyJa: "パリで妻マリー・キュリーとともに研究を行い、ラジウムとポロニウムの発見に共に取り組んだ物理学者。",
+    },
+    {
+      id: person.dostoevsky,
+      slug: "fyodor-dostoevsky",
+      name: "Fyodor Dostoevsky",
+      nameJa: "フョードル・ドストエフスキー",
+      birthDate: "1821-11-11",
+      deathDate: "1881-02-09",
+      birthPlaceId: place.moscow,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["Russian"]),
+      biography:
+        "Novelist whose psychologically intense fiction, much of it written in Saint Petersburg, explored guilt, faith, and moral struggle.",
+      biographyJa: "サンクトペテルブルクで多くを執筆した、心理的な緊張感に満ちた小説で罪や信仰、道徳的な葛藤を描いた小説家。",
+    },
+    {
+      id: person.degas,
+      slug: "edgar-degas",
+      name: "Edgar Degas",
+      nameJa: "エドガー・ドガ",
+      birthDate: "1834-07-19",
+      deathDate: "1917-09-27",
+      birthPlaceId: place.paris,
+      occupationsJson: JSON.stringify(["painter", "sculptor"]),
+      occupationsJsonJa: JSON.stringify(["画家", "彫刻家"]),
+      nationalitiesJson: JSON.stringify(["French"]),
+      biography:
+        "Painter associated with the Impressionists, known above all for his depictions of ballet dancers.",
+      biographyJa: "印象派と結びつけられる画家で、とりわけバレエダンサーを描いた作品で知られる。",
+    },
+    {
+      id: person.livingstone,
+      slug: "david-livingstone",
+      name: "David Livingstone",
+      nameJa: "デイヴィッド・リヴィングストン",
+      birthDate: "1813-03-19",
+      deathDate: "1873-05-01",
+      occupationsJson: JSON.stringify(["explorer", "missionary"]),
+      occupationsJsonJa: JSON.stringify(["探検家", "宣教師"]),
+      nationalitiesJson: JSON.stringify(["Scottish"]),
+      biography:
+        "Explorer and missionary whose expeditions across central Africa, and long disappearance, made him a subject of intense public interest.",
+      biographyJa: "アフリカ中部を探検した探検家・宣教師。長期にわたり消息を絶ったことで、当時大きな注目を集めた。",
+    },
+    {
+      id: person.dvorak,
+      slug: "antonin-dvorak",
+      name: "Antonín Dvořák",
+      nameJa: "アントニン・ドヴォルザーク",
+      birthDate: "1841-09-08",
+      deathDate: "1904-05-01",
+      birthPlaceId: place.brno,
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["Czech"]),
+      biography:
+        "Composer who drew on Czech folk music, and later spent several years directing a conservatory in New York.",
+      biographyJa: "チェコの民俗音楽を取り入れた作曲家。後年はニューヨークの音楽院で数年にわたり院長を務めた。",
+    },
+    {
+      id: person.yosanoAkiko,
+      slug: "yosano-akiko",
+      name: "Yosano Akiko",
+      nameJa: "与謝野晶子",
+      birthDate: "1878-12-07",
+      deathDate: "1942-05-29",
+      occupationsJson: JSON.stringify(["poet"]),
+      occupationsJsonJa: JSON.stringify(["歌人"]),
+      nationalitiesJson: JSON.stringify(["Japanese"]),
+      biography:
+        "Poet whose collection of tanka verse broke with convention in its frank treatment of desire and individuality.",
+      biographyJa: "情熱や個の自我を率直に詠んだ歌集で、旧来の型を打ち破った歌人。",
+    },
+    {
+      id: person.beethoven,
+      slug: "ludwig-van-beethoven",
+      name: "Ludwig van Beethoven",
+      nameJa: "ルートヴィヒ・ヴァン・ベートーヴェン",
+      birthDate: "1770-12-17",
+      deathDate: "1827-03-26",
+      occupationsJson: JSON.stringify(["composer"]),
+      occupationsJsonJa: JSON.stringify(["作曲家"]),
+      nationalitiesJson: JSON.stringify(["German"]),
+      biography:
+        "Composer active mainly in Vienna whose symphonies, composed even as his hearing failed, bridged the Classical and Romantic eras.",
+      biographyJa: "主にウィーンで活動した作曲家。聴力を失いながらも作曲を続けた交響曲群は、古典派とロマン派の橋渡しとなった。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -1550,6 +1661,11 @@ async function main() {
     twentyFourCaprices: id(),
     finlandia: id(),
     workersLeavingTheFactory: id(),
+    crimeAndPunishment: id(),
+    theDanceClass: id(),
+    symphonyNo9NewWorld: id(),
+    tangledHair: id(),
+    symphonyNo9Choral: id(),
   };
 
   await db.insert(works).values([
@@ -2474,6 +2590,94 @@ async function main() {
       descriptionJa: "工場から出てくる労働者たちを写した46秒の映像で、有料の観客に向けて上映された最初期の映画のひとつ。",
       confidence: "verified",
     },
+    {
+      id: work.crimeAndPunishment,
+      slug: "crime-and-punishment",
+      title: "Crime and Punishment",
+      titleJa: "罪と罰",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1866-01-01",
+      displayDate: "1866",
+      datePrecision: "approximate",
+      creationPlaceId: place.saintPetersburg,
+      description:
+        "A novel following an impoverished former student who murders a pawnbroker, wrestling afterward with guilt and the possibility of redemption.",
+      descriptionJa: "貧しい元学生が質屋の老女を殺害したのち、罪の意識と贖罪の可能性の間で苦悩する姿を描いた小説。",
+      confidence: "verified",
+    },
+    {
+      id: work.theDanceClass,
+      slug: "the-dance-class",
+      title: "The Dance Class",
+      titleJa: "ダンスの教室",
+      workType: "painting",
+      workTypeJa: "絵画",
+      category: "art",
+      creationStartDate: "1874-01-01",
+      displayDate: "1874",
+      datePrecision: "approximate",
+      creationPlaceId: place.paris,
+      medium: "Oil on canvas",
+      mediumJa: "油彩、カンヴァス",
+      dimensions: "83.5 cm × 77.2 cm",
+      currentInstitution: "Metropolitan Museum of Art, New York",
+      description: "A ballet rehearsal scene, one of many Degas painted showing dancers off-stage and mid-practice.",
+      descriptionJa: "バレエの稽古風景を描いた作品。ドガは舞台裏や練習中のダンサーを繰り返し題材にした。",
+      confidence: "verified",
+    },
+    {
+      id: work.symphonyNo9NewWorld,
+      slug: "symphony-no-9-from-the-new-world",
+      title: "Symphony No. 9, \"From the New World\"",
+      titleJa: "交響曲第9番『新世界より』",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1893-01-01",
+      displayDate: "1893",
+      datePrecision: "approximate",
+      creationPlaceId: place.newYork,
+      description:
+        "Composed while Dvořák directed a conservatory in New York, drawing on his impressions of American music alongside his own Czech idiom.",
+      descriptionJa: "ドヴォルザークがニューヨークの音楽院院長を務めていた時期の作品。アメリカ音楽から受けた印象と、自身のチェコ的な作風を織り交ぜている。",
+      confidence: "verified",
+    },
+    {
+      id: work.tangledHair,
+      slug: "tangled-hair",
+      title: "Tangled Hair",
+      titleJa: "みだれ髪",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1901-01-01",
+      displayDate: "1901",
+      datePrecision: "approximate",
+      creationPlaceId: place.tokyo,
+      description:
+        "A collection of tanka poems whose frank expression of passion and selfhood broke with the conventions of the form.",
+      descriptionJa: "情熱と自我を率直に表現し、旧来の短歌の型を打ち破った歌集。",
+      confidence: "verified",
+    },
+    {
+      id: work.symphonyNo9Choral,
+      slug: "symphony-no-9-choral",
+      title: "Symphony No. 9",
+      titleJa: "交響曲第9番『合唱』",
+      workType: "musical composition",
+      workTypeJa: "音楽作品",
+      category: "music",
+      creationStartDate: "1824-05-07",
+      displayDate: "May 1824",
+      datePrecision: "approximate",
+      creationPlaceId: place.vienna,
+      description:
+        "Beethoven's final complete symphony, its choral finale setting Schiller's 'Ode to Joy' — among the first major symphonies to include voices.",
+      descriptionJa: "ベートーヴェン最後の完成された交響曲。終楽章にシラーの「歓喜の歌」を用いており、声楽を伴う交響曲としては最初期の主要作品のひとつ。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -2528,6 +2732,11 @@ async function main() {
     { workId: work.twentyFourCaprices, personId: person.paganini },
     { workId: work.finlandia, personId: person.sibelius },
     { workId: work.workersLeavingTheFactory, personId: person.lumiere },
+    { workId: work.crimeAndPunishment, personId: person.dostoevsky },
+    { workId: work.theDanceClass, personId: person.degas },
+    { workId: work.symphonyNo9NewWorld, personId: person.dvorak },
+    { workId: work.tangledHair, personId: person.yosanoAkiko },
+    { workId: work.symphonyNo9Choral, personId: person.beethoven },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -2561,6 +2770,7 @@ async function main() {
     riteOfSpringPremiere: id(),
     electromagneticInduction: id(),
     southPoleReached: id(),
+    stanleyFindsLivingstone: id(),
   };
 
   await db.insert(events).values([
@@ -2965,6 +3175,20 @@ async function main() {
       significanceScore: 80,
       confidence: "verified",
     },
+    {
+      id: event.stanleyFindsLivingstone,
+      slug: "stanley-finds-livingstone",
+      title: "Stanley finds Livingstone",
+      titleJa: "スタンリー、リヴィングストンを発見",
+      category: "history",
+      startDate: "1871-11-10",
+      displayDate: "November 1871",
+      description:
+        "Journalist Henry Morton Stanley located Livingstone, who had not been heard from in years, near Lake Tanganyika.",
+      descriptionJa: "ジャーナリストのヘンリー・モートン・スタンリーが、長らく消息不明だったリヴィングストンをタンガニーカ湖近郊で発見した。",
+      significanceScore: 70,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -2997,10 +3221,12 @@ async function main() {
     { eventId: event.riteOfSpringPremiere, placeId: place.paris },
     { eventId: event.electromagneticInduction, placeId: place.london },
     { eventId: event.southPoleReached, placeId: place.southPole },
+    { eventId: event.stanleyFindsLivingstone, placeId: place.ujiji },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
     { eventId: event.radiumDiscovery, personId: person.curie },
+    { eventId: event.radiumDiscovery, personId: person.pierreCurie },
     { eventId: event.columbianExposition, personId: person.tesla },
     { eventId: event.xinhaiRevolution, personId: person.sunYatSen },
     { eventId: event.gettysburgAddress, personId: person.lincoln },
@@ -3021,6 +3247,7 @@ async function main() {
     { eventId: event.riteOfSpringPremiere, personId: person.stravinsky },
     { eventId: event.electromagneticInduction, personId: person.faraday },
     { eventId: event.southPoleReached, personId: person.amundsen },
+    { eventId: event.stanleyFindsLivingstone, personId: person.livingstone },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);
@@ -3414,6 +3641,21 @@ async function main() {
       creator: "Unknown",
       rightsStatement: "Public Domain Mark",
       license: "PDM",
+      publicDomain: true,
+      commercialUseAllowed: true,
+      derivativesAllowed: true,
+      lastVerifiedAt: new Date().toISOString().slice(0, 10),
+    },
+    {
+      id: id(),
+      entityType: "work",
+      entityId: work.theDanceClass,
+      imageUrl: commonsFilePath("Edgar_Degas_The_Dance_Class.jpg"),
+      sourceName: "Wikimedia Commons (Metropolitan Museum of Art)",
+      sourceRecordUrl: "https://commons.wikimedia.org/wiki/File:Edgar_Degas_The_Dance_Class.jpg",
+      creator: "Edgar Degas",
+      rightsStatement: "Public domain — author died more than 100 years ago",
+      license: "PD-old-100-expired",
       publicDomain: true,
       commercialUseAllowed: true,
       derivativesAllowed: true,
