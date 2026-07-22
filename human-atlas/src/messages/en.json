@@ -1,0 +1,96 @@
+{
+  "brand": {
+    "name": "Human Atlas",
+    "tagline": "Explore the Journey of Humanity"
+  },
+  "nav": {
+    "explore": "Explore",
+    "timeline": "Timeline",
+    "map": "Map",
+    "people": "People",
+    "search": "Search",
+    "compare": "Compare",
+    "about": "About"
+  },
+  "mobileNav": {
+    "explore": "Explore",
+    "timeline": "Timeline",
+    "map": "Map",
+    "search": "Search",
+    "saved": "Saved"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "toggle": "Toggle theme"
+  },
+  "language": {
+    "toggle": "Switch language",
+    "en": "English",
+    "ja": "日本語"
+  },
+  "home": {
+    "searchPlaceholder": "Search a year, person, place, work or event",
+    "searchExamples": [
+      "1889",
+      "Vincent van Gogh",
+      "Katsushika Hokusai",
+      "Paris",
+      "Meiji Restoration",
+      "The Starry Night",
+      "Impressionism"
+    ],
+    "entryPoints": {
+      "year": "Explore a Year",
+      "person": "Follow a Person",
+      "place": "Visit a Place",
+      "work": "Discover a Work",
+      "compare": "Compare Eras"
+    },
+    "featuredLabel": "Featured Journey",
+    "featuredTitle": "Paris, 1889",
+    "featuredDescription": "A single year, seen from a tower still under suspicion, a night sky over Saint-Rémy, and a new constitution eight thousand kilometers away."
+  },
+  "meanwhile": {
+    "label": "Meanwhile",
+    "shortcuts": {
+      "japan": "Meanwhile in Japan",
+      "europe": "Meanwhile in Europe",
+      "china": "Meanwhile in China",
+      "americas": "Meanwhile in the Americas",
+      "science": "Meanwhile in Science",
+      "music": "Meanwhile in Music"
+    }
+  },
+  "categories": {
+    "history": "History",
+    "society": "Society",
+    "art": "Art",
+    "music": "Music",
+    "literature": "Literature",
+    "science": "Science",
+    "technology": "Technology",
+    "architecture": "Architecture",
+    "ideas": "Ideas"
+  },
+  "regions": {
+    "label": "Region",
+    "all": "All regions"
+  },
+  "common": {
+    "verified": "Verified",
+    "probable": "Probable",
+    "approximate": "Approximate",
+    "disputed": "Disputed",
+    "unknown": "Unknown",
+    "source": "Source",
+    "sources": "Sources",
+    "rights": "Rights",
+    "readMore": "Read more",
+    "viewOnMap": "View on map",
+    "viewTimeline": "View timeline",
+    "save": "Save",
+    "share": "Share",
+    "notYetImplemented": "This screen isn't wired to real data yet. Development notes below."
+  }
+}

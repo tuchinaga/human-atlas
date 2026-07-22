@@ -1,0 +1,169 @@
+@import "tailwindcss";
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans-jp/400.css";
+@import "@fontsource/ibm-plex-sans-jp/500.css";
+@import "@fontsource/ibm-plex-sans-jp/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/* ---------------------------------------------------------
+   Human Atlas — Design Tokens
+
+   Palette: warm, near-neutral museum base. Artwork and
+   historical photography carry the color; the UI itself
+   stays quiet. Category colors are indicator-only accents —
+   never backgrounds, never large fills.
+--------------------------------------------------------- */
+
+:root {
+  --ha-ink: #16140f;        /* near-black, warm charcoal */
+  --ha-ink-soft: #3a362d;   /* secondary text on paper */
+  --ha-paper: #faf6ef;      /* warm white */
+  --ha-paper-raised: #f2ede1; /* card surface, one step off paper */
+  --ha-stone: #8a8272;      /* soft gray, tertiary text */
+  --ha-hairline: #e2dcce;   /* subtle border gray */
+  --ha-vermilion: #d9481e;  /* Japan / signature accent */
+
+  --ha-cat-history: #a13d3d;
+  --ha-cat-art: #2e4870;
+  --ha-cat-music: #6b5a8e;
+  --ha-cat-science: #4b7a5b;
+  --ha-cat-literature: #b08b4f;
+  --ha-cat-society: #6b5a3e;
+  --ha-cat-architecture: #b0632e;
+  --ha-cat-technology: #3d6e73;
+  --ha-cat-ideas: #3d3a33;
+
+  --ha-bg: var(--ha-paper);
+  --ha-bg-raised: var(--ha-paper-raised);
+  --ha-fg: var(--ha-ink);
+  --ha-fg-soft: var(--ha-ink-soft);
+  --ha-fg-muted: var(--ha-stone);
+  --ha-border: var(--ha-hairline);
+  --ha-accent: var(--ha-vermilion);
+
+  --ha-radius-sm: 2px;
+  --ha-radius-md: 4px;
+
+  --font-display: "Fraunces", "Hiragino Mincho ProN", serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-data: "IBM Plex Mono", "IBM Plex Sans JP", monospace;
+}
+
+[data-theme="dark"] {
+  --ha-ink: #f2ede2;
+  --ha-ink-soft: #cfc8b8;
+  --ha-paper: #131210;
+  --ha-paper-raised: #1c1a16;
+  --ha-stone: #8a8272;
+  --ha-hairline: #322f28;
+  --ha-vermilion: #e8623a;
+
+  --ha-bg: var(--ha-paper);
+  --ha-bg-raised: var(--ha-paper-raised);
+  --ha-fg: var(--ha-ink);
+  --ha-fg-soft: var(--ha-ink-soft);
+  --ha-fg-muted: var(--ha-stone);
+  --ha-border: var(--ha-hairline);
+  --ha-accent: var(--ha-vermilion);
+}
+
+@theme inline {
+  --color-bg: var(--ha-bg);
+  --color-bg-raised: var(--ha-bg-raised);
+  --color-fg: var(--ha-fg);
+  --color-fg-soft: var(--ha-fg-soft);
+  --color-fg-muted: var(--ha-fg-muted);
+  --color-border: var(--ha-border);
+  --color-accent: var(--ha-accent);
+
+  --color-cat-history: var(--ha-cat-history);
+  --color-cat-art: var(--ha-cat-art);
+  --color-cat-music: var(--ha-cat-music);
+  --color-cat-science: var(--ha-cat-science);
+  --color-cat-literature: var(--ha-cat-literature);
+  --color-cat-society: var(--ha-cat-society);
+  --color-cat-architecture: var(--ha-cat-architecture);
+  --color-cat-technology: var(--ha-cat-technology);
+  --color-cat-ideas: var(--ha-cat-ideas);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-data: var(--font-data);
+}
+
+* {
+  border-color: var(--ha-border);
+}
+
+html {
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--ha-bg);
+  color: var(--ha-fg);
+  font-family: var(--font-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.tabular {
+  font-family: var(--font-data);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+::selection {
+  background: var(--ha-accent);
+  color: var(--ha-paper);
+}
+
+/* MapLibre popups render outside our component tree with their own
+   default white bubble; without this override, dark-theme text color
+   (near-white) becomes invisible on that white background. */
+.maplibregl-popup-content {
+  background: var(--ha-bg-raised) !important;
+  color: var(--ha-fg) !important;
+  border: 1px solid var(--ha-border);
+  border-radius: 2px;
+  box-shadow: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 6px 10px;
+}
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--ha-bg-raised) !important;
+}
+.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--ha-bg-raised) !important;
+}
+.maplibregl-popup-close-button {
+  color: var(--ha-fg-muted) !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ha-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

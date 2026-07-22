@@ -1,0 +1,96 @@
+{
+  "brand": {
+    "name": "Human Atlas",
+    "tagline": "人類の歩みを旅する"
+  },
+  "nav": {
+    "explore": "探索",
+    "timeline": "タイムライン",
+    "map": "地図",
+    "people": "人物",
+    "search": "検索",
+    "compare": "比較",
+    "about": "概要"
+  },
+  "mobileNav": {
+    "explore": "探索",
+    "timeline": "年表",
+    "map": "地図",
+    "search": "検索",
+    "saved": "保存済み"
+  },
+  "theme": {
+    "light": "ライト",
+    "dark": "ダーク",
+    "toggle": "テーマ切替"
+  },
+  "language": {
+    "toggle": "言語切替",
+    "en": "English",
+    "ja": "日本語"
+  },
+  "home": {
+    "searchPlaceholder": "年、人物、場所、作品、出来事を検索",
+    "searchExamples": [
+      "1889",
+      "ヴィンセント・ファン・ゴッホ",
+      "葛飾北斎",
+      "パリ",
+      "明治維新",
+      "星月夜",
+      "印象派"
+    ],
+    "entryPoints": {
+      "year": "年を探索する",
+      "person": "人物をたどる",
+      "place": "場所を訪れる",
+      "work": "作品を発見する",
+      "compare": "時代を比較する"
+    },
+    "featuredLabel": "特集ジャーニー",
+    "featuredTitle": "パリ、1889年",
+    "featuredDescription": "まだ物議を醸していた塔、サン=レミの夜空、そして8000キロ離れた地で公布された新しい憲法 — ひとつの年をめぐる物語。"
+  },
+  "meanwhile": {
+    "label": "その頃、世界では",
+    "shortcuts": {
+      "japan": "その頃、日本では",
+      "europe": "その頃、ヨーロッパでは",
+      "china": "その頃、中国では",
+      "americas": "その頃、南北アメリカでは",
+      "science": "その頃、科学の世界では",
+      "music": "その頃、音楽の世界では"
+    }
+  },
+  "categories": {
+    "history": "歴史",
+    "society": "社会",
+    "art": "美術",
+    "music": "音楽",
+    "literature": "文学",
+    "science": "科学",
+    "technology": "技術",
+    "architecture": "建築",
+    "ideas": "思想"
+  },
+  "regions": {
+    "label": "地域",
+    "all": "すべての地域"
+  },
+  "common": {
+    "verified": "確認済み",
+    "probable": "確度高",
+    "approximate": "推定",
+    "disputed": "議論あり",
+    "unknown": "不明",
+    "source": "出典",
+    "sources": "出典",
+    "rights": "権利情報",
+    "readMore": "続きを読む",
+    "viewOnMap": "地図で見る",
+    "viewTimeline": "年表で見る",
+    "save": "保存",
+    "share": "共有",
+    "notYetImplemented": "この画面はまだ実データに接続されていません。以下は開発メモです。"
+  }
+}
