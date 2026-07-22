@@ -39,6 +39,35 @@ export type YearCategoryCard = {
  * A year "matches" a work/event when it falls inside its date range,
  * or is its only known date.
  */
+/**
+ * Every distinct year that has at least one work or event, for the
+ * timeline's "jump to year" picker (spec §11) — a plain number input
+ * lets people type stray values like "-1"; a picker constrained to
+ * years that actually have content is far less error-prone.
+ */
+export async function getAvailableYears(): Promise<number[]> {
+  const workDates = await db
+    .select({ start: works.creationStartDate, end: works.creationEndDate })
+    .from(works);
+  const eventDates = await db.select({ start: events.startDate }).from(events);
+
+  const years = new Set<number>();
+  const addYear = (date: string | null) => {
+    if (!date) return;
+    const y = Number(date.slice(0, 4));
+    if (Number.isFinite(y)) years.add(y);
+  };
+  for (const w of workDates) {
+    addYear(w.start);
+    addYear(w.end);
+  }
+  for (const e of eventDates) {
+    addYear(e.start);
+  }
+
+  return [...years].sort((a, b) => a - b);
+}
+
 export async function getYearCards(year: number): Promise<YearCategoryCard[]> {
   const yearStr = String(year);
   const yearStart = `${yearStr}-01-01`;

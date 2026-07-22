@@ -1,5 +1,5 @@
 import { YearView } from "@/components/YearView";
-import { getYearCards, getAgeComparison } from "@/db/queries";
+import { getYearCards, getAgeComparison, getAvailableYears } from "@/db/queries";
 
 export default async function YearPage({
   params,
@@ -12,9 +12,10 @@ export default async function YearPage({
   const { trail } = await searchParams;
   const yearNum = Number(year);
 
-  const [cards, ages] = await Promise.all([
+  const [cards, ages, availableYears] = await Promise.all([
     Number.isFinite(yearNum) ? getYearCards(yearNum) : Promise.resolve([]),
     Number.isFinite(yearNum) ? getAgeComparison(yearNum) : Promise.resolve([]),
+    getAvailableYears(),
   ]);
 
   return (
@@ -28,6 +29,7 @@ export default async function YearPage({
         age: a.age,
       }))}
       trail={trail}
+      availableYears={availableYears}
     />
   );
 }
