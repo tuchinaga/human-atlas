@@ -88,6 +88,9 @@ async function main() {
     warsaw: id(),
     capHaitien: id(),
     dandi: id(),
+    adwa: id(),
+    ankara: id(),
+    rioDeJaneiro: id(),
   };
 
   await db.insert(places).values([
@@ -125,6 +128,9 @@ async function main() {
     { id: place.warsaw, slug: "warsaw", name: "Warsaw", nameJa: "ワルシャワ", placeType: "city", country: "Poland", latitude: 52.23, longitude: 21.01 },
     { id: place.capHaitien, slug: "cap-haitien", name: "Cap-Haïtien", nameJa: "カパイシャン", placeType: "city", country: "Haiti", latitude: 19.76, longitude: -72.20 },
     { id: place.dandi, slug: "dandi", name: "Dandi", nameJa: "ダーンディー", placeType: "town", country: "India", latitude: 21.05, longitude: 72.81 },
+    { id: place.adwa, slug: "adwa", name: "Adwa", nameJa: "アドワ", placeType: "town", country: "Ethiopia", latitude: 14.17, longitude: 38.90 },
+    { id: place.ankara, slug: "ankara", name: "Ankara", nameJa: "アンカラ", placeType: "city", country: "Turkey", latitude: 39.93, longitude: 32.86 },
+    { id: place.rioDeJaneiro, slug: "rio-de-janeiro", name: "Rio de Janeiro", nameJa: "リオデジャネイロ", placeType: "city", country: "Brazil", latitude: -22.91, longitude: -43.17 },
   ]);
 
   // ---- People ---------------------------------------------------------
@@ -176,6 +182,10 @@ async function main() {
     tubman: id(),
     louverture: id(),
     gandhi: id(),
+    menelikII: id(),
+    ataturk: id(),
+    machadoDeAssis: id(),
+    luXun: id(),
   };
 
   await db.insert(people).values([
@@ -840,6 +850,63 @@ async function main() {
         "Leader of India's independence movement, known for organizing nonviolent civil disobedience campaigns.",
       biographyJa: "非暴力の市民的不服従運動を組織したことで知られる、インド独立運動の指導者。",
     },
+    {
+      id: person.menelikII,
+      slug: "menelik-ii",
+      name: "Menelik II",
+      nameJa: "メネリク2世",
+      birthDate: "1844-08-17",
+      deathDate: "1913-12-12",
+      occupationsJson: JSON.stringify(["emperor"]),
+      occupationsJsonJa: JSON.stringify(["皇帝"]),
+      nationalitiesJson: JSON.stringify(["Ethiopian"]),
+      biography:
+        "Emperor of Ethiopia who led the country to a decisive military victory over an invading colonial power in 1896.",
+      biographyJa: "1896年、侵攻してきた列強を軍事的に決定的な形で退けたエチオピア皇帝。",
+    },
+    {
+      id: person.ataturk,
+      slug: "mustafa-kemal-ataturk",
+      name: "Mustafa Kemal Atatürk",
+      nameJa: "ムスタファ・ケマル・アタテュルク",
+      birthDate: "1881-05-19",
+      deathDate: "1938-11-10",
+      occupationsJson: JSON.stringify(["military officer", "statesman"]),
+      occupationsJsonJa: JSON.stringify(["軍人", "政治家"]),
+      nationalitiesJson: JSON.stringify(["Turkish"]),
+      biography:
+        "Military officer and statesman who founded the Republic of Turkey and served as its first president.",
+      biographyJa: "トルコ共和国を建国し、初代大統領を務めた軍人・政治家。",
+    },
+    {
+      id: person.machadoDeAssis,
+      slug: "machado-de-assis",
+      name: "Machado de Assis",
+      nameJa: "マシャード・ジ・アシス",
+      birthDate: "1839-06-21",
+      deathDate: "1908-09-29",
+      birthPlaceId: place.rioDeJaneiro,
+      occupationsJson: JSON.stringify(["novelist"]),
+      occupationsJsonJa: JSON.stringify(["小説家"]),
+      nationalitiesJson: JSON.stringify(["Brazilian"]),
+      biography:
+        "Novelist widely regarded as the leading figure of Brazilian literature, working in Rio de Janeiro.",
+      biographyJa: "リオデジャネイロで活動し、ブラジル文学を代表する存在とされる小説家。",
+    },
+    {
+      id: person.luXun,
+      slug: "lu-xun",
+      name: "Lu Xun",
+      nameJa: "魯迅",
+      birthDate: "1881-09-25",
+      deathDate: "1936-10-19",
+      occupationsJson: JSON.stringify(["writer"]),
+      occupationsJsonJa: JSON.stringify(["作家"]),
+      nationalitiesJson: JSON.stringify(["Chinese"]),
+      biography:
+        "Writer regarded as a founding figure of modern Chinese literature, much of it written in the vernacular language.",
+      biographyJa: "口語体を多く用いた作品で、現代中国文学の創始者のひとりとされる作家。",
+    },
   ]);
 
   // ---- Van Gogh's geographic journey (spec section 13 example) -------
@@ -997,6 +1064,8 @@ async function main() {
     theRiteOfSpring: id(),
     theMagicFlute: id(),
     nocturnes: id(),
+    domCasmurro: id(),
+    aMadmansDiary: id(),
   };
 
   await db.insert(works).values([
@@ -1588,6 +1657,40 @@ async function main() {
       descriptionJa: "20年近くにわたって作曲された全21曲のピアノ独奏曲集。ピアノ演奏曲目の中で最も広く演奏される作品群のひとつ。",
       confidence: "verified",
     },
+    {
+      id: work.domCasmurro,
+      slug: "dom-casmurro",
+      title: "Dom Casmurro",
+      titleJa: "ドン・カズムッホ",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1899-01-01",
+      displayDate: "1899",
+      datePrecision: "approximate",
+      creationPlaceId: place.rioDeJaneiro,
+      description:
+        "A novel narrated by a jealous husband whose account of his wife's fidelity the reader is left to judge.",
+      descriptionJa: "嫉妬深い夫を語り手とする小説で、妻の貞節をめぐる彼の語りを読者自身が判断するよう委ねられる構成になっている。",
+      confidence: "verified",
+    },
+    {
+      id: work.aMadmansDiary,
+      slug: "a-madmans-diary",
+      title: "A Madman's Diary",
+      titleJa: "狂人日記",
+      workType: "book",
+      workTypeJa: "書籍",
+      category: "literature",
+      creationStartDate: "1918-05-01",
+      displayDate: "May 1918",
+      datePrecision: "approximate",
+      creationPlaceId: place.beijing,
+      description:
+        "A short story often cited as the first major work of modern vernacular Chinese fiction.",
+      descriptionJa: "現代中国の口語体文学の最初期の重要作品としてしばしば挙げられる短編小説。",
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(workCreators).values([
@@ -1623,6 +1726,8 @@ async function main() {
     { workId: work.theRiteOfSpring, personId: person.stravinsky },
     { workId: work.theMagicFlute, personId: person.mozart },
     { workId: work.nocturnes, personId: person.chopin },
+    { workId: work.domCasmurro, personId: person.machadoDeAssis },
+    { workId: work.aMadmansDiary, personId: person.luXun },
   ]);
 
   // ---- Events -------------------------------------------------------
@@ -1646,6 +1751,8 @@ async function main() {
     telephonePatented: id(),
     haitianRevolutionBegins: id(),
     saltMarch: id(),
+    battleOfAdwa: id(),
+    turkishRepublicProclaimed: id(),
   };
 
   await db.insert(events).values([
@@ -1913,6 +2020,34 @@ async function main() {
       significanceScore: 85,
       confidence: "verified",
     },
+    {
+      id: event.battleOfAdwa,
+      slug: "battle-of-adwa",
+      title: "Battle of Adwa",
+      titleJa: "アドワの戦い",
+      category: "history",
+      startDate: "1896-03-01",
+      displayDate: "March 1896",
+      description:
+        "Ethiopian forces under Menelik II decisively defeated an invading colonial army, securing the country's independence.",
+      descriptionJa: "メネリク2世率いるエチオピア軍が侵攻してきた植民地軍を決定的に打ち破り、自国の独立を守った。",
+      significanceScore: 85,
+      confidence: "verified",
+    },
+    {
+      id: event.turkishRepublicProclaimed,
+      slug: "turkish-republic-proclaimed",
+      title: "Proclamation of the Republic of Turkey",
+      titleJa: "トルコ共和国の樹立宣言",
+      category: "society",
+      startDate: "1923-10-29",
+      displayDate: "October 1923",
+      description:
+        "Atatürk proclaimed the republic in Ankara following the collapse of the Ottoman Empire.",
+      descriptionJa: "オスマン帝国の崩壊を経て、アタテュルクがアンカラで共和国の樹立を宣言した。",
+      significanceScore: 80,
+      confidence: "verified",
+    },
   ]);
 
   await db.insert(eventPlaces).values([
@@ -1935,6 +2070,8 @@ async function main() {
     { eventId: event.telephonePatented, placeId: place.boston },
     { eventId: event.haitianRevolutionBegins, placeId: place.capHaitien },
     { eventId: event.saltMarch, placeId: place.dandi },
+    { eventId: event.battleOfAdwa, placeId: place.adwa },
+    { eventId: event.turkishRepublicProclaimed, placeId: place.ankara },
   ]);
   await db.insert(eventParticipants).values([
     { eventId: event.nintendoFounded, personId: person.yamauchi },
@@ -1948,6 +2085,8 @@ async function main() {
     { eventId: event.telephonePatented, personId: person.bell },
     { eventId: event.haitianRevolutionBegins, personId: person.louverture },
     { eventId: event.saltMarch, personId: person.gandhi },
+    { eventId: event.battleOfAdwa, personId: person.menelikII },
+    { eventId: event.turkishRepublicProclaimed, personId: person.ataturk },
     { eventId: event.generalRelativity, personId: person.einstein },
     { eventId: event.meijiConstitution, personId: person.itoHirobumi },
   ]);

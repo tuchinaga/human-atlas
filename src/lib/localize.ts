@@ -23,6 +23,9 @@ const COUNTRY_JA: Record<string, string> = {
   Ireland: "アイルランド",
   Poland: "ポーランド",
   Haiti: "ハイチ",
+  Ethiopia: "エチオピア",
+  Turkey: "トルコ",
+  Brazil: "ブラジル",
 };
 
 export function localizePlaceType(placeType: string | null, locale: "en" | "ja"): string | null {
