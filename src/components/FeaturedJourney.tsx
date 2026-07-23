@@ -22,9 +22,9 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
     <section className="mx-auto mt-16 max-w-4xl">
       <Link
         href={`/journeys/${journey.slug}`}
-        className="group grid grid-cols-1 gap-0 overflow-hidden rounded-sm border border-border sm:grid-cols-[1.1fr_1fr]"
+        className="group flex flex-col overflow-hidden rounded-sm border border-border sm:flex-row"
       >
-        <div className="relative h-[260px] w-full min-w-0 overflow-hidden bg-bg-raised sm:h-[360px]">
+        <div className="relative h-[260px] w-full min-w-0 shrink-0 overflow-hidden bg-bg-raised sm:h-[360px] sm:w-[52%]">
           {journey.image ? (
             // eslint-disable-next-line @next/next/no-img-element -- external, rights-cleared source
             <img
@@ -44,7 +44,7 @@ export function FeaturedJourney({ journey }: { journey: FeaturedJourneyData }) {
             <RightsPendingPlaceholder />
           )}
         </div>
-        <div className="flex flex-col justify-center gap-3 bg-bg-raised p-6 sm:p-8">
+        <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 bg-bg-raised p-6 sm:p-8">
           <p className="text-[11px] uppercase tracking-[0.14em] text-fg-muted">
             {t.home.featuredLabel}
           </p>
