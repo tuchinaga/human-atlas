@@ -823,3 +823,23 @@ function dedupeById<T extends { id: string }>(rows: T[]): T[] {
   for (const row of rows) seen.set(row.id, row);
   return [...seen.values()];
 }
+
+export async function getDatasetStats(): Promise<{
+  peopleCount: number;
+  worksCount: number;
+  eventsCount: number;
+  placesCount: number;
+}> {
+  const [peopleRows, worksRows, eventsRows, placesRows] = await Promise.all([
+    db.select({ id: people.id }).from(people),
+    db.select({ id: works.id }).from(works),
+    db.select({ id: events.id }).from(events),
+    db.select({ id: places.id }).from(places),
+  ]);
+  return {
+    peopleCount: peopleRows.length,
+    worksCount: worksRows.length,
+    eventsCount: eventsRows.length,
+    placesCount: placesRows.length,
+  };
+}

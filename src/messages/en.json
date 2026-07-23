@@ -94,5 +94,11 @@
     "save": "Save",
     "share": "Share",
     "notYetImplemented": "This screen isn't wired to real data yet. Development notes below."
+  },
+  "footer": {
+    "tagline": "History is not a single timeline.",
+    "dataSnapshot": "{people} people · {works} works · {events} events · {places} places",
+    "version": "Version",
+    "dataAsOf": "Data as of"
   }
 }
