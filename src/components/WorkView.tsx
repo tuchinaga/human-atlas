@@ -114,8 +114,8 @@ export function WorkView({
   return (
     <PageShell>
       <Breadcrumb steps={breadcrumbSteps} />
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px] lg:gap-16">
-        <div className="min-w-0">
+      <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <span
               className="h-1.5 w-1.5 rounded-full"
@@ -197,7 +197,7 @@ export function WorkView({
         </div>
 
         {metaRows.length > 0 && (
-          <aside className="lg:sticky lg:top-24 lg:self-start">
+          <aside className="lg:sticky lg:top-24 lg:w-[320px] lg:shrink-0 lg:self-start">
             <dl className="space-y-4 border-t border-border pt-6 text-[13px] lg:border-t-0 lg:pt-0">
               {metaRows.map((row) => (
                 <div key={row.label}>

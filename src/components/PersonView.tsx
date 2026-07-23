@@ -111,9 +111,9 @@ export function PersonView({
         )}
       </p>
 
-      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
+      <div className="mt-10 flex flex-col gap-12 lg:flex-row lg:gap-16">
         {/* Left: biography, journey, works */}
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           {bio && (
             <p className="max-w-xl text-[14.5px] leading-relaxed text-fg-soft">{bio}</p>
           )}
@@ -228,7 +228,7 @@ export function PersonView({
         </div>
 
         {/* Right: sticky context panel */}
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="lg:sticky lg:top-24 lg:w-[320px] lg:shrink-0 lg:self-start">
           <div className="space-y-6 border-t border-border pt-6 lg:border-t-0 lg:pt-0">
             {image && (
               <EntityImage
