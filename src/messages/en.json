@@ -97,8 +97,28 @@
   },
   "footer": {
     "tagline": "History is not a single timeline.",
-    "dataSnapshot": "{people} people · {works} works · {events} events · {places} places",
     "version": "Version",
     "dataAsOf": "Data as of"
+  },
+  "sourcesPage": {
+    "eyebrow": "Sources",
+    "title": "Where the data comes from",
+    "intro": "Human Atlas is hand-researched, not auto-generated. Every person, work, event and place is added and cross-checked against general historical reference material before it goes in — there is no single automated feed behind the data.",
+    "paragraphs": [
+      "Every image, without exception, comes from Wikimedia Commons. Before a file is added, its individual Commons page is checked to confirm the file actually exists and that its licensing terms are clear — see Rights for details.",
+      "The dataset grows a little at a time, most days, rather than in one large import. Coverage is intentionally uneven while it grows: some regions and fields are deeper than others, and that will keep changing."
+    ],
+    "confidenceTitle": "How confidence is labeled",
+    "confidenceIntro": "Facts and connections carry one of five confidence levels, shown throughout the app wherever a claim could be uncertain:"
+  },
+  "rightsPage": {
+    "eyebrow": "Rights",
+    "title": "Image rights and attribution",
+    "intro": "Human Atlas only displays an image when its public-domain status has been individually verified on Wikimedia Commons. There is no CC BY / CC BY-SA content requiring ongoing attribution, and no image is ever hosted, cached, or approximated without a clear rights basis.",
+    "paragraphs": [
+      "In practice this means every image on the site falls under public domain terms such as: the photographer or artist died more than 70–100 years ago (depending on jurisdiction), the work was published in the United States before 1931, or copyright has otherwise expired under the relevant country's law.",
+      "Works by artists who are still living, or who died within the last 100 years, are deliberately left without an image — even when a well-known image of the work exists elsewhere. A neutral placeholder is shown instead, the same one used across the app.",
+      "Every image record stores its source institution, creator (where known), license, a plain-language rights statement, and the date it was last verified."
+    ]
   }
 }

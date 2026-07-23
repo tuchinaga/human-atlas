@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import { Header } from "@/components/Header";
 import { MobileNav } from "@/components/MobileNav";
 import { Footer } from "@/components/Footer";
-import { getDatasetStats } from "@/db/queries";
 import packageJson from "../../package.json";
 
 export const metadata: Metadata = {
@@ -18,13 +17,11 @@ export const metadata: Metadata = {
 // keep in sync with the "データ現状" date tracked alongside the project.
 const DATA_AS_OF = "2026-07-23";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const stats = await getDatasetStats();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
@@ -34,7 +31,7 @@ export default async function RootLayout({
             <main className="min-h-[calc(100vh-4rem)] pb-16 md:pb-0">
               {children}
             </main>
-            <Footer stats={stats} version={packageJson.version} dataAsOf={DATA_AS_OF} />
+            <Footer version={packageJson.version} dataAsOf={DATA_AS_OF} />
             <MobileNav />
           </LanguageProvider>
         </ThemeProvider>
